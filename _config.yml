@@ -1,1 +1,1410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whale Shark 3D | Impresión 3D Personalizada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --abisal: #041526;
+      --oceano: #0A2A43;
+      --turquesa: #00E5FF;
+      --espuma: #F0F8FF;
+      --turquesa-dim: rgba(0, 229, 255, 0.15);
+      --glass: rgba(10, 42, 67, 0.65);
+      --glass-border: rgba(0, 229, 255, 0.25);
+      --sombra: 0 8px 32px rgba(0, 0, 0, 0.35);
+      --radio: 16px;
+      --trans: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--abisal);
+      color: var(--espuma);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    button, input, select, textarea { font-family: inherit; }
 
+    .container { width: min(1200px, 92%); margin-inline: auto; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.6rem; border: none; border-radius: 999px;
+      font-weight: 600; font-size: 0.95rem; cursor: pointer;
+      transition: var(--trans);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--turquesa), #00b8d4);
+      color: var(--abisal); box-shadow: 0 4px 20px rgba(0, 229, 255, 0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0, 229, 255, 0.5); }
+    .btn-outline {
+      background: transparent; border: 1.5px solid var(--turquesa);
+      color: var(--turquesa);
+    }
+    .btn-outline:hover { background: var(--turquesa-dim); }
+    .btn-ghost { background: transparent; color: var(--espuma); border: 1px solid transparent; }
+    .btn-ghost:hover { border-color: var(--glass-border); background: var(--turquesa-dim); }
+    .section { padding: 5rem 0; position: relative; }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem); text-align: center;
+      margin-bottom: 0.5rem; letter-spacing: -0.02em;
+    }
+    .section-sub {
+      text-align: center; color: rgba(240, 248, 255, 0.7);
+      max-width: 560px; margin: 0 auto 3rem; font-size: 1.05rem;
+    }
+    .glass {
+      background: var(--glass); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: var(--radio);
+    }
+
+    .bubbles {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+    .bubble {
+      position: absolute; bottom: -40px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(0,229,255,0.35), rgba(0,229,255,0.05));
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0.6; }
+      100% { transform: translateY(-110vh) scale(1.4); opacity: 0; }
+    }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0.9rem 0; transition: var(--trans);
+      background: transparent;
+    }
+    header.scrolled {
+      background: rgba(4, 21, 38, 0.92); backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-family: 'Montserrat', sans-serif; font-weight: 800;
+      font-size: 1.15rem; letter-spacing: -0.03em;
+    }
+    .logo svg { width: 42px; height: 42px; flex-shrink: 0; }
+    .nav-links {
+      display: flex; align-items: center; gap: 0.3rem; list-style: none;
+    }
+    .nav-links a {
+      padding: 0.5rem 0.9rem; border-radius: 8px; font-size: 0.9rem;
+      font-weight: 500; color: rgba(240,248,255,0.85); transition: var(--trans);
+    }
+    .nav-links a:hover { color: var(--turquesa); background: var(--turquesa-dim); }
+    .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+    .admin-btn {
+      width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--glass-border);
+      background: var(--glass); color: var(--espuma); cursor: pointer;
+      display: grid; place-items: center; transition: var(--trans);
+    }
+    .admin-btn:hover, .admin-btn.active { border-color: var(--turquesa); color: var(--turquesa); }
+    .menu-toggle {
+      display: none; width: 40px; height: 40px; border: none;
+      background: transparent; color: var(--espuma); cursor: pointer;
+    }
+
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; padding-top: 80px; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,229,255,0.12), transparent),
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(10,42,67,0.8), transparent),
+        linear-gradient(180deg, var(--abisal) 0%, var(--oceano) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 700px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.9rem; border-radius: 999px;
+      background: var(--turquesa-dim); border: 1px solid var(--glass-border);
+      font-size: 0.8rem; font-weight: 500; color: var(--turquesa);
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.1;
+      letter-spacing: -0.03em; margin-bottom: 1.2rem;
+    }
+    .hero h1 span { color: var(--turquesa); }
+    .hero p {
+      font-size: 1.15rem; color: rgba(240,248,255,0.8);
+      margin-bottom: 2rem; max-width: 520px;
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .hero-visual {
+      position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+      width: min(420px, 38vw); z-index: 1; opacity: 0.9;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50% { transform: translateY(-55%) translateX(8px); }
+    }
+    .wave-divider {
+      position: absolute; left: 0; right: 0; bottom: -1px;
+      width: 100%; line-height: 0; z-index: 5;
+    }
+    .wave-divider svg { width: 100%; height: auto; display: block; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.4rem;
+    }
+    .service-card {
+      padding: 1.8rem 1.5rem; transition: var(--trans); cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--turquesa), transparent);
+      opacity: 0; transition: var(--trans);
+    }
+    .service-card:hover {
+      transform: translateY(-6px); border-color: var(--turquesa);
+      box-shadow: 0 12px 40px rgba(0,229,255,0.15);
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--turquesa-dim); display: grid; place-items: center;
+      margin-bottom: 1.1rem; font-size: 1.5rem;
+    }
+    .service-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.9rem; color: rgba(240,248,255,0.65); }
+
+    .filters {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+      margin-bottom: 2.2rem;
+    }
+    .filter-btn {
+      padding: 0.45rem 1.1rem; border-radius: 999px; border: 1px solid var(--glass-border);
+      background: transparent; color: rgba(240,248,255,0.75); font-size: 0.85rem;
+      font-weight: 500; cursor: pointer; transition: var(--trans);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--turquesa); color: var(--abisal); border-color: var(--turquesa);
+    }
+    .examples-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .example-card { overflow: hidden; transition: var(--trans); }
+    .example-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+    .example-img {
+      height: 180px; background: linear-gradient(135deg, var(--oceano), #0d3a5c);
+      display: grid; place-items: center; position: relative;
+      font-size: 3rem; color: var(--turquesa);
+    }
+    .example-img .badge {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(4,21,38,0.85); color: var(--turquesa);
+      font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+    .example-body { padding: 1.2rem 1.3rem 1.4rem; }
+    .example-body h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .example-meta {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.7rem 0 1rem;
+      font-size: 0.8rem; color: rgba(240,248,255,0.6);
+    }
+    .example-meta span {
+      background: var(--turquesa-dim); padding: 0.2rem 0.55rem; border-radius: 6px;
+    }
+
+    .colors-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1.2rem;
+    }
+    .color-card {
+      text-align: center; padding: 1.3rem 0.8rem; transition: var(--trans);
+      position: relative;
+    }
+    .color-card:hover { transform: translateY(-4px); border-color: var(--turquesa); }
+    .color-sphere {
+      width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 0.9rem;
+      box-shadow: inset -6px -6px 12px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.25);
+      border: 2px solid rgba(255,255,255,0.15);
+    }
+    .color-card h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .color-card .hex { font-size: 0.75rem; color: rgba(240,248,255,0.5); font-family: monospace; }
+    .color-card .finish {
+      display: inline-block; margin-top: 0.5rem; font-size: 0.7rem;
+      padding: 0.15rem 0.5rem; border-radius: 4px; background: var(--turquesa-dim);
+      color: var(--turquesa);
+    }
+    .admin-controls {
+      display: none; margin-top: 0.8rem; gap: 0.3rem; justify-content: center;
+    }
+    .admin-mode .admin-controls { display: flex; }
+    .admin-controls button {
+      width: 28px; height: 28px; border-radius: 6px; border: none;
+      background: var(--oceano); color: var(--espuma); cursor: pointer;
+      font-size: 0.75rem; transition: var(--trans);
+    }
+    .admin-controls button:hover { background: var(--turquesa); color: var(--abisal); }
+    .admin-panel {
+      display: none; margin-top: 2rem; padding: 1.5rem; max-width: 480px; margin-inline: auto;
+    }
+    .admin-mode .admin-panel { display: block; }
+    .admin-panel h3 { margin-bottom: 1rem; font-size: 1.1rem; }
+    .form-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 0.9rem; }
+    .form-row input, .form-row select {
+      flex: 1; min-width: 120px; padding: 0.65rem 0.9rem;
+      border-radius: 10px; border: 1px solid var(--glass-border);
+      background: rgba(4,21,38,0.6); color: var(--espuma); font-size: 0.9rem;
+    }
+    .form-row input[type="color"] { padding: 0.2rem; height: 42px; cursor: pointer; }
+
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-card { overflow: hidden; transition: var(--trans); }
+    .gallery-card:hover { transform: translateY(-4px); }
+    .gallery-img {
+      height: 200px; background: var(--oceano); object-fit: cover; width: 100%;
+      display: grid; place-items: center; font-size: 2.5rem; color: var(--turquesa);
+    }
+    .gallery-img img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-body { padding: 1.2rem 1.3rem; }
+    .gallery-body h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .gallery-body p { font-size: 0.9rem; color: rgba(240,248,255,0.65); }
+    .gallery-admin-form {
+      display: none; margin-top: 2rem; padding: 1.5rem; max-width: 520px; margin-inline: auto;
+    }
+    .admin-mode .gallery-admin-form { display: block; }
+
+    .shipping-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; max-width: 800px; margin-inline: auto;
+    }
+    .shipping-card {
+      padding: 2rem 1.8rem; text-align: center; transition: var(--trans);
+    }
+    .shipping-card:hover { border-color: var(--turquesa); }
+    .shipping-icon {
+      width: 64px; height: 64px; margin: 0 auto 1.2rem; border-radius: 50%;
+      background: var(--turquesa-dim); display: grid; place-items: center;
+      font-size: 1.8rem;
+    }
+    .shipping-card h3 { margin-bottom: 0.5rem; }
+    .shipping-card p { color: rgba(240,248,255,0.7); font-size: 0.95rem; }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 2.5rem;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem;
+    }
+    .contact-item .icon {
+      width: 44px; height: 44px; border-radius: 12px; background: var(--turquesa-dim);
+      display: grid; place-items: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .contact-item .copy-btn {
+      margin-left: auto; padding: 0.35rem 0.7rem; font-size: 0.75rem;
+      border-radius: 6px; border: 1px solid var(--glass-border);
+      background: transparent; color: var(--turquesa); cursor: pointer;
+    }
+    .contact-item .copy-btn:hover { background: var(--turquesa-dim); }
+    .contact-form {
+      padding: 1.8rem; display: flex; flex-direction: column; gap: 1rem;
+    }
+    .contact-form label { font-size: 0.85rem; font-weight: 500; margin-bottom: 0.3rem; display: block; }
+    .contact-form input, .contact-form select, .contact-form textarea {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 10px;
+      border: 1px solid var(--glass-border); background: rgba(4,21,38,0.5);
+      color: var(--espuma); font-size: 0.95rem; transition: var(--trans);
+    }
+    .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
+      outline: none; border-color: var(--turquesa); box-shadow: 0 0 0 3px var(--turquesa-dim);
+    }
+    .contact-form textarea { resize: vertical; min-height: 100px; }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.5rem; }
+
+    /* STL Upload */
+    .stl-upload-zone {
+      border: 2px dashed var(--glass-border);
+      border-radius: 12px;
+      padding: 1.4rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--trans);
+      background: rgba(4,21,38,0.4);
+      position: relative;
+    }
+    .stl-upload-zone:hover, .stl-upload-zone.dragover {
+      border-color: var(--turquesa);
+      background: var(--turquesa-dim);
+    }
+    .stl-upload-zone input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .stl-upload-zone .upload-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .stl-upload-zone p { font-size: 0.9rem; color: rgba(240,248,255,0.7); }
+    .stl-upload-zone .hint { font-size: 0.75rem; opacity: 0.55; margin-top: 0.3rem; }
+    .stl-preview-wrap {
+      display: none;
+      margin-top: 1rem;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #020e18;
+      border: 1px solid var(--glass-border);
+    }
+    .stl-preview-wrap.visible { display: block; }
+    #stlViewer {
+      width: 100%;
+      height: 260px;
+      display: block;
+    }
+    .stl-file-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 1rem;
+      background: rgba(0,229,255,0.08);
+      font-size: 0.85rem;
+    }
+    .stl-file-info .name { font-weight: 500; color: var(--turquesa); }
+    .stl-file-info .size { opacity: 0.65; }
+    .stl-file-info button {
+      background: transparent;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+    .stl-file-info button:hover { background: rgba(255,107,107,0.15); }
+    .stl-status {
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      color: rgba(240,248,255,0.6);
+    }
+    .stl-status.error { color: #ff6b6b; }
+    .stl-status.ok { color: #2dd4a8; }
+
+    footer {
+      background: #020e18; padding: 3.5rem 0 1.5rem; border-top: 1px solid var(--glass-border);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand p { color: rgba(240,248,255,0.6); font-size: 0.9rem; margin-top: 0.8rem; max-width: 280px; }
+    .footer-col h4 { font-size: 0.95rem; margin-bottom: 1rem; color: var(--turquesa); }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.5rem; }
+    .footer-col a { font-size: 0.9rem; color: rgba(240,248,255,0.65); transition: var(--trans); }
+    .footer-col a:hover { color: var(--turquesa); }
+    .footer-bottom {
+      text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.85rem; color: rgba(240,248,255,0.45);
+    }
+
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000;
+      display: none; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--oceano); border: 1px solid var(--glass-border);
+      border-radius: var(--radio); padding: 2rem; max-width: 380px; width: 100%;
+      box-shadow: var(--sombra);
+    }
+    .modal h3 { margin-bottom: 1rem; }
+    .modal input {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 10px;
+      border: 1px solid var(--glass-border); background: var(--abisal);
+      color: var(--espuma); margin-bottom: 1rem;
+    }
+    .modal-actions { display: flex; gap: 0.8rem; justify-content: flex-end; }
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--oceano); border: 1px solid var(--turquesa);
+      color: var(--espuma); padding: 0.8rem 1.4rem; border-radius: 12px;
+      font-size: 0.9rem; z-index: 3000; transition: transform 0.35s ease;
+      box-shadow: var(--sombra);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    .dot-pattern {
+      background-image: radial-gradient(rgba(0,229,255,0.07) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(4,21,38,0.97); flex-direction: column; padding: 1rem;
+        border-bottom: 1px solid var(--glass-border); }
+      .nav-links.open { display: flex; }
+      .menu-toggle { display: grid; place-items: center; }
+      .hero-visual { display: none; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 3.5rem 0; }
+      .hero { min-height: auto; padding: 120px 0 80px; }
+      .nav-actions .btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
+      #stlViewer { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" id="bubbles"></div>
+
+  <header id="header">
+    <div class="container nav">
+      <a href="#" class="logo">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="32" cy="34" rx="26" ry="14" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.5"/>
+          <path d="M12 30 Q32 22 52 30" stroke="#00E5FF" stroke-width="1.2" fill="none" opacity="0.7"/>
+          <path d="M14 34 Q32 28 50 34" stroke="#00E5FF" stroke-width="1.2" fill="none" opacity="0.5"/>
+          <path d="M16 38 Q32 33 48 38" stroke="#00E5FF" stroke-width="1.2" fill="none" opacity="0.35"/>
+          <ellipse cx="14" cy="34" rx="8" ry="10" fill="#041526" stroke="#00E5FF" stroke-width="1.2"/>
+          <circle cx="12" cy="30" r="2.2" fill="#00E5FF"/>
+          <path d="M28 22 L32 12 L36 22" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.2"/>
+          <path d="M48 28 L58 24 L52 34" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.2"/>
+          <circle cx="24" cy="30" r="1.5" fill="#00E5FF" opacity="0.6"/>
+          <circle cx="32" cy="28" r="1.2" fill="#00E5FF" opacity="0.5"/>
+          <circle cx="40" cy="31" r="1.4" fill="#00E5FF" opacity="0.55"/>
+          <circle cx="28" cy="36" r="1.1" fill="#00E5FF" opacity="0.4"/>
+        </svg>
+        Whale Shark 3D
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#ejemplos">Ejemplos</a></li>
+        <li><a href="#colores">Colores</a></li>
+        <li><a href="#pedidos">Pedidos</a></li>
+        <li><a href="#envios">Envíos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="admin-btn" id="adminToggle" title="Modo Administrador" aria-label="Modo Administrador">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+        </button>
+        <a href="#contacto" class="btn btn-primary">Cotizar ahora</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span>🌊</span> Impresión 3D en Arequipa y todo el Perú
+        </div>
+        <h1>Sumérgete en la <span>creación</span></h1>
+        <p>Si puedes imaginarlo, nosotros lo imprimimos en 3D. Precisión de las profundidades, capa por capa. Desde llaveros corporativos hasta dioramas detallados y piezas funcionales.</p>
+        <div class="hero-cta">
+          <a href="#contacto" class="btn btn-primary">Solicitar cotización</a>
+          <a href="#ejemplos" class="btn btn-outline">Ver ejemplos</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0A2A43"/>
+            <stop offset="100%" stop-color="#041526"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="200" cy="160" rx="150" ry="70" fill="url(#bodyGrad)" stroke="#00E5FF" stroke-width="2" opacity="0.9"/>
+        <path d="M70 145 Q200 100 330 145" stroke="#00E5FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <path d="M80 160 Q200 125 320 160" stroke="#00E5FF" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M90 175 Q200 150 310 175" stroke="#00E5FF" stroke-width="1.5" fill="none" opacity="0.25"/>
+        <ellipse cx="90" cy="160" rx="45" ry="55" fill="#041526" stroke="#00E5FF" stroke-width="1.5"/>
+        <circle cx="75" cy="140" r="8" fill="#00E5FF"/>
+        <path d="M180 95 L200 40 L220 95" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.5"/>
+        <path d="M300 140 L360 120 L330 175" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.5"/>
+        <circle cx="140" cy="145" r="6" fill="#00E5FF" opacity="0.5"/>
+        <circle cx="180" cy="135" r="5" fill="#00E5FF" opacity="0.45"/>
+        <circle cx="230" cy="148" r="7" fill="#00E5FF" opacity="0.4"/>
+        <circle cx="160" cy="170" r="4" fill="#00E5FF" opacity="0.35"/>
+        <circle cx="250" cy="165" r="5" fill="#00E5FF" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="wave-divider">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#0A2A43"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section" id="servicios" style="background: var(--oceano);">
+    <div class="container">
+      <h2 class="section-title">Nuestros Servicios</h2>
+      <p class="section-sub">Impresión 3D a medida para particulares, empresas y estudiantes. Calidad profesional, atención personalizada.</p>
+      <div class="services-grid">
+        <article class="service-card glass">
+          <div class="service-icon">🎨</div>
+          <h3>Decoraciones personalizadas</h3>
+          <p>Piezas únicas para el hogar, oficina o eventos. Diseños exclusivos según tu idea.</p>
+        </article>
+        <article class="service-card glass">
+          <div class="service-icon">🦸</div>
+          <h3>Figuras y coleccionables</h3>
+          <p>Personajes, miniaturas y figuras de colección con alto detalle y acabados premium.</p>
+        </article>
+        <article class="service-card glass">
+          <div class="service-icon">🔑</div>
+          <h3>Llaveros corporativos</h3>
+          <p>Ideal para empresas y marcas. Lotes desde 10 unidades con logo y colores corporativos.</p>
+        </article>
+        <article class="service-card glass">
+          <div class="service-icon">⚙️</div>
+          <h3>Piezas funcionales y repuestos</h3>
+          <p>Componentes técnicos, engranajes, soportes y repuestos que ya no se fabrican.</p>
+        </article>
+        <article class="service-card glass">
+          <div class="service-icon">🏛️</div>
+          <h3>Maquetas arquitectónicas</h3>
+          <p>Modelos a escala para presentaciones, tesis y proyectos de arquitectura e ingeniería.</p>
+        </article>
+        <article class="service-card glass">
+          <div class="service-icon">🖼️</div>
+          <h3>Dioramas detallados</h3>
+          <p>Escenas completas con múltiples elementos. Perfectos para coleccionistas y regalo.</p>
+        </article>
+        <article class="service-card glass">
+          <div class="service-icon">✂️</div>
+          <h3>Plantillas (stencils)</h3>
+          <p>Plantillas reutilizables para estampados, pintura y trabajos creativos.</p>
+        </article>
+        <article class="service-card glass">
+          <div class="service-icon">🎁</div>
+          <h3>Recuerditos para eventos</h3>
+          <p>Souvenirs personalizados para bodas, cumpleaños, graduaciones y más.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dot-pattern" id="ejemplos">
+    <div class="container">
+      <h2 class="section-title">Ejemplos de Impresiones 3D</h2>
+      <p class="section-sub">Algunas de las piezas que fabricamos. Filtra por categoría y cotiza algo similar.</p>
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="decoracion">Decoración</button>
+        <button class="filter-btn" data-filter="figuras">Figuras</button>
+        <button class="filter-btn" data-filter="llaveros">Llaveros</button>
+        <button class="filter-btn" data-filter="funcional">Funcional</button>
+        <button class="filter-btn" data-filter="maquetas">Maquetas</button>
+      </div>
+      <div class="examples-grid" id="examplesGrid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="colores" style="background: var(--oceano);">
+    <div class="container">
+      <h2 class="section-title">Catálogo de Colores</h2>
+      <p class="section-sub">Filamentos y resinas disponibles. Elige el acabado que mejor se adapte a tu proyecto.</p>
+      <div class="colors-grid" id="colorsGrid"></div>
+      <div class="admin-panel glass" id="colorAdminPanel">
+        <h3>Agregar nuevo color</h3>
+        <div class="form-row">
+          <input type="text" id="newColorName" placeholder="Nombre del color">
+          <input type="color" id="newColorHex" value="#00E5FF">
+          <select id="newColorFinish">
+            <option value="Mate">Mate</option>
+            <option value="Brillante">Brillante</option>
+            <option value="Seda">Seda</option>
+            <option value="Translúcido">Translúcido</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="addColorBtn">Agregar color</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pedidos">
+    <div class="container">
+      <h2 class="section-title">Pedidos Realizados</h2>
+      <p class="section-sub">Trabajos entregados a clientes satisfechos en Arequipa y todo el Perú.</p>
+      <div class="gallery-grid" id="galleryGrid"></div>
+      <div class="gallery-admin-form glass" id="galleryAdminForm">
+        <h3>Agregar resultado de pedido</h3>
+        <div class="form-row">
+          <input type="text" id="galleryTitle" placeholder="Título del pedido">
+        </div>
+        <div class="form-row">
+          <input type="text" id="galleryDesc" placeholder="Descripción breve">
+        </div>
+        <div class="form-row">
+          <input type="url" id="galleryUrl" placeholder="URL de la imagen (opcional)">
+        </div>
+        <div class="form-row">
+          <input type="file" id="galleryFile" accept="image/*">
+        </div>
+        <button class="btn btn-primary" id="addGalleryBtn">Agregar a la galería</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="envios" style="background: var(--oceano);">
+    <div class="container">
+      <h2 class="section-title">Logística y Envíos</h2>
+      <p class="section-sub">Llegamos a todo el Perú con seguridad y puntualidad.</p>
+      <div class="shipping-grid">
+        <article class="shipping-card glass">
+          <div class="shipping-icon">📦</div>
+          <h3>Envíos a todo el Perú</h3>
+          <p>Trabajamos con agencia <strong>Shalom</strong>. Empaque seguro y seguimiento de tu pedido hasta tu ciudad.</p>
+        </article>
+        <article class="shipping-card glass">
+          <div class="shipping-icon">🛵</div>
+          <h3>Delivery en Arequipa</h3>
+          <p>Entrega a domicilio en toda la ciudad de Arequipa (AQP). Rápido y confiable para pedidos locales.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contacto">
+    <div class="container">
+      <h2 class="section-title">Contacto y Cotización</h2>
+      <p class="section-sub">Cuéntanos tu idea, sube tu archivo STL y te respondemos con una cotización clara y sin compromiso.</p>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item glass">
+            <div class="icon">💬</div>
+            <div>
+              <strong>WhatsApp</strong><br>
+              <span style="font-size:0.9rem;opacity:0.8">+51 946 013 030</span>
+            </div>
+            <a href="https://wa.me/51946013030?text=Hola%20Whale%20Shark%203D%2C%20quiero%20cotizar%20un%20pedido%20de%20impresi%C3%B3n%203D." target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.85rem;">Abrir</a>
+          </div>
+          <div class="contact-item glass">
+            <div class="icon">✉️</div>
+            <div>
+              <strong>Correo</strong><br>
+              <span style="font-size:0.9rem;opacity:0.8" id="emailText">whaleshark0511@gmail.com</span>
+            </div>
+            <button class="copy-btn" id="copyEmail">Copiar</button>
+          </div>
+          <div class="contact-item glass">
+            <div class="icon">📍</div>
+            <div>
+              <strong>Ubicación</strong><br>
+              <span style="font-size:0.9rem;opacity:0.8">Arequipa, Perú · Envíos nacionales</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form glass" id="quoteForm">
+          <div>
+            <label for="projectType">Tipo de proyecto</label>
+            <select id="projectType" required>
+              <option value="">Selecciona una opción</option>
+              <option value="Decoraciones">Decoraciones personalizadas</option>
+              <option value="Figuras">Figuras y coleccionables</option>
+              <option value="Llaveros">Llaveros corporativos</option>
+              <option value="Funcional">Piezas funcionales / repuestos</option>
+              <option value="Maquetas">Maquetas arquitectónicas</option>
+              <option value="Dioramas">Dioramas</option>
+              <option value="Stencils">Plantillas / stencils</option>
+              <option value="Recuerditos">Recuerditos para eventos</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div>
+            <label for="colorSelect">Color preferido</label>
+            <select id="colorSelect">
+              <option value="">Sin preferencia / me asesoras</option>
+            </select>
+          </div>
+          <div>
+            <label for="clientName">Tu nombre</label>
+            <input type="text" id="clientName" placeholder="Nombre completo" required>
+          </div>
+          <div>
+            <label for="clientMsg">Detalles del pedido</label>
+            <textarea id="clientMsg" placeholder="Describe lo que necesitas: tamaño aproximado, cantidad, fecha deseada..."></textarea>
+          </div>
+
+          <div>
+            <label>Archivo STL (opcional)</label>
+            <div class="stl-upload-zone" id="stlDropZone">
+              <input type="file" id="stlFile" accept=".stl,model/stl,application/sla,application/vnd.ms-pki.stl">
+              <div class="upload-icon">📁</div>
+              <p>Arrastra tu archivo <strong>.STL</strong> aquí o haz clic para seleccionarlo</p>
+              <div class="hint">Máx. recomendado 50 MB · Formato binario o ASCII</div>
+            </div>
+            <div class="stl-status" id="stlStatus"></div>
+            <div class="stl-preview-wrap" id="stlPreviewWrap">
+              <canvas id="stlViewer"></canvas>
+              <div class="stl-file-info">
+                <div>
+                  <span class="name" id="stlFileName">modelo.stl</span>
+                  <span class="size" id="stlFileSize"> — 0 KB</span>
+                </div>
+                <button type="button" id="removeStlBtn">Quitar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Enviar por WhatsApp</button>
+            <button type="button" class="btn btn-outline" id="sendEmailBtn">Enviar por correo</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo" style="margin-bottom:0.5rem;">
+            <svg viewBox="0 0 64 64" width="36" height="36" fill="none">
+              <ellipse cx="32" cy="34" rx="26" ry="14" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.5"/>
+              <path d="M12 30 Q32 22 52 30" stroke="#00E5FF" stroke-width="1.2" fill="none" opacity="0.7"/>
+              <ellipse cx="14" cy="34" rx="8" ry="10" fill="#041526" stroke="#00E5FF" stroke-width="1.2"/>
+              <circle cx="12" cy="30" r="2.2" fill="#00E5FF"/>
+            </svg>
+            Whale Shark 3D
+          </div>
+          <p>Impresión 3D personalizada con precisión de las profundidades. Si puedes imaginarlo, nosotros lo imprimimos.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#ejemplos">Ejemplos</a></li>
+            <li><a href="#colores">Colores</a></li>
+            <li><a href="#pedidos">Pedidos realizados</a></li>
+            <li><a href="#envios">Envíos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/51946013030" target="_blank" rel="noopener">WhatsApp: +51 946 013 030</a></li>
+            <li><a href="mailto:whaleshark0511@gmail.com">whaleshark0511@gmail.com</a></li>
+            <li>Arequipa, Perú</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © <span id="year"></span> Whale Shark 3D. Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal">
+      <h3>Modo Administrador</h3>
+      <p style="font-size:0.9rem;opacity:0.7;margin-bottom:1rem;">Ingresa la contraseña para gestionar colores y galería.</p>
+      <input type="password" id="adminPassword" placeholder="Contraseña" autocomplete="off">
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="cancelAdmin">Cancelar</button>
+        <button class="btn btn-primary" id="confirmAdmin">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+
+  <script>
+    /* ========== ALMACENAMIENTO SEGURO (evita el error de sandbox) ========== */
+    const memoryStore = {};
+    function safeGet(key) {
+      try {
+        return localStorage.getItem(key);
+      } catch (e) {
+        return memoryStore[key] !== undefined ? memoryStore[key] : null;
+      }
+    }
+    function safeSet(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {
+        memoryStore[key] = value;
+      }
+    }
+
+    /* ========== DATOS INICIALES ========== */
+    const DEFAULT_COLORS = [
+      { id: 1, name: "Azul Océano", hex: "#0A2A43", finish: "Mate" },
+      { id: 2, name: "Turquesa Bio", hex: "#00E5FF", finish: "Brillante" },
+      { id: 3, name: "Blanco Espuma", hex: "#F0F8FF", finish: "Mate" },
+      { id: 4, name: "Negro Abisal", hex: "#041526", finish: "Mate" },
+      { id: 5, name: "Rojo Coral", hex: "#E63946", finish: "Brillante" },
+      { id: 6, name: "Verde Alga", hex: "#2A9D8F", finish: "Seda" },
+      { id: 7, name: "Amarillo Sol", hex: "#E9C46A", finish: "Mate" },
+      { id: 8, name: "Transparente", hex: "#A8DADC", finish: "Translúcido" }
+    ];
+
+    const DEFAULT_EXAMPLES = [
+      { id: 1, title: "Llavero logo empresa", cat: "llaveros", time: "2-4 h", material: "PLA", icon: "🔑" },
+      { id: 2, title: "Figura coleccionable", cat: "figuras", time: "8-14 h", material: "Resina", icon: "🦸" },
+      { id: 3, title: "Maceta geométrica", cat: "decoracion", time: "5-8 h", material: "PETG", icon: "🪴" },
+      { id: 4, title: "Soporte para auriculares", cat: "funcional", time: "4-6 h", material: "PETG", icon: "🎧" },
+      { id: 5, title: "Maqueta de edificio", cat: "maquetas", time: "12-20 h", material: "PLA", icon: "🏛️" },
+      { id: 6, title: "Diorama escena marina", cat: "figuras", time: "15-25 h", material: "Resina", icon: "🖼️" },
+      { id: 7, title: "Plantilla para estampado", cat: "decoracion", time: "1-2 h", material: "PLA", icon: "✂️" },
+      { id: 8, title: "Recuerdo de boda", cat: "decoracion", time: "3-5 h", material: "PLA", icon: "💍" }
+    ];
+
+    const DEFAULT_GALLERY = [
+      { id: 1, title: "50 llaveros corporativos", desc: "Entregados en Arequipa · Cliente empresa local", icon: "🔑" },
+      { id: 2, title: "Diorama detallado", desc: "Enviado a Lima por Shalom · Coleccionista", icon: "🖼️" },
+      { id: 3, title: "Maquetas para tesis", desc: "3 modelos arquitectónicos · Estudiante UNSA", icon: "🏛️" },
+      { id: 4, title: "Repuestos funcionales", desc: "Piezas técnicas para maquinaria · Delivery AQP", icon: "⚙️" }
+    ];
+
+    // Lectura segura
+    let colors;
+    try {
+      const saved = safeGet("ws3d_colors");
+      colors = saved ? JSON.parse(saved) : DEFAULT_COLORS;
+    } catch (e) {
+      colors = DEFAULT_COLORS;
+    }
+
+    let gallery;
+    try {
+      const saved = safeGet("ws3d_gallery");
+      gallery = saved ? JSON.parse(saved) : DEFAULT_GALLERY;
+    } catch (e) {
+      gallery = DEFAULT_GALLERY;
+    }
+
+    let isAdmin = false;
+    try {
+      isAdmin = safeGet("ws3d_admin") === "true";
+    } catch (e) {
+      isAdmin = false;
+    }
+
+    let nextColorId = Math.max(...colors.map(c => c.id), 0) + 1;
+    let nextGalleryId = Math.max(...gallery.map(g => g.id), 0) + 1;
+
+    /* ========== ESTADO STL ========== */
+    let currentStlFile = null;
+    let stlScene, stlCamera, stlRenderer, stlMesh, stlAnimId;
+    let stlControls = { isDragging: false, previousMouse: { x: 0, y: 0 }, rotation: { x: 0, y: 0 } };
+
+    function saveColors() { safeSet("ws3d_colors", JSON.stringify(colors)); }
+    function saveGallery() { safeSet("ws3d_gallery", JSON.stringify(gallery)); }
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2800);
+    }
+
+    function createBubbles() {
+      const container = document.getElementById("bubbles");
+      for (let i = 0; i < 18; i++) {
+        const b = document.createElement("div");
+        b.className = "bubble";
+        const size = 8 + Math.random() * 28;
+        b.style.width = size + "px";
+        b.style.height = size + "px";
+        b.style.left = Math.random() * 100 + "%";
+        b.style.animationDuration = (12 + Math.random() * 20) + "s";
+        b.style.animationDelay = (Math.random() * 15) + "s";
+        container.appendChild(b);
+      }
+    }
+
+    window.addEventListener("scroll", () => {
+      document.getElementById("header").classList.toggle("scrolled", window.scrollY > 40);
+    });
+
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      document.getElementById("navLinks").classList.toggle("open");
+    });
+    document.querySelectorAll(".nav-links a").forEach(a => {
+      a.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open"));
+    });
+
+    /* ========== ADMIN ========== */
+    const adminToggle = document.getElementById("adminToggle");
+    const adminModal = document.getElementById("adminModal");
+
+    function setAdminMode(on) {
+      isAdmin = on;
+      safeSet("ws3d_admin", on ? "true" : "false");
+      document.body.classList.toggle("admin-mode", on);
+      adminToggle.classList.toggle("active", on);
+      renderColors();
+      renderGallery();
+    }
+
+    adminToggle.addEventListener("click", () => {
+      if (isAdmin) {
+        setAdminMode(false);
+        showToast("Modo administrador desactivado");
+      } else {
+        adminModal.classList.add("open");
+        document.getElementById("adminPassword").value = "";
+        document.getElementById("adminPassword").focus();
+      }
+    });
+
+    document.getElementById("cancelAdmin").addEventListener("click", () => adminModal.classList.remove("open"));
+    document.getElementById("confirmAdmin").addEventListener("click", () => {
+      if (document.getElementById("adminPassword").value === "admin123") {
+        setAdminMode(true);
+        adminModal.classList.remove("open");
+        showToast("Modo administrador activado");
+      } else {
+        showToast("Contraseña incorrecta");
+      }
+    });
+    document.getElementById("adminPassword").addEventListener("keydown", e => {
+      if (e.key === "Enter") document.getElementById("confirmAdmin").click();
+    });
+
+    /* ========== COLORES ========== */
+    function renderColors() {
+      const grid = document.getElementById("colorsGrid");
+      grid.innerHTML = colors.map(c => `
+        <div class="color-card glass" data-id="${c.id}">
+          <div class="color-sphere" style="background:${c.hex}"></div>
+          <h4>${c.name}</h4>
+          <div class="hex">${c.hex}</div>
+          <span class="finish">${c.finish}</span>
+          <div class="admin-controls">
+            <button onclick="moveColor(${c.id}, -1)" title="Subir">↑</button>
+            <button onclick="moveColor(${c.id}, 1)" title="Bajar">↓</button>
+            <button onclick="deleteColor(${c.id})" title="Eliminar">✕</button>
+          </div>
+        </div>
+      `).join("");
+      updateColorSelect();
+    }
+
+    function updateColorSelect() {
+      const sel = document.getElementById("colorSelect");
+      const current = sel.value;
+      sel.innerHTML = '<option value="">Sin preferencia / me asesoras</option>' +
+        colors.map(c => `<option value="${c.name}">${c.name} (${c.finish})</option>`).join("");
+      if (current) sel.value = current;
+    }
+
+    window.moveColor = function(id, dir) {
+      const idx = colors.findIndex(c => c.id === id);
+      const newIdx = idx + dir;
+      if (newIdx < 0 || newIdx >= colors.length) return;
+      [colors[idx], colors[newIdx]] = [colors[newIdx], colors[idx]];
+      saveColors();
+      renderColors();
+    };
+
+    window.deleteColor = function(id) {
+      if (!confirm("¿Eliminar este color del catálogo?")) return;
+      colors = colors.filter(c => c.id !== id);
+      saveColors();
+      renderColors();
+      showToast("Color eliminado");
+    };
+
+    document.getElementById("addColorBtn").addEventListener("click", () => {
+      const name = document.getElementById("newColorName").value.trim();
+      const hex = document.getElementById("newColorHex").value;
+      const finish = document.getElementById("newColorFinish").value;
+      if (!name) { showToast("Escribe un nombre"); return; }
+      colors.push({ id: nextColorId++, name, hex, finish });
+      saveColors();
+      renderColors();
+      document.getElementById("newColorName").value = "";
+      showToast("Color agregado");
+    });
+
+    /* ========== EJEMPLOS ========== */
+    function renderExamples(filter = "all") {
+      const grid = document.getElementById("examplesGrid");
+      const items = filter === "all" ? DEFAULT_EXAMPLES : DEFAULT_EXAMPLES.filter(e => e.cat === filter);
+      grid.innerHTML = items.map(e => `
+        <article class="example-card glass" data-cat="${e.cat}">
+          <div class="example-img">
+            <span>${e.icon}</span>
+            <span class="badge">${e.cat}</span>
+          </div>
+          <div class="example-body">
+            <h3>${e.title}</h3>
+            <div class="example-meta">
+              <span>⏱ ${e.time}</span>
+              <span>🧵 ${e.material}</span>
+            </div>
+            <a href="#contacto" class="btn btn-outline" style="width:100%;justify-content:center;padding:0.55rem;font-size:0.85rem;"
+               onclick="prefillQuote('${e.title}')">Cotizar algo similar</a>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    document.getElementById("filters").addEventListener("click", e => {
+      if (!e.target.classList.contains("filter-btn")) return;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+      renderExamples(e.target.dataset.filter);
+    });
+
+    window.prefillQuote = function(title) {
+      document.getElementById("clientMsg").value = `Me interesa algo similar a: ${title}. `;
+      document.getElementById("projectType").focus();
+    };
+
+    /* ========== GALERÍA ========== */
+    function renderGallery() {
+      const grid = document.getElementById("galleryGrid");
+      grid.innerHTML = gallery.map(g => `
+        <article class="gallery-card glass">
+          <div class="gallery-img">
+            ${g.img ? `<img src="${g.img}" alt="${g.title}" onerror="this.parentElement.innerHTML='${g.icon || "📦"}'">` : (g.icon || "📦")}
+          </div>
+          <div class="gallery-body">
+            <h3>${g.title}</h3>
+            <p>${g.desc}</p>
+            ${isAdmin ? `<button class="btn btn-ghost" style="margin-top:0.6rem;font-size:0.8rem;padding:0.3rem 0.7rem;" onclick="deleteGallery(${g.id})">Eliminar</button>` : ""}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    window.deleteGallery = function(id) {
+      if (!confirm("¿Eliminar este resultado?")) return;
+      gallery = gallery.filter(g => g.id !== id);
+      saveGallery();
+      renderGallery();
+      showToast("Eliminado de la galería");
+    };
+
+    document.getElementById("addGalleryBtn").addEventListener("click", () => {
+      const title = document.getElementById("galleryTitle").value.trim();
+      const desc = document.getElementById("galleryDesc").value.trim();
+      const url = document.getElementById("galleryUrl").value.trim();
+      const fileInput = document.getElementById("galleryFile");
+      if (!title) { showToast("Escribe un título"); return; }
+
+      const addItem = (imgData) => {
+        gallery.unshift({ id: nextGalleryId++, title, desc: desc || "Pedido entregado", img: imgData || null, icon: "📦" });
+        saveGallery();
+        renderGallery();
+        document.getElementById("galleryTitle").value = "";
+        document.getElementById("galleryDesc").value = "";
+        document.getElementById("galleryUrl").value = "";
+        fileInput.value = "";
+        showToast("Agregado a la galería");
+      };
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => addItem(e.target.result);
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        addItem(url || null);
+      }
+    });
+
+    /* ========== VISOR STL ========== */
+    function initStlViewer() {
+      const canvas = document.getElementById("stlViewer");
+      if (!canvas || typeof THREE === "undefined") return;
+
+      const width = canvas.clientWidth || 400;
+      const height = 260;
+
+      stlScene = new THREE.Scene();
+      stlScene.background = new THREE.Color(0x020e18);
+
+      stlCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 2000);
+      stlCamera.position.set(0, 0, 100);
+
+      stlRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+      stlRenderer.setSize(width, height);
+      stlRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const ambient = new THREE.AmbientLight(0xffffff, 0.55);
+      stlScene.add(ambient);
+      const dir1 = new THREE.DirectionalLight(0x00e5ff, 0.85);
+      dir1.position.set(1, 1, 1);
+      stlScene.add(dir1);
+      const dir2 = new THREE.DirectionalLight(0xffffff, 0.4);
+      dir2.position.set(-1, -0.5, -1);
+      stlScene.add(dir2);
+
+      canvas.addEventListener("mousedown", e => {
+        stlControls.isDragging = true;
+        stlControls.previousMouse = { x: e.clientX, y: e.clientY };
+      });
+      window.addEventListener("mouseup", () => stlControls.isDragging = false);
+      canvas.addEventListener("mousemove", e => {
+        if (!stlControls.isDragging || !stlMesh) return;
+        const dx = e.clientX - stlControls.previousMouse.x;
+        const dy = e.clientY - stlControls.previousMouse.y;
+        stlControls.rotation.y += dx * 0.01;
+        stlControls.rotation.x += dy * 0.01;
+        stlControls.previousMouse = { x: e.clientX, y: e.clientY };
+      });
+
+      canvas.addEventListener("touchstart", e => {
+        if (e.touches.length === 1) {
+          stlControls.isDragging = true;
+          stlControls.previousMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+      }, { passive: true });
+      canvas.addEventListener("touchmove", e => {
+        if (!stlControls.isDragging || !stlMesh || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - stlControls.previousMouse.x;
+        const dy = e.touches[0].clientY - stlControls.previousMouse.y;
+        stlControls.rotation.y += dx * 0.01;
+        stlControls.rotation.x += dy * 0.01;
+        stlControls.previousMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }, { passive: true });
+      canvas.addEventListener("touchend", () => stlControls.isDragging = false);
+
+      animateStl();
+    }
+
+    function animateStl() {
+      stlAnimId = requestAnimationFrame(animateStl);
+      if (stlMesh) {
+        if (!stlControls.isDragging) {
+          stlControls.rotation.y += 0.006;
+        }
+        stlMesh.rotation.x = stlControls.rotation.x;
+        stlMesh.rotation.y = stlControls.rotation.y;
+      }
+      if (stlRenderer && stlScene && stlCamera) {
+        stlRenderer.render(stlScene, stlCamera);
+      }
+    }
+
+    function loadStlFile(file) {
+      if (!file) return;
+      const name = file.name.toLowerCase();
+      if (!name.endsWith(".stl")) {
+        setStlStatus("Solo se aceptan archivos .STL", true);
+        return;
+      }
+      if (file.size > 60 * 1024 * 1024) {
+        setStlStatus("El archivo es demasiado grande (máx. 60 MB recomendado)", true);
+        return;
+      }
+
+      currentStlFile = file;
+      document.getElementById("stlFileName").textContent = file.name;
+      document.getElementById("stlFileSize").textContent = " — " + formatBytes(file.size);
+      document.getElementById("stlPreviewWrap").classList.add("visible");
+      setStlStatus("Cargando modelo…", false);
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          if (typeof THREE === "undefined" || !THREE.STLLoader) {
+            setStlStatus("Visor 3D no disponible en este entorno", true);
+            return;
+          }
+          const loader = new THREE.STLLoader();
+          const geometry = loader.parse(e.target.result);
+
+          geometry.computeBoundingBox();
+          const box = geometry.boundingBox;
+          const center = new THREE.Vector3();
+          box.getCenter(center);
+          geometry.translate(-center.x, -center.y, -center.z);
+
+          const size = new THREE.Vector3();
+          box.getSize(size);
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 60 / maxDim;
+          geometry.scale(scale, scale, scale);
+
+          geometry.computeVertexNormals();
+
+          if (stlMesh) {
+            stlScene.remove(stlMesh);
+            stlMesh.geometry.dispose();
+            stlMesh.material.dispose();
+          }
+
+          const material = new THREE.MeshPhongMaterial({
+            color: 0x00e5ff,
+            specular: 0x111111,
+            shininess: 80,
+            flatShading: false
+          });
+          stlMesh = new THREE.Mesh(geometry, material);
+          stlScene.add(stlMesh);
+
+          stlControls.rotation = { x: -0.3, y: 0.4 };
+          stlCamera.position.set(0, 20, 90);
+          stlCamera.lookAt(0, 0, 0);
+
+          setStlStatus("Modelo cargado correctamente. Puedes rotarlo con el ratón.", false, true);
+        } catch (err) {
+          console.error(err);
+          setStlStatus("No se pudo leer el archivo STL. Verifica que sea válido.", true);
+          clearStlPreview();
+        }
+      };
+      reader.onerror = () => {
+        setStlStatus("Error al leer el archivo", true);
+        clearStlPreview();
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function clearStlPreview() {
+      currentStlFile = null;
+      document.getElementById("stlFile").value = "";
+      document.getElementById("stlPreviewWrap").classList.remove("visible");
+      setStlStatus("");
+      if (stlMesh && stlScene) {
+        stlScene.remove(stlMesh);
+        stlMesh.geometry.dispose();
+        stlMesh.material.dispose();
+        stlMesh = null;
+      }
+    }
+
+    function setStlStatus(msg, isError = false, isOk = false) {
+      const el = document.getElementById("stlStatus");
+      el.textContent = msg;
+      el.className = "stl-status" + (isError ? " error" : isOk ? " ok" : "");
+    }
+
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+    }
+
+    const stlInput = document.getElementById("stlFile");
+    const dropZone = document.getElementById("stlDropZone");
+
+    stlInput.addEventListener("change", e => {
+      if (e.target.files && e.target.files[0]) loadStlFile(e.target.files[0]);
+    });
+
+    dropZone.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+    dropZone.addEventListener("drop", e => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        loadStlFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    document.getElementById("removeStlBtn").addEventListener("click", clearStlPreview);
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (stlRenderer && document.getElementById("stlPreviewWrap").classList.contains("visible")) {
+        const canvas = document.getElementById("stlViewer");
+        const w = canvas.clientWidth;
+        const h = 260;
+        stlCamera.aspect = w / h;
+        stlCamera.updateProjectionMatrix();
+        stlRenderer.setSize(w, h);
+      }
+    });
+    resizeObserver.observe(document.getElementById("stlPreviewWrap"));
+
+    /* ========== FORMULARIO COTIZACIÓN ========== */
+    function buildMessage() {
+      const type = document.getElementById("projectType").value;
+      const color = document.getElementById("colorSelect").value;
+      const name = document.getElementById("clientName").value.trim();
+      const msg = document.getElementById("clientMsg").value.trim();
+
+      let text = `Hola Whale Shark 3D, soy ${name}.\n\n`;
+      text += `Tipo de proyecto: ${type}\n`;
+      if (color) text += `Color preferido: ${color}\n`;
+      if (msg) text += `\nDetalles:\n${msg}\n`;
+      if (currentStlFile) {
+        text += `\n📎 Tengo un archivo STL listo para enviar: ${currentStlFile.name} (${formatBytes(currentStlFile.size)}).\nPor favor indícame cómo te lo envío.`;
+      }
+      return text;
+    }
+
+    document.getElementById("quoteForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const type = document.getElementById("projectType").value;
+      const name = document.getElementById("clientName").value.trim();
+      if (!type || !name) { showToast("Completa los campos requeridos"); return; }
+
+      const text = encodeURIComponent(buildMessage());
+      window.open(`https://wa.me/51946013030?text=${text}`, "_blank");
+    });
+
+    document.getElementById("sendEmailBtn").addEventListener("click", () => {
+      const type = document.getElementById("projectType").value;
+      const name = document.getElementById("clientName").value.trim();
+      if (!type || !name) { showToast("Completa los campos requeridos"); return; }
+
+      const subject = encodeURIComponent(`Cotización 3D - ${type} - ${name}`);
+      const body = encodeURIComponent(buildMessage());
+      window.location.href = `mailto:whaleshark0511@gmail.com?subject=${subject}&body=${body}`;
+    });
+
+    document.getElementById("copyEmail").addEventListener("click", () => {
+      navigator.clipboard.writeText("whaleshark0511@gmail.com").then(() => showToast("Correo copiado"))
+        .catch(() => showToast("No se pudo copiar"));
+    });
+
+    /* ========== INICIALIZACIÓN ========== */
+    document.getElementById("year").textContent = new Date().getFullYear();
+    createBubbles();
+    renderColors();
+    renderExamples();
+    renderGallery();
+    if (isAdmin) setAdminMode(true);
+
+    // Inicializar visor 3D de forma segura
+    setTimeout(() => {
+      try {
+        initStlViewer();
+      } catch (e) {
+        console.warn("Visor STL no disponible:", e);
+      }
+    }, 150);
+  </script>
+</body>
+</html>
