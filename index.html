@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Whale Shark 3D | Impresión 3D Personalizada</title>
+  <meta name="description" content="Impresión 3D personalizada en Arequipa y todo el Perú. Decoraciones, figuras, llaveros, maquetas y más.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -18,8 +19,9 @@
       --glass-border: rgba(0, 229, 255, 0.25);
       --sombra: 0 8px 32px rgba(0, 0, 0, 0.35);
       --radio: 16px;
-      --trans: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --trans: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -39,13 +41,16 @@
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.85rem 1.6rem; border: none; border-radius: 999px;
       font-weight: 600; font-size: 0.95rem; cursor: pointer;
-      transition: var(--trans);
+      transition: var(--trans); position: relative; overflow: hidden;
     }
     .btn-primary {
       background: linear-gradient(135deg, var(--turquesa), #00b8d4);
       color: var(--abisal); box-shadow: 0 4px 20px rgba(0, 229, 255, 0.35);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0, 229, 255, 0.5); }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0, 229, 255, 0.5);
+    }
     .btn-outline {
       background: transparent; border: 1.5px solid var(--turquesa);
       color: var(--turquesa);
@@ -53,10 +58,21 @@
     .btn-outline:hover { background: var(--turquesa-dim); }
     .btn-ghost { background: transparent; color: var(--espuma); border: 1px solid transparent; }
     .btn-ghost:hover { border-color: var(--glass-border); background: var(--turquesa-dim); }
+
     .section { padding: 5rem 0; position: relative; }
     .section-title {
       font-size: clamp(1.8rem, 4vw, 2.6rem); text-align: center;
       margin-bottom: 0.5rem; letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--espuma), var(--turquesa), var(--espuma));
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+      100% { background-position: 0% center; }
     }
     .section-sub {
       text-align: center; color: rgba(240, 248, 255, 0.7);
@@ -66,8 +82,35 @@
       background: var(--glass); backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border); border-radius: var(--radio);
+      position: relative;
     }
 
+    /* Marcos decorativos en esquinas */
+    .glass::before, .glass::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border: 2px solid var(--turquesa);
+      opacity: 0.5;
+      transition: var(--trans);
+      pointer-events: none;
+    }
+    .glass::before {
+      top: 8px; left: 8px;
+      border-right: none; border-bottom: none;
+      border-radius: 4px 0 0 0;
+    }
+    .glass::after {
+      bottom: 8px; right: 8px;
+      border-left: none; border-top: none;
+      border-radius: 0 0 4px 0;
+    }
+    .glass:hover::before, .glass:hover::after {
+      opacity: 1;
+      width: 24px; height: 24px;
+    }
+
+    /* ========== BURBUJAS ========== */
     .bubbles {
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       overflow: hidden;
@@ -82,6 +125,7 @@
       100% { transform: translateY(-110vh) scale(1.4); opacity: 0; }
     }
 
+    /* ========== HEADER ========== */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       padding: 0.9rem 0; transition: var(--trans);
@@ -100,7 +144,16 @@
       font-family: 'Montserrat', sans-serif; font-weight: 800;
       font-size: 1.15rem; letter-spacing: -0.03em;
     }
-    .logo svg { width: 42px; height: 42px; flex-shrink: 0; }
+    .logo img {
+      width: 48px; height: 48px; border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 2px var(--turquesa);
+      transition: var(--trans);
+    }
+    .logo:hover img {
+      box-shadow: 0 0 0 3px var(--turquesa), 0 0 20px rgba(0,229,255,0.4);
+      transform: rotate(-8deg) scale(1.05);
+    }
     .nav-links {
       display: flex; align-items: center; gap: 0.3rem; list-style: none;
     }
@@ -121,6 +174,7 @@
       background: transparent; color: var(--espuma); cursor: pointer;
     }
 
+    /* ========== HERO ========== */
     .hero {
       min-height: 100vh; display: flex; align-items: center;
       position: relative; padding-top: 80px; overflow: hidden;
@@ -132,16 +186,21 @@
         radial-gradient(ellipse 50% 40% at 80% 20%, rgba(10,42,67,0.8), transparent),
         linear-gradient(180deg, var(--abisal) 0%, var(--oceano) 100%);
     }
-    .hero-content { position: relative; z-index: 2; max-width: 700px; }
+    .hero-content { position: relative; z-index: 2; max-width: 640px; }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.4rem;
       padding: 0.35rem 0.9rem; border-radius: 999px;
       background: var(--turquesa-dim); border: 1px solid var(--glass-border);
       font-size: 0.8rem; font-weight: 500; color: var(--turquesa);
       margin-bottom: 1.4rem;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.3); }
+      50% { box-shadow: 0 0 0 8px rgba(0,229,255,0); }
     }
     .hero h1 {
-      font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.1;
+      font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.12;
       letter-spacing: -0.03em; margin-bottom: 1.2rem;
     }
     .hero h1 span { color: var(--turquesa); }
@@ -151,13 +210,16 @@
     }
     .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
     .hero-visual {
-      position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
-      width: min(420px, 38vw); z-index: 1; opacity: 0.9;
-      animation: float 6s ease-in-out infinite;
+      position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
+      width: min(420px, 40vw); z-index: 1;
+      animation: floatShark 7s ease-in-out infinite;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(-50%) translateX(0); }
-      50% { transform: translateY(-55%) translateX(8px); }
+    .hero-visual img {
+      width: 100%; filter: drop-shadow(0 20px 40px rgba(0,229,255,0.25));
+    }
+    @keyframes floatShark {
+      0%, 100% { transform: translateY(-50%) translateX(0) rotate(-2deg); }
+      50% { transform: translateY(-56%) translateX(12px) rotate(2deg); }
     }
     .wave-divider {
       position: absolute; left: 0; right: 0; bottom: -1px;
@@ -165,6 +227,7 @@
     }
     .wave-divider svg { width: 100%; height: auto; display: block; }
 
+    /* ========== SERVICIOS ========== */
     .services-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.4rem;
@@ -173,24 +236,25 @@
       padding: 1.8rem 1.5rem; transition: var(--trans); cursor: default;
       position: relative; overflow: hidden;
     }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, transparent, var(--turquesa), transparent);
-      opacity: 0; transition: var(--trans);
-    }
     .service-card:hover {
-      transform: translateY(-6px); border-color: var(--turquesa);
-      box-shadow: 0 12px 40px rgba(0,229,255,0.15);
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--turquesa);
+      box-shadow: 0 16px 40px rgba(0,229,255,0.18);
     }
-    .service-card:hover::before { opacity: 1; }
     .service-icon {
       width: 52px; height: 52px; border-radius: 14px;
       background: var(--turquesa-dim); display: grid; place-items: center;
       margin-bottom: 1.1rem; font-size: 1.5rem;
+      transition: var(--trans);
+    }
+    .service-card:hover .service-icon {
+      transform: scale(1.15) rotate(-6deg);
+      background: rgba(0,229,255,0.25);
     }
     .service-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
     .service-card p { font-size: 0.9rem; color: rgba(240,248,255,0.65); }
 
+    /* ========== EJEMPLOS ========== */
     .filters {
       display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
       margin-bottom: 2.2rem;
@@ -208,7 +272,10 @@
       gap: 1.5rem;
     }
     .example-card { overflow: hidden; transition: var(--trans); }
-    .example-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+    .example-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    }
     .example-img {
       height: 180px; background: linear-gradient(135deg, var(--oceano), #0d3a5c);
       display: grid; place-items: center; position: relative;
@@ -230,19 +297,27 @@
       background: var(--turquesa-dim); padding: 0.2rem 0.55rem; border-radius: 6px;
     }
 
+    /* ========== COLORES ========== */
     .colors-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 1.2rem;
     }
     .color-card {
       text-align: center; padding: 1.3rem 0.8rem; transition: var(--trans);
-      position: relative;
     }
-    .color-card:hover { transform: translateY(-4px); border-color: var(--turquesa); }
+    .color-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      border-color: var(--turquesa);
+    }
     .color-sphere {
       width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 0.9rem;
       box-shadow: inset -6px -6px 12px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.25);
       border: 2px solid rgba(255,255,255,0.15);
+      transition: var(--trans);
+    }
+    .color-card:hover .color-sphere {
+      transform: scale(1.1);
+      box-shadow: inset -6px -6px 12px rgba(0,0,0,0.3), 0 0 20px rgba(0,229,255,0.4);
     }
     .color-card h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
     .color-card .hex { font-size: 0.75rem; color: rgba(240,248,255,0.5); font-family: monospace; }
@@ -274,12 +349,13 @@
     }
     .form-row input[type="color"] { padding: 0.2rem; height: 42px; cursor: pointer; }
 
+    /* ========== GALERÍA ========== */
     .gallery-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.5rem;
     }
     .gallery-card { overflow: hidden; transition: var(--trans); }
-    .gallery-card:hover { transform: translateY(-4px); }
+    .gallery-card:hover { transform: translateY(-5px); }
     .gallery-img {
       height: 200px; background: var(--oceano); object-fit: cover; width: 100%;
       display: grid; place-items: center; font-size: 2.5rem; color: var(--turquesa);
@@ -293,6 +369,7 @@
     }
     .admin-mode .gallery-admin-form { display: block; }
 
+    /* ========== ENVÍOS ========== */
     .shipping-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem; max-width: 800px; margin-inline: auto;
@@ -300,7 +377,7 @@
     .shipping-card {
       padding: 2rem 1.8rem; text-align: center; transition: var(--trans);
     }
-    .shipping-card:hover { border-color: var(--turquesa); }
+    .shipping-card:hover { border-color: var(--turquesa); transform: translateY(-5px); }
     .shipping-icon {
       width: 64px; height: 64px; margin: 0 auto 1.2rem; border-radius: 50%;
       background: var(--turquesa-dim); display: grid; place-items: center;
@@ -309,6 +386,7 @@
     .shipping-card h3 { margin-bottom: 0.5rem; }
     .shipping-card p { color: rgba(240,248,255,0.7); font-size: 0.95rem; }
 
+    /* ========== CONTACTO ========== */
     .contact-grid {
       display: grid; grid-template-columns: 1fr 1.2fr; gap: 2.5rem;
       align-items: start;
@@ -342,20 +420,15 @@
     .contact-form textarea { resize: vertical; min-height: 100px; }
     .form-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.5rem; }
 
-    /* STL Upload */
+    /* STL */
     .stl-upload-zone {
       border: 2px dashed var(--glass-border);
-      border-radius: 12px;
-      padding: 1.4rem;
-      text-align: center;
-      cursor: pointer;
-      transition: var(--trans);
-      background: rgba(4,21,38,0.4);
+      border-radius: 12px; padding: 1.4rem; text-align: center;
+      cursor: pointer; transition: var(--trans); background: rgba(4,21,38,0.4);
       position: relative;
     }
     .stl-upload-zone:hover, .stl-upload-zone.dragover {
-      border-color: var(--turquesa);
-      background: var(--turquesa-dim);
+      border-color: var(--turquesa); background: var(--turquesa-dim);
     }
     .stl-upload-zone input[type="file"] {
       position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
@@ -364,47 +437,39 @@
     .stl-upload-zone p { font-size: 0.9rem; color: rgba(240,248,255,0.7); }
     .stl-upload-zone .hint { font-size: 0.75rem; opacity: 0.55; margin-top: 0.3rem; }
     .stl-preview-wrap {
-      display: none;
-      margin-top: 1rem;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #020e18;
-      border: 1px solid var(--glass-border);
+      display: none; margin-top: 1rem; border-radius: 12px; overflow: hidden;
+      background: #020e18; border: 1px solid var(--glass-border);
     }
     .stl-preview-wrap.visible { display: block; }
-    #stlViewer {
-      width: 100%;
-      height: 260px;
-      display: block;
-    }
+    #stlViewer { width: 100%; height: 260px; display: block; }
     .stl-file-info {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.7rem 1rem;
-      background: rgba(0,229,255,0.08);
-      font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 1rem; background: rgba(0,229,255,0.08); font-size: 0.85rem;
     }
     .stl-file-info .name { font-weight: 500; color: var(--turquesa); }
     .stl-file-info .size { opacity: 0.65; }
     .stl-file-info button {
-      background: transparent;
-      border: none;
-      color: #ff6b6b;
-      cursor: pointer;
-      font-size: 0.8rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
+      background: transparent; border: none; color: #ff6b6b;
+      cursor: pointer; font-size: 0.8rem; padding: 0.2rem 0.5rem; border-radius: 4px;
     }
-    .stl-file-info button:hover { background: rgba(255,107,107,0.15); }
-    .stl-status {
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
-      color: rgba(240,248,255,0.6);
-    }
+    .stl-status { font-size: 0.8rem; margin-top: 0.5rem; color: rgba(240,248,255,0.6); }
     .stl-status.error { color: #ff6b6b; }
     .stl-status.ok { color: #2dd4a8; }
 
+    /* MASCOTS */
+    .mascots-strip {
+      display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+      margin: 3rem 0 1rem; opacity: 0.9;
+    }
+    .mascots-strip img {
+      height: 90px; transition: var(--trans);
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+    }
+    .mascots-strip img:hover {
+      transform: translateY(-8px) scale(1.08);
+    }
+
+    /* FOOTER */
     footer {
       background: #020e18; padding: 3.5rem 0 1.5rem; border-top: 1px solid var(--glass-border);
     }
@@ -423,6 +488,7 @@
       font-size: 0.85rem; color: rgba(240,248,255,0.45);
     }
 
+    /* MODAL & TOAST */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000;
       display: none; align-items: center; justify-content: center; padding: 1rem;
@@ -449,9 +515,13 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    .dot-pattern {
-      background-image: radial-gradient(rgba(0,229,255,0.07) 1.5px, transparent 1.5px);
-      background-size: 28px 28px;
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
     }
 
     @media (max-width: 900px) {
@@ -478,20 +548,7 @@
   <header id="header">
     <div class="container nav">
       <a href="#" class="logo">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="32" cy="34" rx="26" ry="14" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.5"/>
-          <path d="M12 30 Q32 22 52 30" stroke="#00E5FF" stroke-width="1.2" fill="none" opacity="0.7"/>
-          <path d="M14 34 Q32 28 50 34" stroke="#00E5FF" stroke-width="1.2" fill="none" opacity="0.5"/>
-          <path d="M16 38 Q32 33 48 38" stroke="#00E5FF" stroke-width="1.2" fill="none" opacity="0.35"/>
-          <ellipse cx="14" cy="34" rx="8" ry="10" fill="#041526" stroke="#00E5FF" stroke-width="1.2"/>
-          <circle cx="12" cy="30" r="2.2" fill="#00E5FF"/>
-          <path d="M28 22 L32 12 L36 22" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.2"/>
-          <path d="M48 28 L58 24 L52 34" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.2"/>
-          <circle cx="24" cy="30" r="1.5" fill="#00E5FF" opacity="0.6"/>
-          <circle cx="32" cy="28" r="1.2" fill="#00E5FF" opacity="0.5"/>
-          <circle cx="40" cy="31" r="1.4" fill="#00E5FF" opacity="0.55"/>
-          <circle cx="28" cy="36" r="1.1" fill="#00E5FF" opacity="0.4"/>
-        </svg>
+        <img src="logo.png" alt="Whale Shark 3D Logo" onerror="this.style.display='none'">
         Whale Shark 3D
       </a>
       <ul class="nav-links" id="navLinks">
@@ -503,7 +560,7 @@
         <li><a href="#contacto">Contacto</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="admin-btn" id="adminToggle" title="Modo Administrador" aria-label="Modo Administrador">
+        <button class="admin-btn" id="adminToggle" title="Modo Administrador">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
           </svg>
@@ -522,39 +579,17 @@
     <div class="hero-bg"></div>
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge">
-          <span>🌊</span> Impresión 3D en Arequipa y todo el Perú
-        </div>
+        <div class="hero-badge">🌊 Impresión 3D en Arequipa y todo el Perú</div>
         <h1>Sumérgete en la <span>creación</span></h1>
-        <p>Si puedes imaginarlo, nosotros lo imprimimos en 3D. Precisión de las profundidades, capa por capa. Desde llaveros corporativos hasta dioramas detallados y piezas funcionales.</p>
+        <p>Si puedes imaginarlo, nosotros lo imprimimos en 3D. Precisión de las profundidades, capa por capa.</p>
         <div class="hero-cta">
           <a href="#contacto" class="btn btn-primary">Solicitar cotización</a>
           <a href="#ejemplos" class="btn btn-outline">Ver ejemplos</a>
         </div>
       </div>
     </div>
-    <div class="hero-visual" aria-hidden="true">
-      <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#0A2A43"/>
-            <stop offset="100%" stop-color="#041526"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="200" cy="160" rx="150" ry="70" fill="url(#bodyGrad)" stroke="#00E5FF" stroke-width="2" opacity="0.9"/>
-        <path d="M70 145 Q200 100 330 145" stroke="#00E5FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-        <path d="M80 160 Q200 125 320 160" stroke="#00E5FF" stroke-width="1.5" fill="none" opacity="0.4"/>
-        <path d="M90 175 Q200 150 310 175" stroke="#00E5FF" stroke-width="1.5" fill="none" opacity="0.25"/>
-        <ellipse cx="90" cy="160" rx="45" ry="55" fill="#041526" stroke="#00E5FF" stroke-width="1.5"/>
-        <circle cx="75" cy="140" r="8" fill="#00E5FF"/>
-        <path d="M180 95 L200 40 L220 95" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.5"/>
-        <path d="M300 140 L360 120 L330 175" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.5"/>
-        <circle cx="140" cy="145" r="6" fill="#00E5FF" opacity="0.5"/>
-        <circle cx="180" cy="135" r="5" fill="#00E5FF" opacity="0.45"/>
-        <circle cx="230" cy="148" r="7" fill="#00E5FF" opacity="0.4"/>
-        <circle cx="160" cy="170" r="4" fill="#00E5FF" opacity="0.35"/>
-        <circle cx="250" cy="165" r="5" fill="#00E5FF" opacity="0.4"/>
-      </svg>
+    <div class="hero-visual">
+      <img src="shark.png" alt="Tiburón ballena" onerror="this.style.display='none'">
     </div>
     <div class="wave-divider">
       <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
@@ -565,57 +600,25 @@
 
   <section class="section" id="servicios" style="background: var(--oceano);">
     <div class="container">
-      <h2 class="section-title">Nuestros Servicios</h2>
-      <p class="section-sub">Impresión 3D a medida para particulares, empresas y estudiantes. Calidad profesional, atención personalizada.</p>
+      <h2 class="section-title reveal">Nuestros Servicios</h2>
+      <p class="section-sub reveal">Impresión 3D a medida para particulares, empresas y estudiantes.</p>
       <div class="services-grid">
-        <article class="service-card glass">
-          <div class="service-icon">🎨</div>
-          <h3>Decoraciones personalizadas</h3>
-          <p>Piezas únicas para el hogar, oficina o eventos. Diseños exclusivos según tu idea.</p>
-        </article>
-        <article class="service-card glass">
-          <div class="service-icon">🦸</div>
-          <h3>Figuras y coleccionables</h3>
-          <p>Personajes, miniaturas y figuras de colección con alto detalle y acabados premium.</p>
-        </article>
-        <article class="service-card glass">
-          <div class="service-icon">🔑</div>
-          <h3>Llaveros corporativos</h3>
-          <p>Ideal para empresas y marcas. Lotes desde 10 unidades con logo y colores corporativos.</p>
-        </article>
-        <article class="service-card glass">
-          <div class="service-icon">⚙️</div>
-          <h3>Piezas funcionales y repuestos</h3>
-          <p>Componentes técnicos, engranajes, soportes y repuestos que ya no se fabrican.</p>
-        </article>
-        <article class="service-card glass">
-          <div class="service-icon">🏛️</div>
-          <h3>Maquetas arquitectónicas</h3>
-          <p>Modelos a escala para presentaciones, tesis y proyectos de arquitectura e ingeniería.</p>
-        </article>
-        <article class="service-card glass">
-          <div class="service-icon">🖼️</div>
-          <h3>Dioramas detallados</h3>
-          <p>Escenas completas con múltiples elementos. Perfectos para coleccionistas y regalo.</p>
-        </article>
-        <article class="service-card glass">
-          <div class="service-icon">✂️</div>
-          <h3>Plantillas (stencils)</h3>
-          <p>Plantillas reutilizables para estampados, pintura y trabajos creativos.</p>
-        </article>
-        <article class="service-card glass">
-          <div class="service-icon">🎁</div>
-          <h3>Recuerditos para eventos</h3>
-          <p>Souvenirs personalizados para bodas, cumpleaños, graduaciones y más.</p>
-        </article>
+        <article class="service-card glass reveal"><div class="service-icon">🎨</div><h3>Decoraciones personalizadas</h3><p>Piezas únicas para el hogar, oficina o eventos.</p></article>
+        <article class="service-card glass reveal"><div class="service-icon">🦸</div><h3>Figuras y coleccionables</h3><p>Personajes y miniaturas con alto detalle.</p></article>
+        <article class="service-card glass reveal"><div class="service-icon">🔑</div><h3>Llaveros corporativos</h3><p>Lotes desde 10 unidades con logo y colores de marca.</p></article>
+        <article class="service-card glass reveal"><div class="service-icon">⚙️</div><h3>Piezas funcionales</h3><p>Componentes técnicos, engranajes y repuestos.</p></article>
+        <article class="service-card glass reveal"><div class="service-icon">🏛️</div><h3>Maquetas arquitectónicas</h3><p>Modelos a escala para presentaciones y tesis.</p></article>
+        <article class="service-card glass reveal"><div class="service-icon">🖼️</div><h3>Dioramas detallados</h3><p>Escenas completas con múltiples elementos.</p></article>
+        <article class="service-card glass reveal"><div class="service-icon">✂️</div><h3>Plantillas (stencils)</h3><p>Plantillas reutilizables para estampados.</p></article>
+        <article class="service-card glass reveal"><div class="service-icon">🎁</div><h3>Recuerditos para eventos</h3><p>Souvenirs personalizados para bodas y graduaciones.</p></article>
       </div>
     </div>
   </section>
 
-  <section class="section dot-pattern" id="ejemplos">
+  <section class="section" id="ejemplos">
     <div class="container">
-      <h2 class="section-title">Ejemplos de Impresiones 3D</h2>
-      <p class="section-sub">Algunas de las piezas que fabricamos. Filtra por categoría y cotiza algo similar.</p>
+      <h2 class="section-title reveal">Ejemplos de Impresiones 3D</h2>
+      <p class="section-sub reveal">Algunas de las piezas que fabricamos.</p>
       <div class="filters" id="filters">
         <button class="filter-btn active" data-filter="all">Todos</button>
         <button class="filter-btn" data-filter="decoracion">Decoración</button>
@@ -630,8 +633,8 @@
 
   <section class="section" id="colores" style="background: var(--oceano);">
     <div class="container">
-      <h2 class="section-title">Catálogo de Colores</h2>
-      <p class="section-sub">Filamentos y resinas disponibles. Elige el acabado que mejor se adapte a tu proyecto.</p>
+      <h2 class="section-title reveal">Catálogo de Colores</h2>
+      <p class="section-sub reveal">Elige el acabado que mejor se adapte a tu proyecto.</p>
       <div class="colors-grid" id="colorsGrid"></div>
       <div class="admin-panel glass" id="colorAdminPanel">
         <h3>Agregar nuevo color</h3>
@@ -652,23 +655,15 @@
 
   <section class="section" id="pedidos">
     <div class="container">
-      <h2 class="section-title">Pedidos Realizados</h2>
-      <p class="section-sub">Trabajos entregados a clientes satisfechos en Arequipa y todo el Perú.</p>
+      <h2 class="section-title reveal">Pedidos Realizados</h2>
+      <p class="section-sub reveal">Trabajos entregados a clientes satisfechos.</p>
       <div class="gallery-grid" id="galleryGrid"></div>
       <div class="gallery-admin-form glass" id="galleryAdminForm">
         <h3>Agregar resultado de pedido</h3>
-        <div class="form-row">
-          <input type="text" id="galleryTitle" placeholder="Título del pedido">
-        </div>
-        <div class="form-row">
-          <input type="text" id="galleryDesc" placeholder="Descripción breve">
-        </div>
-        <div class="form-row">
-          <input type="url" id="galleryUrl" placeholder="URL de la imagen (opcional)">
-        </div>
-        <div class="form-row">
-          <input type="file" id="galleryFile" accept="image/*">
-        </div>
+        <div class="form-row"><input type="text" id="galleryTitle" placeholder="Título del pedido"></div>
+        <div class="form-row"><input type="text" id="galleryDesc" placeholder="Descripción breve"></div>
+        <div class="form-row"><input type="url" id="galleryUrl" placeholder="URL de la imagen (opcional)"></div>
+        <div class="form-row"><input type="file" id="galleryFile" accept="image/*"></div>
         <button class="btn btn-primary" id="addGalleryBtn">Agregar a la galería</button>
       </div>
     </div>
@@ -676,18 +671,18 @@
 
   <section class="section" id="envios" style="background: var(--oceano);">
     <div class="container">
-      <h2 class="section-title">Logística y Envíos</h2>
-      <p class="section-sub">Llegamos a todo el Perú con seguridad y puntualidad.</p>
+      <h2 class="section-title reveal">Logística y Envíos</h2>
+      <p class="section-sub reveal">Llegamos a todo el Perú con seguridad y puntualidad.</p>
       <div class="shipping-grid">
-        <article class="shipping-card glass">
+        <article class="shipping-card glass reveal">
           <div class="shipping-icon">📦</div>
           <h3>Envíos a todo el Perú</h3>
-          <p>Trabajamos con agencia <strong>Shalom</strong>. Empaque seguro y seguimiento de tu pedido hasta tu ciudad.</p>
+          <p>Trabajamos con agencia <strong>Shalom</strong>. Empaque seguro y seguimiento.</p>
         </article>
-        <article class="shipping-card glass">
+        <article class="shipping-card glass reveal">
           <div class="shipping-icon">🛵</div>
           <h3>Delivery en Arequipa</h3>
-          <p>Entrega a domicilio en toda la ciudad de Arequipa (AQP). Rápido y confiable para pedidos locales.</p>
+          <p>Entrega a domicilio en toda la ciudad de Arequipa (AQP).</p>
         </article>
       </div>
     </div>
@@ -695,32 +690,23 @@
 
   <section class="section" id="contacto">
     <div class="container">
-      <h2 class="section-title">Contacto y Cotización</h2>
-      <p class="section-sub">Cuéntanos tu idea, sube tu archivo STL y te respondemos con una cotización clara y sin compromiso.</p>
+      <h2 class="section-title reveal">Contacto y Cotización</h2>
+      <p class="section-sub reveal">Cuéntanos tu idea y sube tu archivo STL.</p>
       <div class="contact-grid">
         <div class="contact-info">
           <div class="contact-item glass">
             <div class="icon">💬</div>
-            <div>
-              <strong>WhatsApp</strong><br>
-              <span style="font-size:0.9rem;opacity:0.8">+51 946 013 030</span>
-            </div>
-            <a href="https://wa.me/51946013030?text=Hola%20Whale%20Shark%203D%2C%20quiero%20cotizar%20un%20pedido%20de%20impresi%C3%B3n%203D." target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.85rem;">Abrir</a>
+            <div><strong>WhatsApp</strong><br><span style="font-size:0.9rem;opacity:0.8">+51 946 013 030</span></div>
+            <a href="https://wa.me/51946013030?text=Hola%20Whale%20Shark%203D%2C%20quiero%20cotizar%20un%20pedido." target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.85rem;">Abrir</a>
           </div>
           <div class="contact-item glass">
             <div class="icon">✉️</div>
-            <div>
-              <strong>Correo</strong><br>
-              <span style="font-size:0.9rem;opacity:0.8" id="emailText">whaleshark0511@gmail.com</span>
-            </div>
+            <div><strong>Correo</strong><br><span style="font-size:0.9rem;opacity:0.8">whaleshark0511@gmail.com</span></div>
             <button class="copy-btn" id="copyEmail">Copiar</button>
           </div>
           <div class="contact-item glass">
             <div class="icon">📍</div>
-            <div>
-              <strong>Ubicación</strong><br>
-              <span style="font-size:0.9rem;opacity:0.8">Arequipa, Perú · Envíos nacionales</span>
-            </div>
+            <div><strong>Ubicación</strong><br><span style="font-size:0.9rem;opacity:0.8">Arequipa, Perú</span></div>
           </div>
         </div>
 
@@ -732,19 +718,17 @@
               <option value="Decoraciones">Decoraciones personalizadas</option>
               <option value="Figuras">Figuras y coleccionables</option>
               <option value="Llaveros">Llaveros corporativos</option>
-              <option value="Funcional">Piezas funcionales / repuestos</option>
+              <option value="Funcional">Piezas funcionales</option>
               <option value="Maquetas">Maquetas arquitectónicas</option>
               <option value="Dioramas">Dioramas</option>
-              <option value="Stencils">Plantillas / stencils</option>
-              <option value="Recuerditos">Recuerditos para eventos</option>
+              <option value="Stencils">Plantillas</option>
+              <option value="Recuerditos">Recuerditos</option>
               <option value="Otro">Otro</option>
             </select>
           </div>
           <div>
             <label for="colorSelect">Color preferido</label>
-            <select id="colorSelect">
-              <option value="">Sin preferencia / me asesoras</option>
-            </select>
+            <select id="colorSelect"><option value="">Sin preferencia</option></select>
           </div>
           <div>
             <label for="clientName">Tu nombre</label>
@@ -752,30 +736,25 @@
           </div>
           <div>
             <label for="clientMsg">Detalles del pedido</label>
-            <textarea id="clientMsg" placeholder="Describe lo que necesitas: tamaño aproximado, cantidad, fecha deseada..."></textarea>
+            <textarea id="clientMsg" placeholder="Describe lo que necesitas..."></textarea>
           </div>
-
           <div>
             <label>Archivo STL (opcional)</label>
             <div class="stl-upload-zone" id="stlDropZone">
-              <input type="file" id="stlFile" accept=".stl,model/stl,application/sla,application/vnd.ms-pki.stl">
+              <input type="file" id="stlFile" accept=".stl">
               <div class="upload-icon">📁</div>
-              <p>Arrastra tu archivo <strong>.STL</strong> aquí o haz clic para seleccionarlo</p>
-              <div class="hint">Máx. recomendado 50 MB · Formato binario o ASCII</div>
+              <p>Arrastra tu archivo <strong>.STL</strong> aquí</p>
+              <div class="hint">Máx. 50 MB</div>
             </div>
             <div class="stl-status" id="stlStatus"></div>
             <div class="stl-preview-wrap" id="stlPreviewWrap">
               <canvas id="stlViewer"></canvas>
               <div class="stl-file-info">
-                <div>
-                  <span class="name" id="stlFileName">modelo.stl</span>
-                  <span class="size" id="stlFileSize"> — 0 KB</span>
-                </div>
+                <div><span class="name" id="stlFileName">modelo.stl</span><span class="size" id="stlFileSize"></span></div>
                 <button type="button" id="removeStlBtn">Quitar</button>
               </div>
             </div>
           </div>
-
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Enviar por WhatsApp</button>
             <button type="button" class="btn btn-outline" id="sendEmailBtn">Enviar por correo</button>
@@ -785,20 +764,21 @@
     </div>
   </section>
 
+  <div class="container">
+    <div class="mascots-strip">
+      <img src="mascots.png" alt="Mascotas Whale Shark" style="max-width:100%;height:auto;max-height:160px;object-fit:contain;" onerror="this.style.display='none'">
+    </div>
+  </div>
+
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="logo" style="margin-bottom:0.5rem;">
-            <svg viewBox="0 0 64 64" width="36" height="36" fill="none">
-              <ellipse cx="32" cy="34" rx="26" ry="14" fill="#0A2A43" stroke="#00E5FF" stroke-width="1.5"/>
-              <path d="M12 30 Q32 22 52 30" stroke="#00E5FF" stroke-width="1.2" fill="none" opacity="0.7"/>
-              <ellipse cx="14" cy="34" rx="8" ry="10" fill="#041526" stroke="#00E5FF" stroke-width="1.2"/>
-              <circle cx="12" cy="30" r="2.2" fill="#00E5FF"/>
-            </svg>
+            <img src="logo.png" alt="Logo" style="width:40px;height:40px;border-radius:50%;" onerror="this.style.display='none'">
             Whale Shark 3D
           </div>
-          <p>Impresión 3D personalizada con precisión de las profundidades. Si puedes imaginarlo, nosotros lo imprimimos.</p>
+          <p>Impresión 3D personalizada con precisión de las profundidades.</p>
         </div>
         <div class="footer-col">
           <h4>Navegación</h4>
@@ -806,30 +786,26 @@
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#ejemplos">Ejemplos</a></li>
             <li><a href="#colores">Colores</a></li>
-            <li><a href="#pedidos">Pedidos realizados</a></li>
-            <li><a href="#envios">Envíos</a></li>
             <li><a href="#contacto">Contacto</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Contacto</h4>
           <ul>
-            <li><a href="https://wa.me/51946013030" target="_blank" rel="noopener">WhatsApp: +51 946 013 030</a></li>
+            <li><a href="https://wa.me/51946013030" target="_blank">WhatsApp: +51 946 013 030</a></li>
             <li><a href="mailto:whaleshark0511@gmail.com">whaleshark0511@gmail.com</a></li>
             <li>Arequipa, Perú</li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom">
-        © <span id="year"></span> Whale Shark 3D. Todos los derechos reservados.
-      </div>
+      <div class="footer-bottom">© <span id="year"></span> Whale Shark 3D. Todos los derechos reservados.</div>
     </div>
   </footer>
 
   <div class="modal-overlay" id="adminModal">
     <div class="modal">
       <h3>Modo Administrador</h3>
-      <p style="font-size:0.9rem;opacity:0.7;margin-bottom:1rem;">Ingresa la contraseña para gestionar colores y galería.</p>
+      <p style="font-size:0.9rem;opacity:0.7;margin-bottom:1rem;">Ingresa la contraseña</p>
       <input type="password" id="adminPassword" placeholder="Contraseña" autocomplete="off">
       <div class="modal-actions">
         <button class="btn btn-ghost" id="cancelAdmin">Cancelar</button>
@@ -844,108 +820,79 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
 
   <script>
-    /* ========== ALMACENAMIENTO SEGURO (evita el error de sandbox) ========== */
     const memoryStore = {};
     function safeGet(key) {
-      try {
-        return localStorage.getItem(key);
-      } catch (e) {
-        return memoryStore[key] !== undefined ? memoryStore[key] : null;
-      }
+      try { return localStorage.getItem(key); }
+      catch(e) { return memoryStore[key] !== undefined ? memoryStore[key] : null; }
     }
     function safeSet(key, value) {
-      try {
-        localStorage.setItem(key, value);
-      } catch (e) {
-        memoryStore[key] = value;
-      }
+      try { localStorage.setItem(key, value); }
+      catch(e) { memoryStore[key] = value; }
     }
 
-    /* ========== DATOS INICIALES ========== */
     const DEFAULT_COLORS = [
-      { id: 1, name: "Azul Océano", hex: "#0A2A43", finish: "Mate" },
-      { id: 2, name: "Turquesa Bio", hex: "#00E5FF", finish: "Brillante" },
-      { id: 3, name: "Blanco Espuma", hex: "#F0F8FF", finish: "Mate" },
-      { id: 4, name: "Negro Abisal", hex: "#041526", finish: "Mate" },
-      { id: 5, name: "Rojo Coral", hex: "#E63946", finish: "Brillante" },
-      { id: 6, name: "Verde Alga", hex: "#2A9D8F", finish: "Seda" },
-      { id: 7, name: "Amarillo Sol", hex: "#E9C46A", finish: "Mate" },
-      { id: 8, name: "Transparente", hex: "#A8DADC", finish: "Translúcido" }
+      { id:1, name:"Azul Océano", hex:"#0A2A43", finish:"Mate" },
+      { id:2, name:"Turquesa Bio", hex:"#00E5FF", finish:"Brillante" },
+      { id:3, name:"Blanco Espuma", hex:"#F0F8FF", finish:"Mate" },
+      { id:4, name:"Negro Abisal", hex:"#041526", finish:"Mate" },
+      { id:5, name:"Rojo Coral", hex:"#E63946", finish:"Brillante" },
+      { id:6, name:"Verde Alga", hex:"#2A9D8F", finish:"Seda" },
+      { id:7, name:"Amarillo Sol", hex:"#E9C46A", finish:"Mate" },
+      { id:8, name:"Transparente", hex:"#A8DADC", finish:"Translúcido" }
     ];
 
     const DEFAULT_EXAMPLES = [
-      { id: 1, title: "Llavero logo empresa", cat: "llaveros", time: "2-4 h", material: "PLA", icon: "🔑" },
-      { id: 2, title: "Figura coleccionable", cat: "figuras", time: "8-14 h", material: "Resina", icon: "🦸" },
-      { id: 3, title: "Maceta geométrica", cat: "decoracion", time: "5-8 h", material: "PETG", icon: "🪴" },
-      { id: 4, title: "Soporte para auriculares", cat: "funcional", time: "4-6 h", material: "PETG", icon: "🎧" },
-      { id: 5, title: "Maqueta de edificio", cat: "maquetas", time: "12-20 h", material: "PLA", icon: "🏛️" },
-      { id: 6, title: "Diorama escena marina", cat: "figuras", time: "15-25 h", material: "Resina", icon: "🖼️" },
-      { id: 7, title: "Plantilla para estampado", cat: "decoracion", time: "1-2 h", material: "PLA", icon: "✂️" },
-      { id: 8, title: "Recuerdo de boda", cat: "decoracion", time: "3-5 h", material: "PLA", icon: "💍" }
+      { id:1, title:"Llavero logo empresa", cat:"llaveros", time:"2-4 h", material:"PLA", icon:"🔑" },
+      { id:2, title:"Figura coleccionable", cat:"figuras", time:"8-14 h", material:"Resina", icon:"🦸" },
+      { id:3, title:"Maceta geométrica", cat:"decoracion", time:"5-8 h", material:"PETG", icon:"🪴" },
+      { id:4, title:"Soporte auriculares", cat:"funcional", time:"4-6 h", material:"PETG", icon:"🎧" },
+      { id:5, title:"Maqueta de edificio", cat:"maquetas", time:"12-20 h", material:"PLA", icon:"🏛️" },
+      { id:6, title:"Diorama escena marina", cat:"figuras", time:"15-25 h", material:"Resina", icon:"🖼️" },
+      { id:7, title:"Plantilla estampado", cat:"decoracion", time:"1-2 h", material:"PLA", icon:"✂️" },
+      { id:8, title:"Recuerdo de boda", cat:"decoracion", time:"3-5 h", material:"PLA", icon:"💍" }
     ];
 
     const DEFAULT_GALLERY = [
-      { id: 1, title: "50 llaveros corporativos", desc: "Entregados en Arequipa · Cliente empresa local", icon: "🔑" },
-      { id: 2, title: "Diorama detallado", desc: "Enviado a Lima por Shalom · Coleccionista", icon: "🖼️" },
-      { id: 3, title: "Maquetas para tesis", desc: "3 modelos arquitectónicos · Estudiante UNSA", icon: "🏛️" },
-      { id: 4, title: "Repuestos funcionales", desc: "Piezas técnicas para maquinaria · Delivery AQP", icon: "⚙️" }
+      { id:1, title:"50 llaveros corporativos", desc:"Entregados en Arequipa", icon:"🔑" },
+      { id:2, title:"Diorama detallado", desc:"Enviado a Lima por Shalom", icon:"🖼️" },
+      { id:3, title:"Maquetas para tesis", desc:"Estudiante UNSA", icon:"🏛️" },
+      { id:4, title:"Repuestos funcionales", desc:"Delivery AQP", icon:"⚙️" }
     ];
 
-    // Lectura segura
-    let colors;
-    try {
-      const saved = safeGet("ws3d_colors");
-      colors = saved ? JSON.parse(saved) : DEFAULT_COLORS;
-    } catch (e) {
-      colors = DEFAULT_COLORS;
-    }
-
-    let gallery;
-    try {
-      const saved = safeGet("ws3d_gallery");
-      gallery = saved ? JSON.parse(saved) : DEFAULT_GALLERY;
-    } catch (e) {
-      gallery = DEFAULT_GALLERY;
-    }
-
+    let colors = (() => { try { const s = safeGet("ws3d_colors"); return s ? JSON.parse(s) : DEFAULT_COLORS; } catch { return DEFAULT_COLORS; } })();
+    let gallery = (() => { try { const s = safeGet("ws3d_gallery"); return s ? JSON.parse(s) : DEFAULT_GALLERY; } catch { return DEFAULT_GALLERY; } })();
     let isAdmin = false;
-    try {
-      isAdmin = safeGet("ws3d_admin") === "true";
-    } catch (e) {
-      isAdmin = false;
-    }
-
+    try { isAdmin = safeGet("ws3d_admin") === "true"; } catch {}
     let nextColorId = Math.max(...colors.map(c => c.id), 0) + 1;
     let nextGalleryId = Math.max(...gallery.map(g => g.id), 0) + 1;
-
-    /* ========== ESTADO STL ========== */
     let currentStlFile = null;
-    let stlScene, stlCamera, stlRenderer, stlMesh, stlAnimId;
-    let stlControls = { isDragging: false, previousMouse: { x: 0, y: 0 }, rotation: { x: 0, y: 0 } };
+    let stlScene, stlCamera, stlRenderer, stlMesh;
+    let stlControls = { isDragging: false, previousMouse: {x:0,y:0}, rotation: {x:0,y:0} };
 
     function saveColors() { safeSet("ws3d_colors", JSON.stringify(colors)); }
     function saveGallery() { safeSet("ws3d_gallery", JSON.stringify(gallery)); }
     function showToast(msg) {
       const t = document.getElementById("toast");
-      t.textContent = msg;
-      t.classList.add("show");
+      t.textContent = msg; t.classList.add("show");
       setTimeout(() => t.classList.remove("show"), 2800);
     }
 
     function createBubbles() {
-      const container = document.getElementById("bubbles");
-      for (let i = 0; i < 18; i++) {
+      const c = document.getElementById("bubbles");
+      for (let i = 0; i < 16; i++) {
         const b = document.createElement("div");
         b.className = "bubble";
-        const size = 8 + Math.random() * 28;
-        b.style.width = size + "px";
-        b.style.height = size + "px";
-        b.style.left = Math.random() * 100 + "%";
-        b.style.animationDuration = (12 + Math.random() * 20) + "s";
-        b.style.animationDelay = (Math.random() * 15) + "s";
-        container.appendChild(b);
+        const size = 8 + Math.random() * 26;
+        b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;animation-duration:${12+Math.random()*18}s;animation-delay:${Math.random()*12}s;`;
+        c.appendChild(b);
       }
     }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
     window.addEventListener("scroll", () => {
       document.getElementById("header").classList.toggle("scrolled", window.scrollY > 40);
@@ -954,457 +901,239 @@
     document.getElementById("menuToggle").addEventListener("click", () => {
       document.getElementById("navLinks").classList.toggle("open");
     });
-    document.querySelectorAll(".nav-links a").forEach(a => {
-      a.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open"));
-    });
+    document.querySelectorAll(".nav-links a").forEach(a => a.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open")));
 
-    /* ========== ADMIN ========== */
+    // Admin
     const adminToggle = document.getElementById("adminToggle");
     const adminModal = document.getElementById("adminModal");
-
     function setAdminMode(on) {
       isAdmin = on;
       safeSet("ws3d_admin", on ? "true" : "false");
       document.body.classList.toggle("admin-mode", on);
       adminToggle.classList.toggle("active", on);
-      renderColors();
-      renderGallery();
+      renderColors(); renderGallery();
     }
-
     adminToggle.addEventListener("click", () => {
-      if (isAdmin) {
-        setAdminMode(false);
-        showToast("Modo administrador desactivado");
-      } else {
-        adminModal.classList.add("open");
-        document.getElementById("adminPassword").value = "";
-        document.getElementById("adminPassword").focus();
-      }
+      if (isAdmin) { setAdminMode(false); showToast("Modo administrador desactivado"); }
+      else { adminModal.classList.add("open"); document.getElementById("adminPassword").value = ""; document.getElementById("adminPassword").focus(); }
     });
-
     document.getElementById("cancelAdmin").addEventListener("click", () => adminModal.classList.remove("open"));
     document.getElementById("confirmAdmin").addEventListener("click", () => {
-      if (document.getElementById("adminPassword").value === "admin123") {
-        setAdminMode(true);
-        adminModal.classList.remove("open");
-        showToast("Modo administrador activado");
-      } else {
-        showToast("Contraseña incorrecta");
-      }
+      if (document.getElementById("adminPassword").value === "dinorata2012") {
+        setAdminMode(true); adminModal.classList.remove("open"); showToast("Modo administrador activado");
+      } else showToast("Contraseña incorrecta");
     });
-    document.getElementById("adminPassword").addEventListener("keydown", e => {
-      if (e.key === "Enter") document.getElementById("confirmAdmin").click();
-    });
+    document.getElementById("adminPassword").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("confirmAdmin").click(); });
 
-    /* ========== COLORES ========== */
+    // Colors
     function renderColors() {
-      const grid = document.getElementById("colorsGrid");
-      grid.innerHTML = colors.map(c => `
+      document.getElementById("colorsGrid").innerHTML = colors.map(c => `
         <div class="color-card glass" data-id="${c.id}">
           <div class="color-sphere" style="background:${c.hex}"></div>
           <h4>${c.name}</h4>
           <div class="hex">${c.hex}</div>
           <span class="finish">${c.finish}</span>
           <div class="admin-controls">
-            <button onclick="moveColor(${c.id}, -1)" title="Subir">↑</button>
-            <button onclick="moveColor(${c.id}, 1)" title="Bajar">↓</button>
-            <button onclick="deleteColor(${c.id})" title="Eliminar">✕</button>
+            <button onclick="moveColor(${c.id},-1)">↑</button>
+            <button onclick="moveColor(${c.id},1)">↓</button>
+            <button onclick="deleteColor(${c.id})">✕</button>
           </div>
-        </div>
-      `).join("");
+        </div>`).join("");
       updateColorSelect();
     }
-
     function updateColorSelect() {
       const sel = document.getElementById("colorSelect");
-      const current = sel.value;
-      sel.innerHTML = '<option value="">Sin preferencia / me asesoras</option>' +
-        colors.map(c => `<option value="${c.name}">${c.name} (${c.finish})</option>`).join("");
-      if (current) sel.value = current;
+      const cur = sel.value;
+      sel.innerHTML = '<option value="">Sin preferencia</option>' + colors.map(c => `<option value="${c.name}">${c.name} (${c.finish})</option>`).join("");
+      if (cur) sel.value = cur;
     }
-
-    window.moveColor = function(id, dir) {
+    window.moveColor = (id, dir) => {
       const idx = colors.findIndex(c => c.id === id);
-      const newIdx = idx + dir;
-      if (newIdx < 0 || newIdx >= colors.length) return;
-      [colors[idx], colors[newIdx]] = [colors[newIdx], colors[idx]];
-      saveColors();
-      renderColors();
+      const n = idx + dir;
+      if (n < 0 || n >= colors.length) return;
+      [colors[idx], colors[n]] = [colors[n], colors[idx]];
+      saveColors(); renderColors();
     };
-
-    window.deleteColor = function(id) {
-      if (!confirm("¿Eliminar este color del catálogo?")) return;
-      colors = colors.filter(c => c.id !== id);
-      saveColors();
-      renderColors();
-      showToast("Color eliminado");
+    window.deleteColor = id => {
+      if (!confirm("¿Eliminar este color?")) return;
+      colors = colors.filter(c => c.id !== id); saveColors(); renderColors(); showToast("Color eliminado");
     };
-
     document.getElementById("addColorBtn").addEventListener("click", () => {
       const name = document.getElementById("newColorName").value.trim();
       const hex = document.getElementById("newColorHex").value;
       const finish = document.getElementById("newColorFinish").value;
-      if (!name) { showToast("Escribe un nombre"); return; }
+      if (!name) return showToast("Escribe un nombre");
       colors.push({ id: nextColorId++, name, hex, finish });
-      saveColors();
-      renderColors();
+      saveColors(); renderColors();
       document.getElementById("newColorName").value = "";
       showToast("Color agregado");
     });
 
-    /* ========== EJEMPLOS ========== */
+    // Examples
     function renderExamples(filter = "all") {
-      const grid = document.getElementById("examplesGrid");
       const items = filter === "all" ? DEFAULT_EXAMPLES : DEFAULT_EXAMPLES.filter(e => e.cat === filter);
-      grid.innerHTML = items.map(e => `
-        <article class="example-card glass" data-cat="${e.cat}">
-          <div class="example-img">
-            <span>${e.icon}</span>
-            <span class="badge">${e.cat}</span>
-          </div>
+      document.getElementById("examplesGrid").innerHTML = items.map(e => `
+        <article class="example-card glass">
+          <div class="example-img"><span>${e.icon}</span><span class="badge">${e.cat}</span></div>
           <div class="example-body">
             <h3>${e.title}</h3>
-            <div class="example-meta">
-              <span>⏱ ${e.time}</span>
-              <span>🧵 ${e.material}</span>
-            </div>
-            <a href="#contacto" class="btn btn-outline" style="width:100%;justify-content:center;padding:0.55rem;font-size:0.85rem;"
-               onclick="prefillQuote('${e.title}')">Cotizar algo similar</a>
+            <div class="example-meta"><span>⏱ ${e.time}</span><span>🧵 ${e.material}</span></div>
+            <a href="#contacto" class="btn btn-outline" style="width:100%;justify-content:center;padding:0.55rem;font-size:0.85rem;" onclick="prefillQuote('${e.title}')">Cotizar algo similar</a>
           </div>
-        </article>
-      `).join("");
+        </article>`).join("");
     }
-
     document.getElementById("filters").addEventListener("click", e => {
       if (!e.target.classList.contains("filter-btn")) return;
       document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
       e.target.classList.add("active");
       renderExamples(e.target.dataset.filter);
     });
-
-    window.prefillQuote = function(title) {
+    window.prefillQuote = title => {
       document.getElementById("clientMsg").value = `Me interesa algo similar a: ${title}. `;
-      document.getElementById("projectType").focus();
     };
 
-    /* ========== GALERÍA ========== */
+    // Gallery
     function renderGallery() {
-      const grid = document.getElementById("galleryGrid");
-      grid.innerHTML = gallery.map(g => `
+      document.getElementById("galleryGrid").innerHTML = gallery.map(g => `
         <article class="gallery-card glass">
-          <div class="gallery-img">
-            ${g.img ? `<img src="${g.img}" alt="${g.title}" onerror="this.parentElement.innerHTML='${g.icon || "📦"}'">` : (g.icon || "📦")}
-          </div>
+          <div class="gallery-img">${g.img ? `<img src="${g.img}" alt="${g.title}" onerror="this.parentElement.innerHTML='${g.icon||'📦'}'">` : (g.icon||'📦')}</div>
           <div class="gallery-body">
             <h3>${g.title}</h3>
             <p>${g.desc}</p>
             ${isAdmin ? `<button class="btn btn-ghost" style="margin-top:0.6rem;font-size:0.8rem;padding:0.3rem 0.7rem;" onclick="deleteGallery(${g.id})">Eliminar</button>` : ""}
           </div>
-        </article>
-      `).join("");
+        </article>`).join("");
     }
-
-    window.deleteGallery = function(id) {
-      if (!confirm("¿Eliminar este resultado?")) return;
-      gallery = gallery.filter(g => g.id !== id);
-      saveGallery();
-      renderGallery();
-      showToast("Eliminado de la galería");
+    window.deleteGallery = id => {
+      if (!confirm("¿Eliminar?")) return;
+      gallery = gallery.filter(g => g.id !== id); saveGallery(); renderGallery(); showToast("Eliminado");
     };
-
     document.getElementById("addGalleryBtn").addEventListener("click", () => {
       const title = document.getElementById("galleryTitle").value.trim();
       const desc = document.getElementById("galleryDesc").value.trim();
       const url = document.getElementById("galleryUrl").value.trim();
       const fileInput = document.getElementById("galleryFile");
-      if (!title) { showToast("Escribe un título"); return; }
-
-      const addItem = (imgData) => {
-        gallery.unshift({ id: nextGalleryId++, title, desc: desc || "Pedido entregado", img: imgData || null, icon: "📦" });
-        saveGallery();
-        renderGallery();
+      if (!title) return showToast("Escribe un título");
+      const add = img => {
+        gallery.unshift({ id: nextGalleryId++, title, desc: desc || "Pedido entregado", img: img || null, icon: "📦" });
+        saveGallery(); renderGallery();
         document.getElementById("galleryTitle").value = "";
         document.getElementById("galleryDesc").value = "";
         document.getElementById("galleryUrl").value = "";
         fileInput.value = "";
-        showToast("Agregado a la galería");
+        showToast("Agregado");
       };
-
-      if (fileInput.files && fileInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => addItem(e.target.result);
-        reader.readAsDataURL(fileInput.files[0]);
-      } else {
-        addItem(url || null);
-      }
+      if (fileInput.files?.[0]) {
+        const r = new FileReader();
+        r.onload = e => add(e.target.result);
+        r.readAsDataURL(fileInput.files[0]);
+      } else add(url || null);
     });
 
-    /* ========== VISOR STL ========== */
+    // STL Viewer (simplified)
     function initStlViewer() {
       const canvas = document.getElementById("stlViewer");
       if (!canvas || typeof THREE === "undefined") return;
-
-      const width = canvas.clientWidth || 400;
-      const height = 260;
-
+      const w = canvas.clientWidth || 400, h = 260;
       stlScene = new THREE.Scene();
       stlScene.background = new THREE.Color(0x020e18);
-
-      stlCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 2000);
+      stlCamera = new THREE.PerspectiveCamera(45, w/h, 0.1, 2000);
       stlCamera.position.set(0, 0, 100);
-
-      stlRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-      stlRenderer.setSize(width, height);
-      stlRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-      const ambient = new THREE.AmbientLight(0xffffff, 0.55);
-      stlScene.add(ambient);
-      const dir1 = new THREE.DirectionalLight(0x00e5ff, 0.85);
-      dir1.position.set(1, 1, 1);
-      stlScene.add(dir1);
-      const dir2 = new THREE.DirectionalLight(0xffffff, 0.4);
-      dir2.position.set(-1, -0.5, -1);
-      stlScene.add(dir2);
-
-      canvas.addEventListener("mousedown", e => {
-        stlControls.isDragging = true;
-        stlControls.previousMouse = { x: e.clientX, y: e.clientY };
-      });
-      window.addEventListener("mouseup", () => stlControls.isDragging = false);
-      canvas.addEventListener("mousemove", e => {
-        if (!stlControls.isDragging || !stlMesh) return;
-        const dx = e.clientX - stlControls.previousMouse.x;
-        const dy = e.clientY - stlControls.previousMouse.y;
-        stlControls.rotation.y += dx * 0.01;
-        stlControls.rotation.x += dy * 0.01;
-        stlControls.previousMouse = { x: e.clientX, y: e.clientY };
-      });
-
-      canvas.addEventListener("touchstart", e => {
-        if (e.touches.length === 1) {
-          stlControls.isDragging = true;
-          stlControls.previousMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      stlRenderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      stlRenderer.setSize(w, h);
+      stlScene.add(new THREE.AmbientLight(0xffffff, 0.55));
+      const d1 = new THREE.DirectionalLight(0x00e5ff, 0.85); d1.position.set(1,1,1); stlScene.add(d1);
+      function animate() {
+        requestAnimationFrame(animate);
+        if (stlMesh) {
+          if (!stlControls.isDragging) stlControls.rotation.y += 0.006;
+          stlMesh.rotation.x = stlControls.rotation.x;
+          stlMesh.rotation.y = stlControls.rotation.y;
         }
-      }, { passive: true });
-      canvas.addEventListener("touchmove", e => {
-        if (!stlControls.isDragging || !stlMesh || e.touches.length !== 1) return;
-        const dx = e.touches[0].clientX - stlControls.previousMouse.x;
-        const dy = e.touches[0].clientY - stlControls.previousMouse.y;
-        stlControls.rotation.y += dx * 0.01;
-        stlControls.rotation.x += dy * 0.01;
-        stlControls.previousMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      }, { passive: true });
-      canvas.addEventListener("touchend", () => stlControls.isDragging = false);
-
-      animateStl();
-    }
-
-    function animateStl() {
-      stlAnimId = requestAnimationFrame(animateStl);
-      if (stlMesh) {
-        if (!stlControls.isDragging) {
-          stlControls.rotation.y += 0.006;
-        }
-        stlMesh.rotation.x = stlControls.rotation.x;
-        stlMesh.rotation.y = stlControls.rotation.y;
-      }
-      if (stlRenderer && stlScene && stlCamera) {
         stlRenderer.render(stlScene, stlCamera);
       }
+      animate();
     }
-
     function loadStlFile(file) {
-      if (!file) return;
-      const name = file.name.toLowerCase();
-      if (!name.endsWith(".stl")) {
-        setStlStatus("Solo se aceptan archivos .STL", true);
-        return;
-      }
-      if (file.size > 60 * 1024 * 1024) {
-        setStlStatus("El archivo es demasiado grande (máx. 60 MB recomendado)", true);
-        return;
-      }
-
+      if (!file || !file.name.toLowerCase().endsWith(".stl")) return setStlStatus("Solo archivos .STL", true);
       currentStlFile = file;
       document.getElementById("stlFileName").textContent = file.name;
-      document.getElementById("stlFileSize").textContent = " — " + formatBytes(file.size);
+      document.getElementById("stlFileSize").textContent = " — " + (file.size/1024).toFixed(1) + " KB";
       document.getElementById("stlPreviewWrap").classList.add("visible");
-      setStlStatus("Cargando modelo…", false);
-
+      setStlStatus("Cargando...", false);
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = e => {
         try {
-          if (typeof THREE === "undefined" || !THREE.STLLoader) {
-            setStlStatus("Visor 3D no disponible en este entorno", true);
-            return;
-          }
-          const loader = new THREE.STLLoader();
-          const geometry = loader.parse(e.target.result);
-
-          geometry.computeBoundingBox();
-          const box = geometry.boundingBox;
-          const center = new THREE.Vector3();
-          box.getCenter(center);
-          geometry.translate(-center.x, -center.y, -center.z);
-
-          const size = new THREE.Vector3();
-          box.getSize(size);
-          const maxDim = Math.max(size.x, size.y, size.z);
-          const scale = 60 / maxDim;
-          geometry.scale(scale, scale, scale);
-
-          geometry.computeVertexNormals();
-
-          if (stlMesh) {
-            stlScene.remove(stlMesh);
-            stlMesh.geometry.dispose();
-            stlMesh.material.dispose();
-          }
-
-          const material = new THREE.MeshPhongMaterial({
-            color: 0x00e5ff,
-            specular: 0x111111,
-            shininess: 80,
-            flatShading: false
-          });
-          stlMesh = new THREE.Mesh(geometry, material);
+          const geo = new THREE.STLLoader().parse(e.target.result);
+          geo.computeBoundingBox();
+          const c = new THREE.Vector3(); geo.boundingBox.getCenter(c);
+          geo.translate(-c.x, -c.y, -c.z);
+          const s = new THREE.Vector3(); geo.boundingBox.getSize(s);
+          const scale = 60 / Math.max(s.x, s.y, s.z);
+          geo.scale(scale, scale, scale);
+          geo.computeVertexNormals();
+          if (stlMesh) { stlScene.remove(stlMesh); stlMesh.geometry.dispose(); stlMesh.material.dispose(); }
+          stlMesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0x00e5ff, shininess: 80 }));
           stlScene.add(stlMesh);
-
           stlControls.rotation = { x: -0.3, y: 0.4 };
           stlCamera.position.set(0, 20, 90);
-          stlCamera.lookAt(0, 0, 0);
-
-          setStlStatus("Modelo cargado correctamente. Puedes rotarlo con el ratón.", false, true);
-        } catch (err) {
-          console.error(err);
-          setStlStatus("No se pudo leer el archivo STL. Verifica que sea válido.", true);
-          clearStlPreview();
-        }
-      };
-      reader.onerror = () => {
-        setStlStatus("Error al leer el archivo", true);
-        clearStlPreview();
+          setStlStatus("Modelo cargado. Puedes rotarlo.", false, true);
+        } catch { setStlStatus("Error al leer el STL", true); }
       };
       reader.readAsArrayBuffer(file);
     }
-
     function clearStlPreview() {
       currentStlFile = null;
       document.getElementById("stlFile").value = "";
       document.getElementById("stlPreviewWrap").classList.remove("visible");
       setStlStatus("");
-      if (stlMesh && stlScene) {
-        stlScene.remove(stlMesh);
-        stlMesh.geometry.dispose();
-        stlMesh.material.dispose();
-        stlMesh = null;
-      }
+      if (stlMesh) { stlScene.remove(stlMesh); stlMesh = null; }
     }
-
-    function setStlStatus(msg, isError = false, isOk = false) {
+    function setStlStatus(msg, err=false, ok=false) {
       const el = document.getElementById("stlStatus");
       el.textContent = msg;
-      el.className = "stl-status" + (isError ? " error" : isOk ? " ok" : "");
+      el.className = "stl-status" + (err ? " error" : ok ? " ok" : "");
     }
-
-    function formatBytes(bytes) {
-      if (bytes < 1024) return bytes + " B";
-      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
-      return (bytes / (1024 * 1024)).toFixed(1) + " MB";
-    }
-
-    const stlInput = document.getElementById("stlFile");
-    const dropZone = document.getElementById("stlDropZone");
-
-    stlInput.addEventListener("change", e => {
-      if (e.target.files && e.target.files[0]) loadStlFile(e.target.files[0]);
-    });
-
-    dropZone.addEventListener("dragover", e => {
-      e.preventDefault();
-      dropZone.classList.add("dragover");
-    });
-    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
-    dropZone.addEventListener("drop", e => {
-      e.preventDefault();
-      dropZone.classList.remove("dragover");
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        loadStlFile(e.dataTransfer.files[0]);
-      }
-    });
-
+    document.getElementById("stlFile").addEventListener("change", e => e.target.files[0] && loadStlFile(e.target.files[0]));
     document.getElementById("removeStlBtn").addEventListener("click", clearStlPreview);
+    const drop = document.getElementById("stlDropZone");
+    drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("dragover"); });
+    drop.addEventListener("dragleave", () => drop.classList.remove("dragover"));
+    drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("dragover"); e.dataTransfer.files[0] && loadStlFile(e.dataTransfer.files[0]); });
 
-    const resizeObserver = new ResizeObserver(() => {
-      if (stlRenderer && document.getElementById("stlPreviewWrap").classList.contains("visible")) {
-        const canvas = document.getElementById("stlViewer");
-        const w = canvas.clientWidth;
-        const h = 260;
-        stlCamera.aspect = w / h;
-        stlCamera.updateProjectionMatrix();
-        stlRenderer.setSize(w, h);
-      }
-    });
-    resizeObserver.observe(document.getElementById("stlPreviewWrap"));
-
-    /* ========== FORMULARIO COTIZACIÓN ========== */
+    // Form
     function buildMessage() {
       const type = document.getElementById("projectType").value;
       const color = document.getElementById("colorSelect").value;
       const name = document.getElementById("clientName").value.trim();
       const msg = document.getElementById("clientMsg").value.trim();
-
-      let text = `Hola Whale Shark 3D, soy ${name}.\n\n`;
-      text += `Tipo de proyecto: ${type}\n`;
-      if (color) text += `Color preferido: ${color}\n`;
-      if (msg) text += `\nDetalles:\n${msg}\n`;
-      if (currentStlFile) {
-        text += `\n📎 Tengo un archivo STL listo para enviar: ${currentStlFile.name} (${formatBytes(currentStlFile.size)}).\nPor favor indícame cómo te lo envío.`;
-      }
-      return text;
+      let t = `Hola Whale Shark 3D, soy ${name}.\n\nTipo de proyecto: ${type}\n`;
+      if (color) t += `Color preferido: ${color}\n`;
+      if (msg) t += `\nDetalles:\n${msg}\n`;
+      if (currentStlFile) t += `\n📎 Tengo un archivo STL: ${currentStlFile.name}`;
+      return t;
     }
-
     document.getElementById("quoteForm").addEventListener("submit", e => {
       e.preventDefault();
-      const type = document.getElementById("projectType").value;
-      const name = document.getElementById("clientName").value.trim();
-      if (!type || !name) { showToast("Completa los campos requeridos"); return; }
-
-      const text = encodeURIComponent(buildMessage());
-      window.open(`https://wa.me/51946013030?text=${text}`, "_blank");
+      if (!document.getElementById("projectType").value || !document.getElementById("clientName").value.trim()) return showToast("Completa los campos");
+      window.open(`https://wa.me/51946013030?text=${encodeURIComponent(buildMessage())}`, "_blank");
     });
-
     document.getElementById("sendEmailBtn").addEventListener("click", () => {
-      const type = document.getElementById("projectType").value;
-      const name = document.getElementById("clientName").value.trim();
-      if (!type || !name) { showToast("Completa los campos requeridos"); return; }
-
-      const subject = encodeURIComponent(`Cotización 3D - ${type} - ${name}`);
-      const body = encodeURIComponent(buildMessage());
-      window.location.href = `mailto:whaleshark0511@gmail.com?subject=${subject}&body=${body}`;
+      if (!document.getElementById("projectType").value || !document.getElementById("clientName").value.trim()) return showToast("Completa los campos");
+      window.location.href = `mailto:whaleshark0511@gmail.com?subject=${encodeURIComponent("Cotización 3D")}&body=${encodeURIComponent(buildMessage())}`;
     });
-
     document.getElementById("copyEmail").addEventListener("click", () => {
-      navigator.clipboard.writeText("whaleshark0511@gmail.com").then(() => showToast("Correo copiado"))
-        .catch(() => showToast("No se pudo copiar"));
+      navigator.clipboard.writeText("whaleshark0511@gmail.com").then(() => showToast("Correo copiado")).catch(() => showToast("No se pudo copiar"));
     });
 
-    /* ========== INICIALIZACIÓN ========== */
+    // Init
     document.getElementById("year").textContent = new Date().getFullYear();
     createBubbles();
     renderColors();
     renderExamples();
     renderGallery();
     if (isAdmin) setAdminMode(true);
-
-    // Inicializar visor 3D de forma segura
-    setTimeout(() => {
-      try {
-        initStlViewer();
-      } catch (e) {
-        console.warn("Visor STL no disponible:", e);
-      }
-    }, 150);
+    setTimeout(initStlViewer, 200);
   </script>
 </body>
 </html>
