@@ -1,903 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whale Shark 3D | Impresión 3D de Precisión</title>
-  <meta name="description" content="Impresión 3D profesional en Arequipa y todo el Perú. Figuras, llaveros corporativos, maquetas, piezas funcionales y más.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --deep: #030f1a;
-      --ocean: #0a2744;
-      --teal: #00d4ff;
-      --foam: #f0f7ff;
-      --glass: rgba(8, 32, 58, 0.72);
-      --border: rgba(0, 212, 255, 0.22);
-      --glow: 0 0 40px rgba(0, 212, 255, 0.15);
-      --radius: 18px;
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--deep);
-      color: var(--foam);
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-    h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
-    a { text-decoration: none; color: inherit; }
-    img { max-width: 100%; display: block; }
-    button, input, select, textarea { font-family: inherit; }
-
-    .container { width: min(1180px, 92%); margin-inline: auto; }
-    .btn {
-      display: inline-flex; align-items: center; gap: .55rem;
-      padding: .9rem 1.75rem; border: none; border-radius: 999px;
-      font-weight: 600; font-size: .95rem; cursor: pointer;
-      transition: all .35s var(--ease);
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #00d4ff, #00a8cc);
-      color: #021018;
-      box-shadow: 0 6px 24px rgba(0,212,255,.35);
-    }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,212,255,.45); }
-    .btn-outline {
-      background: transparent; border: 1.5px solid var(--teal); color: var(--teal);
-    }
-    .btn-outline:hover { background: rgba(0,212,255,.12); }
-    .btn-ghost { background: transparent; color: var(--foam); border: 1px solid transparent; }
-    .btn-ghost:hover { border-color: var(--border); background: rgba(0,212,255,.08); }
-
-    .section { padding: 6rem 0; position: relative; }
-    .section-title {
-      font-size: clamp(1.9rem, 4.2vw, 2.7rem);
-      text-align: center; margin-bottom: .6rem;
-    }
-    .section-sub {
-      text-align: center; color: rgba(240,247,255,.68);
-      max-width: 540px; margin: 0 auto 3.2rem; font-size: 1.05rem;
-    }
-
-    /* Glass cards with elegant corner frames */
-    .card {
-      background: var(--glass);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      position: relative;
-      transition: all .4s var(--ease);
-    }
-    .card::before, .card::after {
-      content: ''; position: absolute; width: 16px; height: 16px;
-      border: 1.5px solid var(--teal); opacity: .45; pointer-events: none;
-      transition: all .35s var(--ease);
-    }
-    .card::before { top: 10px; left: 10px; border-right: none; border-bottom: none; border-radius: 3px 0 0 0; }
-    .card::after { bottom: 10px; right: 10px; border-left: none; border-top: none; border-radius: 0 0 3px 0; }
-    .card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,.4); box-shadow: var(--glow); }
-    .card:hover::before, .card:hover::after { opacity: .9; width: 22px; height: 22px; }
-
-    /* Bubbles */
-    .bubbles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    .bubble {
-      position: absolute; bottom: -30px; border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(0,212,255,.3), rgba(0,212,255,.04));
-      animation: rise linear infinite;
-    }
-    @keyframes rise {
-      0% { transform: translateY(0) scale(1); opacity: .55; }
-      100% { transform: translateY(-110vh) scale(1.35); opacity: 0; }
-    }
-
-    /* Header */
-    header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 1rem 0; transition: all .35s ease;
-    }
-    header.scrolled {
-      background: rgba(3,15,26,.94); backdrop-filter: blur(14px);
-      box-shadow: 0 4px 30px rgba(0,0,0,.35);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
-    .logo { display: flex; align-items: center; gap: .75rem; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.15rem; }
-    .logo img {
-      width: 46px; height: 46px; border-radius: 50%; object-fit: cover;
-      box-shadow: 0 0 0 2px var(--teal); transition: all .35s var(--ease);
-    }
-    .logo:hover img { transform: rotate(-6deg) scale(1.06); box-shadow: 0 0 0 3px var(--teal), 0 0 24px rgba(0,212,255,.35); }
-    .nav-links { display: flex; gap: .25rem; list-style: none; }
-    .nav-links a {
-      padding: .5rem .9rem; border-radius: 8px; font-size: .9rem; font-weight: 500;
-      color: rgba(240,247,255,.82); transition: all .25s ease;
-    }
-    .nav-links a:hover { color: var(--teal); background: rgba(0,212,255,.1); }
-    .nav-actions { display: flex; align-items: center; gap: .6rem; }
-    .admin-btn {
-      width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
-      background: var(--glass); color: var(--foam); cursor: pointer; display: grid; place-items: center;
-      transition: all .25s ease;
-    }
-    .admin-btn:hover, .admin-btn.active { border-color: var(--teal); color: var(--teal); }
-    .menu-toggle { display: none; background: none; border: none; color: var(--foam); cursor: pointer; }
-
-    /* Hero */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center;
-      position: relative; padding-top: 90px; overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 90% 60% at 70% 20%, rgba(0,212,255,.08), transparent),
-        radial-gradient(ellipse 70% 50% at 20% 80%, rgba(10,39,68,.6), transparent),
-        linear-gradient(165deg, #030f1a 0%, #0a2744 100%);
-    }
-    .hero-content { position: relative; z-index: 2; max-width: 620px; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: .4rem;
-      padding: .4rem 1rem; border-radius: 999px;
-      background: rgba(0,212,255,.1); border: 1px solid var(--border);
-      font-size: .8rem; font-weight: 500; color: var(--teal); margin-bottom: 1.5rem;
-    }
-    .hero h1 {
-      font-size: clamp(2.5rem, 5.8vw, 3.7rem); line-height: 1.1;
-      margin-bottom: 1.3rem;
-    }
-    .hero h1 span { color: var(--teal); }
-    .hero p { font-size: 1.15rem; color: rgba(240,247,255,.78); margin-bottom: 2.2rem; max-width: 480px; }
-    .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
-    .hero-visual {
-      position: absolute; right: 3%; top: 52%; transform: translateY(-50%);
-      width: min(440px, 42vw); z-index: 1;
-      animation: float 8s ease-in-out infinite;
-    }
-    .hero-visual img {
-      width: 100%; filter: drop-shadow(0 25px 50px rgba(0,212,255,.22));
-    }
-    @keyframes float {
-      0%,100% { transform: translateY(-50%) translateX(0); }
-      50% { transform: translateY(-57%) translateX(10px); }
-    }
-    .wave {
-      position: absolute; left: 0; right: 0; bottom: -2px; width: 100%; line-height: 0; z-index: 5;
-    }
-    .wave svg { width: 100%; height: auto; display: block; }
-
-    /* Services */
-    .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.35rem;
-    }
-    .service-card { padding: 1.9rem 1.5rem; }
-    .service-icon {
-      width: 50px; height: 50px; border-radius: 14px;
-      background: rgba(0,212,255,.12); display: grid; place-items: center;
-      font-size: 1.45rem; margin-bottom: 1.1rem; transition: transform .35s var(--ease);
-    }
-    .service-card:hover .service-icon { transform: scale(1.12) rotate(-5deg); }
-    .service-card h3 { font-size: 1.08rem; margin-bottom: .45rem; }
-    .service-card p { font-size: .9rem; color: rgba(240,247,255,.62); }
-
-    /* Filters + Examples */
-    .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin-bottom: 2.4rem; }
-    .filter-btn {
-      padding: .45rem 1.15rem; border-radius: 999px; border: 1px solid var(--border);
-      background: transparent; color: rgba(240,247,255,.72); font-size: .85rem;
-      font-weight: 500; cursor: pointer; transition: all .25s ease;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--teal); color: #021018; border-color: var(--teal);
-    }
-    .examples-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.5rem;
-    }
-    .example-card { overflow: hidden; }
-    .example-img {
-      height: 190px; background: linear-gradient(145deg, #0a2744, #061a2e);
-      display: grid; place-items: center; position: relative; overflow: hidden;
-    }
-    .example-img img { width: 100%; height: 100%; object-fit: cover; }
-    .example-img .badge {
-      position: absolute; top: 12px; right: 12px;
-      background: rgba(3,15,26,.88); color: var(--teal);
-      font-size: .7rem; font-weight: 600; padding: .25rem .6rem; border-radius: 6px;
-    }
-    .example-body { padding: 1.25rem 1.3rem 1.45rem; }
-    .example-body h3 { font-size: 1.05rem; margin-bottom: .35rem; }
-    .example-meta {
-      display: flex; flex-wrap: wrap; gap: .5rem; margin: .7rem 0 1rem;
-      font-size: .78rem; color: rgba(240,247,255,.55);
-    }
-    .example-meta span {
-      background: rgba(0,212,255,.1); padding: .2rem .55rem; border-radius: 6px;
-    }
-
-    /* Colors */
-    .colors-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 1.15rem;
-    }
-    .color-card { text-align: center; padding: 1.35rem .75rem; }
-    .color-sphere {
-      width: 62px; height: 62px; border-radius: 50%; margin: 0 auto .9rem;
-      box-shadow: inset -5px -5px 12px rgba(0,0,0,.35), 0 4px 14px rgba(0,0,0,.25);
-      border: 2px solid rgba(255,255,255,.12); transition: transform .3s ease;
-    }
-    .color-card:hover .color-sphere { transform: scale(1.12); }
-    .color-card h4 { font-size: .88rem; margin-bottom: .15rem; }
-    .color-card .hex { font-size: .72rem; color: rgba(240,247,255,.48); font-family: monospace; }
-    .color-card .finish {
-      display: inline-block; margin-top: .45rem; font-size: .68rem;
-      padding: .15rem .5rem; border-radius: 4px; background: rgba(0,212,255,.12); color: var(--teal);
-    }
-    .admin-controls { display: none; margin-top: .75rem; gap: .3rem; justify-content: center; }
-    .admin-mode .admin-controls { display: flex; }
-    .admin-controls button {
-      width: 28px; height: 28px; border-radius: 6px; border: none;
-      background: #0a2744; color: var(--foam); cursor: pointer; font-size: .75rem;
-    }
-    .admin-controls button:hover { background: var(--teal); color: #021018; }
-    .admin-panel { display: none; margin-top: 2.2rem; padding: 1.6rem; max-width: 480px; margin-inline: auto; }
-    .admin-mode .admin-panel { display: block; }
-    .admin-panel h3 { margin-bottom: 1rem; font-size: 1.05rem; }
-    .form-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: .85rem; }
-    .form-row input, .form-row select {
-      flex: 1; min-width: 110px; padding: .65rem .9rem; border-radius: 10px;
-      border: 1px solid var(--border); background: rgba(3,15,26,.6); color: var(--foam); font-size: .9rem;
-    }
-    .form-row input[type="color"] { padding: .2rem; height: 42px; cursor: pointer; }
-
-    /* Gallery */
-    .gallery-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem;
-    }
-    .gallery-card { overflow: hidden; }
-    .gallery-img {
-      height: 200px; background: #0a2744; display: grid; place-items: center;
-      font-size: 2.4rem; color: var(--teal); overflow: hidden;
-    }
-    .gallery-img img { width: 100%; height: 100%; object-fit: cover; }
-    .gallery-body { padding: 1.25rem 1.3rem; }
-    .gallery-body h3 { font-size: 1.05rem; margin-bottom: .35rem; }
-    .gallery-body p { font-size: .9rem; color: rgba(240,247,255,.62); }
-    .gallery-admin-form { display: none; margin-top: 2.2rem; padding: 1.6rem; max-width: 520px; margin-inline: auto; }
-    .admin-mode .gallery-admin-form { display: block; }
-
-    /* Shipping */
-    .shipping-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem; max-width: 780px; margin-inline: auto;
-    }
-    .shipping-card { padding: 2.2rem 1.8rem; text-align: center; }
-    .shipping-icon {
-      width: 64px; height: 64px; margin: 0 auto 1.2rem; border-radius: 50%;
-      background: rgba(0,212,255,.12); display: grid; place-items: center; font-size: 1.7rem;
-    }
-
-    /* Contact */
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1.25fr; gap: 2.5rem; align-items: start;
-    }
-    .contact-info { display: flex; flex-direction: column; gap: 1.15rem; }
-    .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1.15rem 1.3rem; }
-    .contact-item .icon {
-      width: 44px; height: 44px; border-radius: 12px; background: rgba(0,212,255,.12);
-      display: grid; place-items: center; font-size: 1.2rem; flex-shrink: 0;
-    }
-    .contact-item .copy-btn {
-      margin-left: auto; padding: .35rem .7rem; font-size: .75rem;
-      border-radius: 6px; border: 1px solid var(--border); background: transparent;
-      color: var(--teal); cursor: pointer;
-    }
-    .contact-form { padding: 1.9rem; display: flex; flex-direction: column; gap: 1rem; }
-    .contact-form label { font-size: .85rem; font-weight: 500; margin-bottom: .3rem; display: block; }
-    .contact-form input, .contact-form select, .contact-form textarea {
-      width: 100%; padding: .75rem 1rem; border-radius: 10px;
-      border: 1px solid var(--border); background: rgba(3,15,26,.5); color: var(--foam); font-size: .95rem;
-    }
-    .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
-      outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,212,255,.12);
-    }
-    .contact-form textarea { resize: vertical; min-height: 100px; }
-    .form-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .4rem; }
-
-    /* STL */
-    .stl-zone {
-      border: 2px dashed var(--border); border-radius: 12px; padding: 1.4rem;
-      text-align: center; cursor: pointer; transition: all .3s ease; background: rgba(3,15,26,.35);
-      position: relative;
-    }
-    .stl-zone:hover, .stl-zone.dragover { border-color: var(--teal); background: rgba(0,212,255,.08); }
-    .stl-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-    .stl-preview { display: none; margin-top: 1rem; border-radius: 12px; overflow: hidden; background: #020c16; border: 1px solid var(--border); }
-    .stl-preview.visible { display: block; }
-    #stlViewer { width: 100%; height: 250px; display: block; }
-    .stl-info {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: .7rem 1rem; background: rgba(0,212,255,.07); font-size: .85rem;
-    }
-    .stl-info .name { font-weight: 500; color: var(--teal); }
-    .stl-status { font-size: .8rem; margin-top: .5rem; color: rgba(240,247,255,.55); }
-    .stl-status.error { color: #ff6b6b; }
-    .stl-status.ok { color: #2dd4a8; }
-
-    /* Mascots */
-    .mascots {
-      display: flex; justify-content: center; margin: 3.5rem 0 1rem;
-    }
-    .mascots img {
-      max-height: 150px; width: auto; opacity: .92;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,.3));
-      transition: transform .4s var(--ease);
-    }
-    .mascots img:hover { transform: translateY(-6px); }
-
-    /* Footer */
-    footer { background: #020a12; padding: 4rem 0 1.6rem; border-top: 1px solid var(--border); }
-    .footer-grid {
-      display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.8rem;
-    }
-    .footer-brand p { color: rgba(240,247,255,.55); font-size: .9rem; margin-top: .9rem; max-width: 280px; }
-    .footer-col h4 { font-size: .92rem; margin-bottom: 1rem; color: var(--teal); }
-    .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: .5rem; }
-    .footer-col a { font-size: .9rem; color: rgba(240,247,255,.6); transition: color .25s; }
-    .footer-col a:hover { color: var(--teal); }
-    .footer-bottom {
-      text-align: center; padding-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.05);
-      font-size: .85rem; color: rgba(240,247,255,.4);
-    }
-
-    /* Modal & Toast */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,.72); z-index: 2000;
-      display: none; align-items: center; justify-content: center; padding: 1rem;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: #0a2744; border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 2rem; max-width: 380px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.5);
-    }
-    .modal h3 { margin-bottom: 1rem; }
-    .modal input {
-      width: 100%; padding: .75rem 1rem; border-radius: 10px; border: 1px solid var(--border);
-      background: #030f1a; color: var(--foam); margin-bottom: 1rem;
-    }
-    .modal-actions { display: flex; gap: .8rem; justify-content: flex-end; }
-    .toast {
-      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(90px);
-      background: #0a2744; border: 1px solid var(--teal); color: var(--foam);
-      padding: .85rem 1.5rem; border-radius: 12px; font-size: .9rem; z-index: 3000;
-      transition: transform .35s var(--ease); box-shadow: 0 10px 40px rgba(0,0,0,.4);
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-
-    /* Reveal */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 900px) {
-      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
-        background: rgba(3,15,26,.97); flex-direction: column; padding: 1rem;
-        border-bottom: 1px solid var(--border); }
-      .nav-links.open { display: flex; }
-      .menu-toggle { display: grid; place-items: center; }
-      .hero-visual { display: none; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-    }
-    @media (max-width: 600px) {
-      .section { padding: 4rem 0; }
-      .hero { min-height: auto; padding: 130px 0 80px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#041827">
+<meta name="description" content="Whale Shark 3D: impresión 3D personalizada en Arequipa y envíos a todo el Perú. Figuras, piezas funcionales, maquetas y regalos personalizados.">
+<meta property="og:title" content="Whale Shark 3D | Ideas que toman forma">
+<meta property="og:description" content="Diseño e impresión 3D con precisión, creatividad y acabado profesional.">
+<title>Whale Shark 3D | Ideas que toman forma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#041827;--bg2:#06283c;--panel:rgba(8,43,62,.78);--panel2:#0a3047;--cyan:#54e4ed;--aqua:#12b9cb;--white:#effaff;--muted:#a9c5d1;--line:rgba(111,225,235,.17);--gold:#f2c879;--shadow:0 24px 80px rgba(0,0,0,.25);--r:22px;--max:1180px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scroll-padding-top:90px}body{font-family:'DM Sans',sans-serif;color:var(--white);background:var(--bg);line-height:1.65;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 82% 8%,rgba(11,137,158,.2),transparent 35%),radial-gradient(ellipse at 8% 55%,rgba(10,74,110,.25),transparent 38%),url('assets/ocean-texture.svg');background-size:auto,auto,700px}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button,input,select,textarea{font:inherit}.wrap{width:min(var(--max),calc(100% - 44px));margin:auto}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--cyan);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.eyebrow:before{content:"";width:24px;height:1px;background:var(--cyan)}.section{padding:104px 0;position:relative}.section.alt{background:linear-gradient(180deg,rgba(6,40,60,.82),rgba(5,30,47,.78));border-block:1px solid rgba(116,223,233,.08)}.heading{max-width:680px;margin-bottom:42px}.heading.center{text-align:center;margin-inline:auto}.heading.center .eyebrow{justify-content:center}.heading h2{font:800 clamp(2rem,4vw,3.25rem)/1.12 Manrope,sans-serif;letter-spacing:-.055em;margin:15px 0}.heading p{color:var(--muted);font-size:1.02rem;max-width:620px}.heading.center p{margin:auto}.accent{color:var(--cyan)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid transparent;border-radius:999px;padding:14px 22px;font-weight:800;font-size:.9rem;cursor:pointer;transition:.25s ease}.btn.primary{color:#03202b;background:linear-gradient(120deg,#72f1e8,#24c5d5);box-shadow:0 10px 32px rgba(38,204,215,.2)}.btn.primary:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(38,204,215,.3)}.btn.ghost{border-color:var(--line);background:rgba(255,255,255,.035);color:var(--white)}.btn.ghost:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(84,228,237,.07)}.btn.small{padding:10px 16px;font-size:.82rem}
+header{position:fixed;inset:0 0 auto;z-index:100;background:rgba(3,20,33,.4);border-bottom:1px solid transparent;backdrop-filter:blur(16px);transition:.25s}header.scrolled{background:rgba(3,20,33,.91);border-color:var(--line)}.nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:12px;font:800 1.02rem Manrope,sans-serif;letter-spacing:-.03em}.brand img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 5px 12px rgba(0,211,225,.2))}.brand small{display:block;font:700 .57rem 'DM Sans';letter-spacing:.22em;color:var(--cyan);margin-top:-3px}.links{display:flex;align-items:center;gap:24px;list-style:none}.links a{font-size:.86rem;color:#c4d9e2;transition:.2s}.links a:hover{color:var(--cyan)}.navright{display:flex;align-items:center;gap:12px}.menu{display:none;background:none;border:1px solid var(--line);color:white;border-radius:12px;padding:9px}
+.hero{min-height:760px;display:flex;align-items:center;padding:145px 0 105px;position:relative;overflow:hidden;background:linear-gradient(110deg,rgba(3,20,33,.98) 0%,rgba(4,29,45,.85) 55%,rgba(4,37,53,.45) 100%)}.hero:after{content:"";position:absolute;inset:auto -10% -150px;height:270px;background:radial-gradient(ellipse,rgba(40,196,209,.18),transparent 67%);pointer-events:none}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:35px;position:relative;z-index:2}.hero h1{font:800 clamp(3rem,6.5vw,5.6rem)/.99 Manrope,sans-serif;letter-spacing:-.075em;max-width:720px;margin:20px 0}.hero h1 span{color:var(--cyan)}.hero-copy>p{color:#bdd2dc;font-size:1.12rem;max-width:550px;margin-bottom:30px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.trust{display:flex;gap:25px;flex-wrap:wrap;margin-top:42px;color:#b4ccd7;font-size:.78rem}.trust span{display:flex;align-items:center;gap:8px}.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}.hero-art{position:relative;min-height:440px;display:grid;place-items:center}.orb{position:absolute;width:min(440px,90%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(76,229,232,.22),rgba(12,93,121,.08) 48%,transparent 70%);border:1px solid rgba(91,221,233,.12);box-shadow:inset 0 0 70px rgba(26,191,211,.07),0 0 90px rgba(19,160,190,.1)}.hero-mascot{width:min(360px,82%);height:400px;object-fit:contain;position:relative;z-index:2;filter:drop-shadow(0 24px 35px rgba(0,0,0,.4));animation:float 6s ease-in-out infinite}.float-tag{position:absolute;z-index:3;padding:12px 16px;border:1px solid var(--line);background:rgba(5,35,51,.82);backdrop-filter:blur(12px);border-radius:15px;font-size:.78rem;color:#d9f7f8;box-shadow:var(--shadow)}.float-tag b{display:block;color:var(--cyan);font-size:.9rem}.tag-one{top:13%;right:0}.tag-two{bottom:13%;left:0}@keyframes float{50%{transform:translateY(-13px) rotate(1deg)}}.scrollhint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.18em;color:#85aab9;text-transform:uppercase}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:rgba(8,42,60,.6);border-radius:20px;margin-top:-1px;position:relative;z-index:4;overflow:hidden}.stat{padding:23px;text-align:center;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat b{display:block;font:800 1.45rem Manrope;color:var(--cyan)}.stat span{font-size:.78rem;color:var(--muted)}
+.grid{display:grid;gap:18px}.services{grid-template-columns:repeat(4,1fr)}.card{background:linear-gradient(145deg,rgba(13,57,77,.75),rgba(5,31,48,.86));border:1px solid var(--line);border-radius:var(--r);padding:26px;position:relative;overflow:hidden;transition:.3s}.card:hover{transform:translateY(-6px);border-color:rgba(84,228,237,.42);box-shadow:0 22px 50px rgba(0,0,0,.18)}.iconbox{width:48px;height:48px;border-radius:15px;background:rgba(84,228,237,.1);border:1px solid rgba(84,228,237,.16);display:grid;place-items:center;color:var(--cyan);font-size:1.35rem;margin-bottom:22px}.card h3{font:750 1.05rem Manrope;margin-bottom:9px}.card p{color:var(--muted);font-size:.88rem}.card .learn{display:inline-flex;color:var(--cyan);font-size:.82rem;font-weight:700;margin-top:18px}
+.process{grid-template-columns:repeat(4,1fr);counter-reset:step}.step{padding:24px 22px;border-top:1px solid var(--line);position:relative}.step:before{counter-increment:step;content:"0" counter(step);font:800 2.4rem Manrope;color:rgba(84,228,237,.35);display:block;margin-bottom:20px}.step h3{font:750 1rem Manrope;margin-bottom:8px}.step p{color:var(--muted);font-size:.87rem}
+.filterbar{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:28px}.filter{border:1px solid var(--line);border-radius:99px;background:transparent;color:#c3d7df;padding:9px 17px;font-size:.8rem;cursor:pointer}.filter.active,.filter:hover{background:var(--cyan);border-color:var(--cyan);color:#03212b;font-weight:800}.products{grid-template-columns:repeat(3,1fr)}.product{padding:0}.product-visual{height:220px;display:grid;place-items:center;background:radial-gradient(circle at 50% 55%,rgba(43,178,195,.18),rgba(6,33,51,.1) 65%);border-bottom:1px solid var(--line);position:relative}.product-visual img{height:190px;width:80%;object-fit:contain;filter:drop-shadow(0 15px 18px rgba(0,0,0,.3))}.product-visual .symbol{font-size:4.2rem;opacity:.8}.product-body{padding:22px}.chips{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.chip{font-size:.68rem;padding:5px 9px;border-radius:7px;background:rgba(84,228,237,.09);color:#a9edf0}.product-body .btn{width:100%;margin-top:8px}
+.materials{grid-template-columns:repeat(4,1fr)}.material{padding:22px}.swatch{height:7px;border-radius:9px;margin-bottom:19px;background:linear-gradient(90deg,#e6e6e6,#7ccbd2)}.material:nth-child(2) .swatch{background:linear-gradient(90deg,#1d6d93,#6ed9e3)}.material:nth-child(3) .swatch{background:linear-gradient(90deg,#8c8c8c,#d7d7d7)}.material:nth-child(4) .swatch{background:linear-gradient(90deg,#f3c56f,#f8e3ae)}.material small{color:var(--cyan);font-weight:800;font-size:.7rem;letter-spacing:.1em}
+.gallery{grid-template-columns:repeat(3,1fr)}.gallery-tile{min-height:230px;display:flex;align-items:flex-end;padding:22px;background:linear-gradient(145deg,rgba(21,116,135,.45),rgba(5,29,45,.96));position:relative}.gallery-tile:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 20%,rgba(91,222,229,.17),transparent 55%)}.gallery-tile>*{position:relative}.gallery-tile .big{position:absolute;top:28px;left:50%;transform:translateX(-50%);font-size:4rem;color:rgba(110,230,235,.78)}.gallery-tile p{font-size:.8rem}
+.quote-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:start}.quote-aside{position:sticky;top:110px}.quote-aside .mascot-side{height:230px;display:grid;place-items:center;margin:18px 0}.mascot-side img{height:230px;object-fit:contain;filter:drop-shadow(0 12px 25px rgba(0,0,0,.3))}.quote-aside li{list-style:none;color:var(--muted);font-size:.88rem;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06)}.quote-aside li:before{content:"✓";color:var(--cyan);font-weight:900;margin-right:10px}.formcard{padding:30px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field.full{grid-column:1/-1}.field label{display:block;font-size:.8rem;font-weight:700;margin-bottom:7px;color:#d4e9ee}.field input,.field select,.field textarea{width:100%;padding:13px 14px;border:1px solid rgba(133,206,216,.2);border-radius:12px;background:#041e30;color:var(--white);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(84,228,237,.1)}.field textarea{min-height:115px;resize:vertical}.field select option{background:#082a40}.filedrop{border:1px dashed rgba(84,228,237,.4);border-radius:14px;padding:18px;text-align:center;background:rgba(84,228,237,.035);color:var(--muted);font-size:.82rem}.filedrop input{margin-top:10px;max-width:100%}.filemeta{color:var(--cyan);font-size:.75rem;margin-top:7px}.formnote{color:#88aab8;font-size:.72rem;margin-top:14px}.formstatus{font-size:.8rem;color:var(--cyan);margin-top:10px}
+.shipping{grid-template-columns:repeat(2,1fr)}.shipping .card{display:flex;align-items:center;gap:20px}.shipping .iconbox{flex-shrink:0;margin:0}.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px}.contact-card{padding:28px}.contact-line{display:flex;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07)}.contact-line:last-child{border:0}.contact-line .iconbox{margin:0;width:42px;height:42px;flex-shrink:0}.contact-line small{display:block;color:var(--muted)}.contact-line strong{font-size:.9rem}.contact-line a{color:var(--cyan)}.contact-cta{margin-top:22px}
+.cta-band{border-radius:28px;padding:44px;background:linear-gradient(110deg,#0b6076,#0b3d58 60%,#08283e);border:1px solid rgba(120,235,237,.25);display:flex;align-items:center;justify-content:space-between;gap:25px;overflow:hidden;position:relative}.cta-band:after{content:"";position:absolute;width:260px;height:260px;border:1px solid rgba(146,240,239,.17);border-radius:50%;right:12%;top:-130px;box-shadow:0 0 0 28px rgba(146,240,239,.03),0 0 0 58px rgba(146,240,239,.025)}.cta-band h2{font:800 clamp(1.6rem,3vw,2.5rem) Manrope;max-width:600px;line-height:1.15}.cta-band p{color:#c2e4e9;margin-top:10px;font-size:.9rem}.cta-band .btn{position:relative;z-index:1;flex-shrink:0}
+footer{padding:58px 0 25px;background:#02121e;border-top:1px solid var(--line)}.footergrid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;padding-bottom:38px}.footerbrand p{max-width:330px;color:var(--muted);font-size:.85rem;margin-top:14px}.footercol h4{font:800 .85rem Manrope;color:var(--cyan);margin-bottom:15px}.footercol a,.footercol p{display:block;color:#9db9c5;font-size:.83rem;margin:8px 0}.copyright{border-top:1px solid rgba(255,255,255,.07);padding-top:20px;color:#71909f;text-align:center;font-size:.74rem}
+.whatsapp{position:fixed;right:22px;bottom:22px;z-index:90;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#21c878;color:#052b20;font-size:1.55rem;box-shadow:0 12px 35px rgba(33,200,120,.3);transition:.2s}.whatsapp:hover{transform:translateY(-4px) scale(1.04)}.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.show{opacity:1;transform:none}
+@media(max-width:980px){.links{gap:13px}.links a{font-size:.78rem}.services,.materials{grid-template-columns:repeat(2,1fr)}.hero-grid{grid-template-columns:1fr  .8fr}.products,.gallery{grid-template-columns:repeat(2,1fr)}.quote-layout{grid-template-columns:.7fr 1.3fr}}
+@media(max-width:760px){.wrap{width:min(var(--max),calc(100% - 30px))}.section{padding:76px 0}.nav{height:72px}.menu{display:block}.links{display:none;position:absolute;top:72px;left:15px;right:15px;padding:16px;background:#052338;border:1px solid var(--line);border-radius:16px;flex-direction:column;align-items:stretch}.links.open{display:flex}.links a{display:block;padding:10px}.navright>.btn{display:none}.hero{min-height:auto;padding:125px 0 75px}.hero-grid{grid-template-columns:1fr}.hero-art{min-height:310px;grid-row:1}.hero-mascot{height:290px}.orb{width:280px}.hero-copy{text-align:center}.hero-copy .eyebrow{justify-content:center}.hero-copy>p{margin-inline:auto}.hero-actions,.trust{justify-content:center}.float-tag{font-size:.68rem}.tag-one{right:4%}.tag-two{left:3%}.scrollhint{display:none}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}.services,.materials{grid-template-columns:repeat(2,1fr)}.products,.gallery{grid-template-columns:1fr 1fr}.quote-layout,.contact-grid{grid-template-columns:1fr}.quote-aside{position:static}.quote-aside .mascot-side{display:none}.shipping{grid-template-columns:1fr}.cta-band{padding:30px;display:block}.cta-band .btn{margin-top:20px}.footergrid{grid-template-columns:1fr 1fr}.footerbrand{grid-column:1/-1}}
+@media(max-width:480px){.hero h1{font-size:3.1rem}.hero-art{min-height:270px}.hero-mascot{height:255px}.services,.materials,.products,.gallery,.process{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.card{padding:22px}.product{padding:0}.footergrid{grid-template-columns:1fr}.footerbrand{grid-column:auto}.trust{gap:12px}.trust span{font-size:.7rem}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
 </head>
 <body>
-  <div class="bubbles" id="bubbles"></div>
-
-  <header id="header">
-    <div class="container nav">
-      <a href="#" class="logo">
-        <img src="logo.png" alt="Whale Shark 3D" onerror="this.style.display='none'">
-        Whale Shark 3D
-      </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#ejemplos">Ejemplos</a></li>
-        <li><a href="#colores">Colores</a></li>
-        <li><a href="#pedidos">Pedidos</a></li>
-        <li><a href="#envios">Envíos</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-      <div class="nav-actions">
-        <button class="admin-btn" id="adminToggle" title="Administrador">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        </button>
-        <a href="#contacto" class="btn btn-primary">Cotizar ahora</a>
-        <button class="menu-toggle" id="menuToggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-      </div>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge">Impresión 3D profesional · Arequipa & Perú</div>
-        <h1>Sumérgete en la <span>creación</span></h1>
-        <p>Si puedes imaginarlo, nosotros lo imprimimos. Precisión de las profundidades, capa por capa.</p>
-        <div class="hero-cta">
-          <a href="#contacto" class="btn btn-primary">Solicitar cotización</a>
-          <a href="#ejemplos" class="btn btn-outline">Ver trabajos</a>
-        </div>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <img src="shark.png" alt="Tiburón ballena" onerror="this.style.display='none'">
-    </div>
-    <div class="wave">
-      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,35 C320,70 640,0 960,35 C1120,55 1280,20 1440,35 L1440,70 L0,70 Z" fill="#0a2744"/></svg>
-    </div>
-  </section>
-
-  <section class="section" id="servicios" style="background:#0a2744">
-    <div class="container">
-      <h2 class="section-title reveal">Nuestros Servicios</h2>
-      <p class="section-sub reveal">Soluciones de impresión 3D para particulares, empresas y estudiantes.</p>
-      <div class="services-grid">
-        <article class="card service-card reveal"><div class="service-icon">🎨</div><h3>Decoraciones</h3><p>Piezas únicas para hogar, oficina y eventos.</p></article>
-        <article class="card service-card reveal"><div class="service-icon">🦸</div><h3>Figuras & Coleccionables</h3><p>Alto detalle en PLA, PETG o resina.</p></article>
-        <article class="card service-card reveal"><div class="service-icon">🔑</div><h3>Llaveros Corporativos</h3><p>Lotes desde 10 unidades con tu marca.</p></article>
-        <article class="card service-card reveal"><div class="service-icon">⚙️</div><h3>Piezas Funcionales</h3><p>Repuestos, engranajes y componentes técnicos.</p></article>
-        <article class="card service-card reveal"><div class="service-icon">🏛️</div><h3>Maquetas</h3><p>Arquitectura, ingeniería y proyectos académicos.</p></article>
-        <article class="card service-card reveal"><div class="service-icon">🖼️</div><h3>Dioramas</h3><p>Escenas detalladas y personalizadas.</p></article>
-        <article class="card service-card reveal"><div class="service-icon">✂️</div><h3>Plantillas</h3><p>Stencils reutilizables para estampados.</p></article>
-        <article class="card service-card reveal"><div class="service-icon">🎁</div><h3>Recuerdos</h3><p>Souvenirs para bodas, graduaciones y eventos.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="ejemplos">
-    <div class="container">
-      <h2 class="section-title reveal">Ejemplos de trabajos</h2>
-      <p class="section-sub reveal">Algunas de las piezas que fabricamos. En modo administrador puedes subir tus propias fotos.</p>
-      <div class="filters" id="filters">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="decoracion">Decoración</button>
-        <button class="filter-btn" data-filter="figuras">Figuras</button>
-        <button class="filter-btn" data-filter="llaveros">Llaveros</button>
-        <button class="filter-btn" data-filter="funcional">Funcional</button>
-        <button class="filter-btn" data-filter="maquetas">Maquetas</button>
-      </div>
-      <div class="examples-grid" id="examplesGrid"></div>
-
-      <div class="admin-panel card" id="exampleAdminPanel" style="display:none;margin-top:2.5rem">
-        <h3>Agregar nuevo ejemplo</h3>
-        <div class="form-row">
-          <input type="text" id="exTitle" placeholder="Título del trabajo">
-          <select id="exCat">
-            <option value="decoracion">Decoración</option>
-            <option value="figuras">Figuras</option>
-            <option value="llaveros">Llaveros</option>
-            <option value="funcional">Funcional</option>
-            <option value="maquetas">Maquetas</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <input type="text" id="exTime" placeholder="Tiempo (ej. 4-6 h)">
-          <input type="text" id="exMaterial" placeholder="Material (PLA, PETG...)">
-        </div>
-        <div class="form-row">
-          <input type="file" id="exFile" accept="image/*">
-        </div>
-        <button class="btn btn-primary" id="addExampleBtn">Agregar ejemplo</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="colores" style="background:#0a2744">
-    <div class="container">
-      <h2 class="section-title reveal">Catálogo de Colores</h2>
-      <p class="section-sub reveal">Filamentos y resinas disponibles.</p>
-      <div class="colors-grid" id="colorsGrid"></div>
-      <div class="admin-panel card" id="colorAdminPanel">
-        <h3>Agregar color</h3>
-        <div class="form-row">
-          <input type="text" id="newColorName" placeholder="Nombre">
-          <input type="color" id="newColorHex" value="#00d4ff">
-          <select id="newColorFinish">
-            <option>Mate</option><option>Brillante</option><option>Seda</option><option>Translúcido</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" id="addColorBtn">Agregar</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="pedidos">
-    <div class="container">
-      <h2 class="section-title reveal">Pedidos realizados</h2>
-      <p class="section-sub reveal">Trabajos entregados a clientes reales.</p>
-      <div class="gallery-grid" id="galleryGrid"></div>
-      <div class="gallery-admin-form card" id="galleryAdminForm">
-        <h3>Agregar pedido entregado</h3>
-        <div class="form-row"><input type="text" id="galleryTitle" placeholder="Título"></div>
-        <div class="form-row"><input type="text" id="galleryDesc" placeholder="Descripción breve"></div>
-        <div class="form-row"><input type="file" id="galleryFile" accept="image/*"></div>
-        <button class="btn btn-primary" id="addGalleryBtn">Agregar</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="envios" style="background:#0a2744">
-    <div class="container">
-      <h2 class="section-title reveal">Logística y Envíos</h2>
-      <p class="section-sub reveal">Llegamos a todo el Perú.</p>
-      <div class="shipping-grid">
-        <article class="card shipping-card reveal">
-          <div class="shipping-icon">📦</div>
-          <h3>Envíos a todo el Perú</h3>
-          <p>Agencia Shalom. Empaque seguro y seguimiento completo.</p>
-        </article>
-        <article class="card shipping-card reveal">
-          <div class="shipping-icon">🛵</div>
-          <h3>Delivery en Arequipa</h3>
-          <p>Entrega a domicilio en toda la ciudad de Arequipa (AQP).</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="contacto">
-    <div class="container">
-      <h2 class="section-title reveal">Contacto y Cotización</h2>
-      <p class="section-sub reveal">Cuéntanos tu idea. También puedes subir tu archivo STL.</p>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="card contact-item">
-            <div class="icon">💬</div>
-            <div><strong>WhatsApp</strong><br><span style="opacity:.75;font-size:.9rem">+51 946 013 030</span></div>
-            <a href="https://wa.me/51946013030?text=Hola%20Whale%20Shark%203D%2C%20quiero%20cotizar." target="_blank" class="btn btn-primary" style="padding:.5rem 1rem;font-size:.85rem">Abrir</a>
-          </div>
-          <div class="card contact-item">
-            <div class="icon">✉️</div>
-            <div><strong>Correo</strong><br><span style="opacity:.75;font-size:.9rem">whaleshark0511@gmail.com</span></div>
-            <button class="copy-btn" id="copyEmail">Copiar</button>
-          </div>
-          <div class="card contact-item">
-            <div class="icon">📍</div>
-            <div><strong>Ubicación</strong><br><span style="opacity:.75;font-size:.9rem">Arequipa, Perú</span></div>
-          </div>
-        </div>
-
-        <form class="card contact-form" id="quoteForm">
-          <div>
-            <label>Tipo de proyecto</label>
-            <select id="projectType" required>
-              <option value="">Selecciona</option>
-              <option>Decoraciones</option><option>Figuras</option><option>Llaveros</option>
-              <option>Funcional</option><option>Maquetas</option><option>Dioramas</option>
-              <option>Plantillas</option><option>Recuerdos</option><option>Otro</option>
-            </select>
-          </div>
-          <div>
-            <label>Color preferido</label>
-            <select id="colorSelect"><option value="">Sin preferencia</option></select>
-          </div>
-          <div>
-            <label>Tu nombre</label>
-            <input type="text" id="clientName" required placeholder="Nombre completo">
-          </div>
-          <div>
-            <label>Detalles</label>
-            <textarea id="clientMsg" placeholder="Describe lo que necesitas..."></textarea>
-          </div>
-          <div>
-            <label>Archivo STL (opcional)</label>
-            <div class="stl-zone" id="stlZone">
-              <input type="file" id="stlFile" accept=".stl">
-              <div style="font-size:1.8rem;margin-bottom:.4rem">📁</div>
-              <p style="font-size:.9rem;opacity:.7">Arrastra tu .STL o haz clic</p>
-            </div>
-            <div class="stl-status" id="stlStatus"></div>
-            <div class="stl-preview" id="stlPreview">
-              <canvas id="stlViewer"></canvas>
-              <div class="stl-info">
-                <span class="name" id="stlName"></span>
-                <button type="button" id="removeStl" style="background:none;border:none;color:#ff6b6b;cursor:pointer">Quitar</button>
-              </div>
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Enviar por WhatsApp</button>
-            <button type="button" class="btn btn-outline" id="sendEmail">Enviar por correo</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <div class="container">
-    <div class="mascots">
-      <img src="mascots.png" alt="Equipo Whale Shark" onerror="this.style.display='none'">
-    </div>
-  </div>
-
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo" style="margin-bottom:.6rem">
-            <img src="logo.png" alt="Logo" style="width:40px;height:40px;border-radius:50%" onerror="this.style.display='none'">
-            Whale Shark 3D
-          </div>
-          <p>Impresión 3D de precisión. Si puedes imaginarlo, nosotros lo hacemos realidad.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Navegación</h4>
-          <ul>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#ejemplos">Ejemplos</a></li>
-            <li><a href="#colores">Colores</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Contacto</h4>
-          <ul>
-            <li><a href="https://wa.me/51946013030" target="_blank">+51 946 013 030</a></li>
-            <li><a href="mailto:whaleshark0511@gmail.com">whaleshark0511@gmail.com</a></li>
-            <li>Arequipa, Perú</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">© <span id="year"></span> Whale Shark 3D. Todos los derechos reservados.</div>
-    </div>
-  </footer>
-
-  <div class="modal-overlay" id="adminModal">
-    <div class="modal">
-      <h3>Modo Administrador</h3>
-      <p style="font-size:.9rem;opacity:.65;margin-bottom:1rem">Ingresa la contraseña</p>
-      <input type="password" id="adminPass" placeholder="Contraseña" autocomplete="off">
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="cancelAdmin">Cancelar</button>
-        <button class="btn btn-primary" id="confirmAdmin">Entrar</button>
-      </div>
-    </div>
-  </div>
-  <div class="toast" id="toast"></div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
-  <script>
-    const mem = {};
-    const get = k => { try { return localStorage.getItem(k); } catch { return mem[k] ?? null; } };
-    const set = (k,v) => { try { localStorage.setItem(k,v); } catch { mem[k]=v; } };
-
-    const DEFAULT_COLORS = [
-      {id:1,name:"Azul Océano",hex:"#0a2744",finish:"Mate"},
-      {id:2,name:"Turquesa",hex:"#00d4ff",finish:"Brillante"},
-      {id:3,name:"Blanco Espuma",hex:"#f0f7ff",finish:"Mate"},
-      {id:4,name:"Negro Abisal",hex:"#030f1a",finish:"Mate"},
-      {id:5,name:"Rojo Coral",hex:"#e63946",finish:"Brillante"},
-      {id:6,name:"Verde Alga",hex:"#2a9d8f",finish:"Seda"},
-      {id:7,name:"Amarillo Sol",hex:"#e9c46a",finish:"Mate"},
-      {id:8,name:"Transparente",hex:"#a8dadc",finish:"Translúcido"}
-    ];
-    const DEFAULT_EXAMPLES = [
-      {id:1,title:"Llavero corporativo",cat:"llaveros",time:"2-4 h",material:"PLA",icon:"🔑",img:null},
-      {id:2,title:"Figura coleccionable",cat:"figuras",time:"8-14 h",material:"Resina",icon:"🦸",img:null},
-      {id:3,title:"Maceta geométrica",cat:"decoracion",time:"5-8 h",material:"PETG",icon:"🪴",img:null},
-      {id:4,title:"Soporte auriculares",cat:"funcional",time:"4-6 h",material:"PETG",icon:"🎧",img:null},
-      {id:5,title:"Maqueta arquitectónica",cat:"maquetas",time:"12-20 h",material:"PLA",icon:"🏛️",img:null},
-      {id:6,title:"Diorama marino",cat:"figuras",time:"15-25 h",material:"Resina",icon:"🖼️",img:null}
-    ];
-    const DEFAULT_GALLERY = [
-      {id:1,title:"50 llaveros corporativos",desc:"Entregados en Arequipa",icon:"🔑",img:null},
-      {id:2,title:"Diorama detallado",desc:"Enviado a Lima por Shalom",icon:"🖼️",img:null},
-      {id:3,title:"Maquetas de tesis",desc:"Estudiante UNSA",icon:"🏛️",img:null}
-    ];
-
-    let colors = (()=>{try{const s=get("ws_colors");return s?JSON.parse(s):DEFAULT_COLORS}catch{return DEFAULT_COLORS}})();
-    let examples = (()=>{try{const s=get("ws_examples");return s?JSON.parse(s):DEFAULT_EXAMPLES}catch{return DEFAULT_EXAMPLES}})();
-    let gallery = (()=>{try{const s=get("ws_gallery");return s?JSON.parse(s):DEFAULT_GALLERY}catch{return DEFAULT_GALLERY}})();
-    let isAdmin = false;
-    try{isAdmin=get("ws_admin")==="true"}catch{}
-    let nextEx=Math.max(...examples.map(e=>e.id),0)+1;
-    let nextCol=Math.max(...colors.map(c=>c.id),0)+1;
-    let nextGal=Math.max(...gallery.map(g=>g.id),0)+1;
-    let stlFile=null, stlMesh, stlScene, stlCam, stlRen;
-    let stlRot={x:0,y:0}, dragging=false, prev={x:0,y:0};
-
-    const toast = m => { const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2800); };
-    const save = () => { set("ws_colors",JSON.stringify(colors)); set("ws_examples",JSON.stringify(examples)); set("ws_gallery",JSON.stringify(gallery)); };
-
-    // Bubbles
-    (()=>{ const c=document.getElementById("bubbles"); for(let i=0;i<14;i++){ const b=document.createElement("div"); b.className="bubble"; const s=7+Math.random()*24; b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${11+Math.random()*16}s;animation-delay:${Math.random()*10}s`; c.appendChild(b); } })();
-
-    // Reveal
-    const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:.1});
-    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
-
-    window.addEventListener("scroll",()=>document.getElementById("header").classList.toggle("scrolled",scrollY>50));
-    document.getElementById("menuToggle").onclick=()=>document.getElementById("navLinks").classList.toggle("open");
-    document.querySelectorAll(".nav-links a").forEach(a=>a.onclick=()=>document.getElementById("navLinks").classList.remove("open"));
-
-    // Admin
-    const setAdmin = on => {
-      isAdmin=on; set("ws_admin",on?"true":"false");
-      document.body.classList.toggle("admin-mode",on);
-      document.getElementById("adminToggle").classList.toggle("active",on);
-      document.getElementById("exampleAdminPanel").style.display=on?"block":"none";
-      renderColors(); renderExamples(); renderGallery();
-    };
-    document.getElementById("adminToggle").onclick=()=>{
-      if(isAdmin){setAdmin(false);toast("Admin desactivado")}
-      else{document.getElementById("adminModal").classList.add("open");document.getElementById("adminPass").value="";document.getElementById("adminPass").focus()}
-    };
-    document.getElementById("cancelAdmin").onclick=()=>document.getElementById("adminModal").classList.remove("open");
-    document.getElementById("confirmAdmin").onclick=()=>{
-      if(document.getElementById("adminPass").value==="dinorata2012"){setAdmin(true);document.getElementById("adminModal").classList.remove("open");toast("Admin activado")}
-      else toast("Contraseña incorrecta");
-    };
-    document.getElementById("adminPass").onkeydown=e=>{if(e.key==="Enter")document.getElementById("confirmAdmin").click()};
-
-    // Colors
-    function renderColors(){
-      document.getElementById("colorsGrid").innerHTML=colors.map(c=>`
-        <div class="card color-card">
-          <div class="color-sphere" style="background:${c.hex}"></div>
-          <h4>${c.name}</h4><div class="hex">${c.hex}</div>
-          <span class="finish">${c.finish}</span>
-          <div class="admin-controls">
-            <button onclick="moveCol(${c.id},-1)">↑</button>
-            <button onclick="moveCol(${c.id},1)">↓</button>
-            <button onclick="delCol(${c.id})">✕</button>
-          </div>
-        </div>`).join("");
-      const sel=document.getElementById("colorSelect"); const cur=sel.value;
-      sel.innerHTML='<option value="">Sin preferencia</option>'+colors.map(c=>`<option value="${c.name}">${c.name}</option>`).join("");
-      if(cur)sel.value=cur;
-    }
-    window.moveCol=(id,d)=>{const i=colors.findIndex(c=>c.id===id);const n=i+d;if(n<0||n>=colors.length)return;[colors[i],colors[n]]=[colors[n],colors[i]];save();renderColors()};
-    window.delCol=id=>{if(!confirm("¿Eliminar?"))return;colors=colors.filter(c=>c.id!==id);save();renderColors();toast("Eliminado")};
-    document.getElementById("addColorBtn").onclick=()=>{
-      const name=document.getElementById("newColorName").value.trim();
-      if(!name)return toast("Nombre requerido");
-      colors.push({id:nextCol++,name,hex:document.getElementById("newColorHex").value,finish:document.getElementById("newColorFinish").value});
-      save();renderColors();document.getElementById("newColorName").value="";toast("Color agregado");
-    };
-
-    // Examples (now fully editable with images)
-    function renderExamples(filter="all"){
-      const list=filter==="all"?examples:examples.filter(e=>e.cat===filter);
-      document.getElementById("examplesGrid").innerHTML=list.map(e=>`
-        <article class="card example-card">
-          <div class="example-img">
-            ${e.img?`<img src="${e.img}" alt="${e.title}">`:`<span style="font-size:2.8rem">${e.icon||'📦'}</span>`}
-            <span class="badge">${e.cat}</span>
-          </div>
-          <div class="example-body">
-            <h3>${e.title}</h3>
-            <div class="example-meta"><span>⏱ ${e.time||'—'}</span><span>🧵 ${e.material||'—'}</span></div>
-            <a href="#contacto" class="btn btn-outline" style="width:100%;justify-content:center;padding:.55rem;font-size:.85rem" onclick="prefill('${e.title}')">Cotizar similar</a>
-            ${isAdmin?`<button class="btn btn-ghost" style="width:100%;margin-top:.5rem;font-size:.8rem;padding:.3rem" onclick="delEx(${e.id})">Eliminar</button>`:''}
-          </div>
-        </article>`).join("");
-    }
-    window.prefill=t=>{document.getElementById("clientMsg").value=`Me interesa algo similar a: ${t}. `};
-    window.delEx=id=>{if(!confirm("¿Eliminar ejemplo?"))return;examples=examples.filter(e=>e.id!==id);save();renderExamples();toast("Eliminado")};
-    document.getElementById("filters").onclick=e=>{
-      if(!e.target.classList.contains("filter-btn"))return;
-      document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
-      e.target.classList.add("active");
-      renderExamples(e.target.dataset.filter);
-    };
-    document.getElementById("addExampleBtn").onclick=()=>{
-      const title=document.getElementById("exTitle").value.trim();
-      if(!title)return toast("Título requerido");
-      const file=document.getElementById("exFile").files[0];
-      const add=img=>{
-        examples.unshift({id:nextEx++,title,cat:document.getElementById("exCat").value,time:document.getElementById("exTime").value||"—",material:document.getElementById("exMaterial").value||"—",icon:"📦",img});
-        save();renderExamples();
-        document.getElementById("exTitle").value="";document.getElementById("exTime").value="";document.getElementById("exMaterial").value="";document.getElementById("exFile").value="";
-        toast("Ejemplo agregado");
-      };
-      if(file){const r=new FileReader();r.onload=e=>add(e.target.result);r.readAsDataURL(file)}else add(null);
-    };
-
-    // Gallery
-    function renderGallery(){
-      document.getElementById("galleryGrid").innerHTML=gallery.map(g=>`
-        <article class="card gallery-card">
-          <div class="gallery-img">${g.img?`<img src="${g.img}" alt="${g.title}">`:(g.icon||'📦')}</div>
-          <div class="gallery-body">
-            <h3>${g.title}</h3><p>${g.desc}</p>
-            ${isAdmin?`<button class="btn btn-ghost" style="margin-top:.5rem;font-size:.8rem;padding:.3rem .7rem" onclick="delGal(${g.id})">Eliminar</button>`:''}
-          </div>
-        </article>`).join("");
-    }
-    window.delGal=id=>{if(!confirm("¿Eliminar?"))return;gallery=gallery.filter(g=>g.id!==id);save();renderGallery();toast("Eliminado")};
-    document.getElementById("addGalleryBtn").onclick=()=>{
-      const title=document.getElementById("galleryTitle").value.trim();
-      if(!title)return toast("Título requerido");
-      const file=document.getElementById("galleryFile").files[0];
-      const add=img=>{
-        gallery.unshift({id:nextGal++,title,desc:document.getElementById("galleryDesc").value||"Pedido entregado",icon:"📦",img});
-        save();renderGallery();
-        document.getElementById("galleryTitle").value="";document.getElementById("galleryDesc").value="";document.getElementById("galleryFile").value="";
-        toast("Agregado");
-      };
-      if(file){const r=new FileReader();r.onload=e=>add(e.target.result);r.readAsDataURL(file)}else add(null);
-    };
-
-    // STL
-    function initSTL(){
-      const canvas=document.getElementById("stlViewer"); if(!canvas||!window.THREE)return;
-      const w=canvas.clientWidth||400,h=250;
-      stlScene=new THREE.Scene(); stlScene.background=new THREE.Color(0x020c16);
-      stlCam=new THREE.PerspectiveCamera(45,w/h,0.1,2000); stlCam.position.set(0,0,100);
-      stlRen=new THREE.WebGLRenderer({canvas,antialias:true}); stlRen.setSize(w,h);
-      stlScene.add(new THREE.AmbientLight(0xffffff,0.55));
-      const d=new THREE.DirectionalLight(0x00d4ff,0.9); d.position.set(1,1,1); stlScene.add(d);
-      (function anim(){requestAnimationFrame(anim); if(stlMesh){if(!dragging)stlRot.y+=0.006; stlMesh.rotation.x=stlRot.x; stlMesh.rotation.y=stlRot.y} stlRen.render(stlScene,stlCam)})();
-    }
-    function loadSTL(file){
-      if(!file.name.toLowerCase().endsWith(".stl"))return setStatus("Solo .STL",true);
-      stlFile=file; document.getElementById("stlName").textContent=file.name;
-      document.getElementById("stlPreview").classList.add("visible"); setStatus("Cargando...");
-      const r=new FileReader();
-      r.onload=e=>{
-        try{
-          const geo=new THREE.STLLoader().parse(e.target.result);
-          geo.computeBoundingBox(); const c=new THREE.Vector3(); geo.boundingBox.getCenter(c); geo.translate(-c.x,-c.y,-c.z);
-          const s=new THREE.Vector3(); geo.boundingBox.getSize(s); const sc=55/Math.max(s.x,s.y,s.z); geo.scale(sc,sc,sc); geo.computeVertexNormals();
-          if(stlMesh){stlScene.remove(stlMesh);stlMesh.geometry.dispose();stlMesh.material.dispose()}
-          stlMesh=new THREE.Mesh(geo,new THREE.MeshPhongMaterial({color:0x00d4ff,shininess:80}));
-          stlScene.add(stlMesh); stlRot={x:-0.25,y:0.4}; stlCam.position.set(0,15,85);
-          setStatus("Listo. Puedes rotarlo.",false,true);
-        }catch{setStatus("Error al leer STL",true)}
-      };
-      r.readAsArrayBuffer(file);
-    }
-    function setStatus(m,err,ok){const el=document.getElementById("stlStatus");el.textContent=m;el.className="stl-status"+(err?" error":ok?" ok":"")}
-    document.getElementById("stlFile").onchange=e=>e.target.files[0]&&loadSTL(e.target.files[0]);
-    document.getElementById("removeStl").onclick=()=>{stlFile=null;document.getElementById("stlFile").value="";document.getElementById("stlPreview").classList.remove("visible");setStatus("");if(stlMesh){stlScene.remove(stlMesh);stlMesh=null}};
-    const zone=document.getElementById("stlZone");
-    zone.ondragover=e=>{e.preventDefault();zone.classList.add("dragover")};
-    zone.ondragleave=()=>zone.classList.remove("dragover");
-    zone.ondrop=e=>{e.preventDefault();zone.classList.remove("dragover");e.dataTransfer.files[0]&&loadSTL(e.dataTransfer.files[0])};
-
-    // Form
-    function msg(){
-      let t=`Hola Whale Shark 3D, soy ${document.getElementById("clientName").value.trim()}.\n\nTipo: ${document.getElementById("projectType").value}\n`;
-      const col=document.getElementById("colorSelect").value; if(col)t+=`Color: ${col}\n`;
-      const m=document.getElementById("clientMsg").value.trim(); if(m)t+=`\nDetalles:\n${m}\n`;
-      if(stlFile)t+=`\n📎 Archivo STL: ${stlFile.name}`;
-      return t;
-    }
-    document.getElementById("quoteForm").onsubmit=e=>{
-      e.preventDefault();
-      if(!document.getElementById("projectType").value||!document.getElementById("clientName").value.trim())return toast("Completa los campos");
-      window.open(`https://wa.me/51946013030?text=${encodeURIComponent(msg())}`,"_blank");
-    };
-    document.getElementById("sendEmail").onclick=()=>{
-      if(!document.getElementById("projectType").value||!document.getElementById("clientName").value.trim())return toast("Completa los campos");
-      location.href=`mailto:whaleshark0511@gmail.com?subject=Cotización%203D&body=${encodeURIComponent(msg())}`;
-    };
-    document.getElementById("copyEmail").onclick=()=>navigator.clipboard.writeText("whaleshark0511@gmail.com").then(()=>toast("Copiado")).catch(()=>toast("Error"));
-
-    // Init
-    document.getElementById("year").textContent=new Date().getFullYear();
-    renderColors(); renderExamples(); renderGallery();
-    if(isAdmin)setAdmin(true);
-    setTimeout(initSTL,300);
-  </script>
-</body>
-</html>
+<header id="header"><div class="wrap nav">
+<a class="brand" href="#inicio"><img src="assets/mascota-02.png" alt=""><span>WHALE SHARK 3D<small>CREAMOS EN OTRA DIMENSIÓN</small></span></a>
+<ul class="links" id="links"><li><a href="#servicios">Servicios</a></li><li><a href="#proceso">Cómo trabajamos</a></li><li><a href="#catalogo">Catálogo</a></li><li><a href="#materiales">Materiales</a></li><li><a href="#cotizar">Cotizar</a></li><li><a href="#contacto">Contacto</a></li></ul>
+<div class="navright"><a class="btn primary small" href="#cotizar">Cotiza tu idea ↗</a><button class="menu" id="menu" aria-label="Abrir menú">☰</button></div>
+</div></header>
+<main>
+<section class="hero" id="inicio"><div class="wrap hero-grid">
+<div class="hero-copy">
+<div class="eyebrow">Impresión 3D · Arequipa, Perú</div>
+<h1>Ideas que toman <span>forma.</span></h1>
+<p>Convertimos tus ideas en objetos reales. Diseño, personalización e impresión 3D con atención al detalle, desde una pieza única hasta proyectos para tu negocio.</p>
+<div class="hero-actions"><a class="btn primary" href="#cotizar">Cuéntanos tu proyecto <span>↗</span></a><a class="btn ghost" href="#catalogo">Explorar catálogo</a></div>
+<div class="trust"><span><i class="dot"></i> Atención personalizada</span><span><i class="dot"></i> Arequipa y todo el Perú</span><span><i class="dot"></i> Diseños a medida</span></div>
+</div>
+<div class="hero-art"><div class="orb"></div><img class="hero-mascot" src="assets/mascota-01.png" alt="Mascota tiburón ballena de Whale Shark 3D"><div class="float-tag tag-one"><b>Precisión</b>capa por capa</div><div class="float-tag tag-two"><b>Tu idea</b>hecha realidad</div></div>
+</div><div class="scrollhint">Explora · Desliza hacia abajo</div></section>
+<div class="wrap"><div class="stats reveal"><div class="stat"><b>A medida</b><span>Personalización real</span></div><div class="stat"><b>3D</b><span>Fabricación por capas</span></div><div class="stat"><b>Arequipa</b><span>Atención local</span></div><div class="stat"><b>Perú</b><span>Envíos nacionales</span></div></div></div>
+<section class="section" id="servicios"><div class="wrap">
+<div class="heading center reveal"><div class="eyebrow">Qué podemos crear</div><h2>Soluciones para cada <span class="accent">idea</span></h2><p>Desde objetos decorativos hasta componentes funcionales: damos forma a proyectos personales, académicos y empresariales.</p></div>
+<div class="grid services">
+<article class="card reveal"><div class="iconbox">✦</div><h3>Figuras y coleccionables</h3><p>Personajes, miniaturas, bustos y piezas para colecciones con acabados cuidados.</p><a class="learn" href="#cotizar">Crear una figura →</a></article>
+<article class="card reveal"><div class="iconbox">⌂</div><h3>Decoración y regalos</h3><p>Adornos, organizadores, macetas y detalles personalizados para ocasiones especiales.</p><a class="learn" href="#cotizar">Personalizar un objeto →</a></article>
+<article class="card reveal"><div class="iconbox">⚙</div><h3>Piezas funcionales</h3><p>Soportes, adaptadores, repuestos y prototipos pensados para resolver necesidades.</p><a class="learn" href="#cotizar">Fabricar una pieza →</a></article>
+<article class="card reveal"><div class="iconbox">⌘</div><h3>Maquetas y proyectos</h3><p>Modelos arquitectónicos, prototipos educativos y piezas para presentaciones.</p><a class="learn" href="#cotizar">Desarrollar un proyecto →</a></article>
+<article class="card reveal"><div class="iconbox">◇</div><h3>Llaveros y merchandising</h3><p>Artículos con identidad de marca para eventos, empresas, promociones y equipos.</p><a class="learn" href="#cotizar">Cotizar un lote →</a></article>
+<article class="card reveal"><div class="iconbox">◎</div><h3>Dioramas y mini escenarios</h3><p>Escenas temáticas y composiciones que convierten una idea en una pieza especial.</p><a class="learn" href="#cotizar">Diseñar una escena →</a></article>
+<article class="card reveal"><div class="iconbox">✎</div><h3>Diseño y prototipado</h3><p>Te ayudamos a aterrizar una idea y preparar un modelo para su fabricación.</p><a class="learn" href="#cotizar">Consultar diseño →</a></article>
+<article class="card reveal"><div class="iconbox">▣</div><h3>Plantillas y accesorios</h3><p>Stencils, herramientas auxiliares y accesorios personalizados para tu actividad.</p><a class="learn" href="#cotizar">Solicitar accesorio →</a></article>
+</div></div></section>
+<section class="section alt" id="proceso"><div class="wrap"><div class="heading reveal"><div class="eyebrow">Simple y transparente</div><h2>Del concepto a tus <span class="accent">manos</span></h2><p>Te acompañamos en cada etapa para que sepas qué esperar antes de iniciar la fabricación.</p></div>
+<div class="grid process"><div class="step reveal"><h3>Nos cuentas tu idea</h3><p>Comparte una referencia, medidas, imagen o archivo 3D.</p></div><div class="step reveal"><h3>Evaluamos y cotizamos</h3><p>Revisamos tamaño, material, complejidad y plazo estimado.</p></div><div class="step reveal"><h3>Fabricamos</h3><p>Preparamos la pieza y realizamos la impresión y revisión.</p></div><div class="step reveal"><h3>Coordinamos la entrega</h3><p>Recogida o envío según tu ubicación y el tipo de pedido.</p></div></div>
+</div></section>
+<section class="section" id="catalogo"><div class="wrap"><div class="heading center reveal"><div class="eyebrow">Inspiración</div><h2>Un océano de <span class="accent">posibilidades</span></h2><p>Estas son algunas categorías de referencia. Cada pedido se cotiza según sus características y personalización.</p></div>
+<div class="filterbar" id="filters"><button class="filter active" data-filter="all">Todo</button><button class="filter" data-filter="figuras">Figuras</button><button class="filter" data-filter="decoracion">Decoración</button><button class="filter" data-filter="funcional">Funcional</button><button class="filter" data-filter="empresa">Empresas</button><button class="filter" data-filter="maquetas">Maquetas</button></div>
+<div class="grid products" id="products">
+<article class="card product reveal" data-cat="figuras"><div class="product-visual"><span class="symbol">♜</span></div><div class="product-body"><h3>Figuras personalizadas</h3><p>Personajes, miniaturas y piezas de colección.</p><div class="chips"><span class="chip">A medida</span><span class="chip">Detalle</span></div><button class="btn ghost small choose" data-name="Figura personalizada">Cotizar similar</button></div></article>
+<article class="card product reveal" data-cat="decoracion"><div class="product-visual"><span class="symbol">❋</span></div><div class="product-body"><h3>Decoración y hogar</h3><p>Objetos útiles y decorativos para tus espacios.</p><div class="chips"><span class="chip">Diseño único</span><span class="chip">Varios colores</span></div><button class="btn ghost small choose" data-name="Decoración y hogar">Cotizar similar</button></div></article>
+<article class="card product reveal" data-cat="funcional"><div class="product-visual"><span class="symbol">⚙</span></div><div class="product-body"><h3>Repuestos y soportes</h3><p>Componentes funcionales y adaptadores.</p><div class="chips"><span class="chip">Prototipos</span><span class="chip">Uso práctico</span></div><button class="btn ghost small choose" data-name="Pieza funcional o repuesto">Cotizar similar</button></div></article>
+<article class="card product reveal" data-cat="empresa"><div class="product-visual"><span class="symbol">◇</span></div><div class="product-body"><h3>Llaveros corporativos</h3><p>Merchandising con el nombre o identidad de tu marca.</p><div class="chips"><span class="chip">Por lote</span><span class="chip">Personalizable</span></div><button class="btn ghost small choose" data-name="Llaveros corporativos">Cotizar similar</button></div></article>
+<article class="card product reveal" data-cat="maquetas"><div class="product-visual"><span class="symbol">⌂</span></div><div class="product-body"><h3>Maquetas y modelos</h3><p>Modelos de arquitectura, ingeniería y educación.</p><div class="chips"><span class="chip">Académico</span><span class="chip">Prototipado</span></div><button class="btn ghost small choose" data-name="Maqueta o modelo">Cotizar similar</button></div></article>
+<article class="card product reveal" data-cat="decoracion"><div class="product-visual"><span class="symbol">✧</span></div><div class="product-body"><h3>Recuerdos y regalos</h3><p>Detalles para celebraciones y fechas especiales.</p><div class="chips"><span class="chip">Eventos</span><span class="chip">Personalizado</span></div><button class="btn ghost small choose" data-name="Recuerdos o regalos">Cotizar similar</button></div></article>
+</div></div></section>
+<section class="section alt" id="materiales"><div class="wrap"><div class="heading reveal"><div class="eyebrow">Acabados y opciones</div><h2>El material adecuado para cada <span class="accent">proyecto</span></h2><p>La disponibilidad, resistencia y acabado dependen del equipo y del material seleccionado. Te orientamos para elegir.</p></div>
+<div class="grid materials"><article class="card material reveal"><div class="swatch"></div><small>01 · VERSÁTIL</small><h3>PLA</h3><p>Ideal para figuras, decoración, prototipos y objetos de uso general.</p></article><article class="card material reveal"><div class="swatch"></div><small>02 · RESISTENTE</small><h3>PETG</h3><p>Una opción para piezas que requieren mayor tenacidad y resistencia.</p></article><article class="card material reveal"><div class="swatch"></div><small>03 · DETALLE</small><h3>Resina</h3><p>Para modelos pequeños que requieren definición y superficies detalladas, si está disponible.</p></article><article class="card material reveal"><div class="swatch"></div><small>04 · ACABADO</small><h3>Colores y efectos</h3><p>Consulta tonos, acabados mate, brillantes, seda o translúcidos disponibles.</p></article></div>
+<p class="formnote" style="margin-top:18px">Nota: no todos los materiales o acabados están disponibles para cada tipo de impresión. La selección final se confirma al cotizar.</p>
+</div></section>
+<section class="section"><div class="wrap"><div class="heading center reveal"><div class="eyebrow">Hecho para ti</div><h2>La atención también importa</h2><p>Queremos que tu experiencia sea tan buena como el resultado final.</p></div><div class="grid gallery"><article class="card gallery-tile reveal"><div class="big">◈</div><div><h3>Atención personalizada</h3><p>Hablamos contigo para entender el uso y los detalles de tu pieza.</p></div></article><article class="card gallery-tile reveal"><div class="big">⌁</div><div><h3>Revisión antes de fabricar</h3><p>Evaluamos el archivo o referencia para evitar sorpresas.</p></div></article><article class="card gallery-tile reveal"><div class="big">✧</div><div><h3>Proyectos únicos</h3><p>Adaptamos dimensiones, colores y cantidades según viabilidad.</p></div></article></div></div></section>
+<section class="section alt" id="envios"><div class="wrap"><div class="heading center reveal"><div class="eyebrow">Llegamos a más lugares</div><h2>Desde Arequipa hacia <span class="accent">todo el Perú</span></h2><p>Coordinamos la modalidad de entrega según tu ubicación y las características del pedido.</p></div><div class="grid shipping"><article class="card reveal"><div class="iconbox">⌖</div><div><h3>Arequipa</h3><p>Coordinación de recojo o delivery según zona y disponibilidad.</p></div></article><article class="card reveal"><div class="iconbox">▣</div><div><h3>Envíos nacionales</h3><p>Podemos coordinar el despacho mediante agencia, como Shalom, sujeto a cobertura y confirmación.</p></div></article></div></div></section>
+<section class="section" id="cotizar"><div class="wrap"><div class="heading center reveal"><div class="eyebrow">Empecemos tu proyecto</div><h2>Cuéntanos qué quieres <span class="accent">crear</span></h2><p>Completa los datos y prepara un mensaje para enviarlo directamente a nuestro WhatsApp.</p></div>
+<div class="quote-layout"><aside class="quote-aside reveal"><div class="eyebrow">Tu idea merece forma</div><h3 style="font:800 1.5rem Manrope;margin-top:12px">Estamos listos para sumergirnos en tu proyecto.</h3><div class="mascot-side"><img src="assets/mascota-08.png" alt="Mascota Whale Shark 3D con pulgar arriba"></div><ul><li>Describe el uso y las medidas aproximadas.</li><li>Adjunta imágenes de referencia si las tienes.</li><li>Si tienes un STL, podemos revisarlo.</li><li>Te responderemos para coordinar los detalles.</li></ul></aside>
+<form class="card formcard reveal" id="quoteForm">
+<div class="formgrid">
+<div class="field"><label for="name">Tu nombre *</label><input id="name" required maxlength="80" placeholder="Nombre y apellido"></div>
+<div class="field"><label for="phone">Tu teléfono (opcional)</label><input id="phone" type="tel" placeholder="Ej. 9XX XXX XXX"></div>
+<div class="field"><label for="type">Tipo de proyecto *</label><select id="type" required><option value="">Selecciona una opción</option><option>Figura o coleccionable</option><option>Decoración o regalo</option><option>Pieza funcional o repuesto</option><option>Llaveros corporativos</option><option>Maqueta o proyecto académico</option><option>Diorama</option><option>Diseño / prototipo</option><option>Otro</option></select></div>
+<div class="field"><label for="quantity">Cantidad aproximada</label><select id="quantity"><option>No lo sé todavía</option><option>1 unidad</option><option>2 a 5 unidades</option><option>6 a 20 unidades</option><option>Más de 20 unidades</option></select></div>
+<div class="field"><label for="material">Material preferido</label><select id="material"><option>Necesito asesoría</option><option>PLA</option><option>PETG</option><option>Resina (consultar disponibilidad)</option></select></div>
+<div class="field"><label for="color">Color o acabado</label><input id="color" placeholder="Ej. azul, negro mate, translúcido..."></div>
+<div class="field full"><label for="details">Cuéntanos los detalles *</label><textarea id="details" required placeholder="¿Qué necesitas fabricar? Medidas, uso, referencias, fecha deseada..."></textarea></div>
+<div class="field full"><label>Archivo 3D STL (opcional)</label><div class="filedrop">Adjunta tu archivo STL para indicar su nombre en la solicitud.<br><input type="file" id="stl" accept=".stl,model/stl"><div class="filemeta" id="filemeta">Ningún archivo seleccionado</div></div></div>
+<div class="field full"><button class="btn primary" type="submit" style="width:100%">Preparar pedido por WhatsApp ↗</button><p class="formnote">Importante: el formulario abre WhatsApp con los datos escritos. El archivo STL no se adjunta automáticamente; tendrás que enviarlo en el chat. No se realiza ningún pago desde esta web.</p><div class="formstatus" id="status" aria-live="polite"></div></div>
+</div></form></div></div></section>
+<section class="section" id="contacto"><div class="wrap"><div class="cta-band reveal"><div><h2>¿Tienes una idea dando vueltas en tu cabeza?</h2><p>Hablemos y encontremos la mejor forma de fabricarla.</p></div><a class="btn primary" href="https://wa.me/51946013030?text=Hola%20Whale%20Shark%203D%2C%20quiero%20consultar%20por%20un%20proyecto." target="_blank" rel="noopener">Hablar por WhatsApp ↗</a></div>
+<div class="heading" style="margin-top:70px"><div class="eyebrow">Estamos aquí para ayudarte</div><h2>Conecta con <span class="accent">Whale Shark 3D</span></h2><p>Escríbenos para consultas, cotizaciones o coordinación de entregas.</p></div>
+<div class="contact-grid"><div class="card contact-card"><div class="contact-line"><div class="iconbox">☏</div><div><strong>WhatsApp</strong><small><a href="https://wa.me/51946013030" target="_blank" rel="noopener">+51 946 013 030</a></small></div></div><div class="contact-line"><div class="iconbox">✉</div><div><strong>Correo electrónico</strong><small><a href="mailto:whaleshark0511@gmail.com">whaleshark0511@gmail.com</a></small></div></div><div class="contact-line"><div class="iconbox">⌖</div><div><strong>Ubicación</strong><small>Arequipa, Perú</small></div></div><a class="btn primary contact-cta" href="https://wa.me/51946013030" target="_blank" rel="noopener">Enviar un mensaje ↗</a></div>
+<div class="card contact-card"><div class="eyebrow">Whale Shark 3D</div><h3 style="font:800 1.55rem Manrope;margin:15px 0">Creatividad con precisión, una capa a la vez.</h3><p style="color:var(--muted)">Diseñamos y fabricamos objetos que conectan tecnología, imaginación y utilidad. Gracias por considerar nuestro trabajo para tu próximo proyecto.</p><img src="assets/mascota-12.png" alt="Mascota Whale Shark 3D trabajando con una pieza" style="height:155px;object-fit:contain;margin:15px auto 0"></div></div>
+</div></section>
+</main>
+<footer><div class="wrap"><div class="footergrid"><div class="footerbrand"><a class="brand" href="#inicio"><img src="assets/mascota-02.png" alt=""><span>WHALE SHARK 3D<small>CREAMOS EN OTRA DIMENSIÓN</small></span></a><p>Impresión 3D personalizada en Arequipa. Ideas que toman forma, capa por capa.</p></div><div class="footercol"><h4>Explora</h4><a href="#servicios">Servicios</a><a href="#proceso">Cómo trabajamos</a><a href="#catalogo">Catálogo</a><a href="#materiales">Materiales</a></div><div class="footercol"><h4>Contacto</h4><a href="https://wa.me/51946013030">+51 946 013 030</a><a href="mailto:whaleshark0511@gmail.com">whaleshark0511@gmail.com</a><p>Arequipa, Perú</p></div></div><div class="copyright">© <span id="year"></span> Whale Shark 3D. Todos los derechos reservados.</div></div></footer>
+<a class="whatsapp" href="https://wa.me/51946013030?text=Hola%20Whale%20Shark%203D" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">✆</a>
+<script>
+const header=document.getElementById('header');window.addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>25));
+const menu=document.getElementById('menu'),links=document.getElementById('links');menu.addEventListener('click',()=>links.classList.toggle('open'));links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.product').forEach(card=>{card.style.display=b.dataset.filter==='all'||card.dataset.filter===b.dataset.filter?'':'none'})});
+document.querySelectorAll('.choose').forEach(b=>b.addEventListener('click',()=>{document.getElementById('type').value=b.dataset.name;document.getElementById('details').value='Me interesa cotizar algo similar a: '+b.dataset.name+'. ';document.getElementById('cotizar').scrollIntoView({behavior:'smooth'})}));
+const stl=document.getElementById('stl');stl.addEventListener('change',()=>{const f=stl.files[0];document.getElementById('filemeta').textContent=f?`${f.name} · ${(f.size/1024/1024).toFixed(2)} MB`:'Ningún archivo seleccionado';if(f&&f.size>25*1024*1024){document.getElementById('filemeta').textContent='Archivo grande. Consulta antes de enviarlo.'}});
+document.getElementById('quoteForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('name').value.trim(),type=document.getElementById('type').value,details=document.getElementById('details').value.trim(),f=stl.files[0];if(!name||!type||!details)return;const text=`Hola Whale Shark 3D, quiero solicitar una cotización.%0A%0ANombre: ${encodeURIComponent(name)}%0ATeléfono: ${encodeURIComponent(document.getElementById('phone').value)}%0AProyecto: ${encodeURIComponent(type)}%0ACantidad: ${encodeURIComponent(document.getElementById('quantity').value)}%0AMaterial: ${encodeURIComponent(document.getElementById('material').value)}%0AColor/acabado: ${encodeURIComponent(document.getElementById('color').value||'Por definir')}%0ADetalles: ${encodeURIComponent(details)}${f?`%0AArchivo STL: ${encodeURIComponent(f.name)} (lo adjuntaré en el chat)`:''}`;document.getElementById('status').textContent='Abriendo WhatsApp… Recuerda adjuntar el STL manualmente si seleccionaste uno.';window.open('https://wa.me/51946013030?text='+text,'_blank','noopener')});
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body></html>
