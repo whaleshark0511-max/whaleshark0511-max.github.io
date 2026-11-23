@@ -3,542 +3,397 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whale Shark 3D | Impresión 3D Personalizada</title>
-  <meta name="description" content="Impresión 3D personalizada en Arequipa y todo el Perú. Decoraciones, figuras, llaveros, maquetas y más.">
+  <title>Whale Shark 3D | Impresión 3D de Precisión</title>
+  <meta name="description" content="Impresión 3D profesional en Arequipa y todo el Perú. Figuras, llaveros corporativos, maquetas, piezas funcionales y más.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --abisal: #041526;
-      --oceano: #0A2A43;
-      --turquesa: #00E5FF;
-      --espuma: #F0F8FF;
-      --turquesa-dim: rgba(0, 229, 255, 0.15);
-      --glass: rgba(10, 42, 67, 0.65);
-      --glass-border: rgba(0, 229, 255, 0.25);
-      --sombra: 0 8px 32px rgba(0, 0, 0, 0.35);
-      --radio: 16px;
-      --trans: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --deep: #030f1a;
+      --ocean: #0a2744;
+      --teal: #00d4ff;
+      --foam: #f0f7ff;
+      --glass: rgba(8, 32, 58, 0.72);
+      --border: rgba(0, 212, 255, 0.22);
+      --glow: 0 0 40px rgba(0, 212, 255, 0.15);
+      --radius: 18px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      background: var(--abisal);
-      color: var(--espuma);
-      line-height: 1.6;
+      background: var(--deep);
+      color: var(--foam);
+      line-height: 1.65;
       overflow-x: hidden;
     }
-    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+    h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
     button, input, select, textarea { font-family: inherit; }
 
-    .container { width: min(1200px, 92%); margin-inline: auto; }
+    .container { width: min(1180px, 92%); margin-inline: auto; }
     .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.85rem 1.6rem; border: none; border-radius: 999px;
-      font-weight: 600; font-size: 0.95rem; cursor: pointer;
-      transition: var(--trans); position: relative; overflow: hidden;
+      display: inline-flex; align-items: center; gap: .55rem;
+      padding: .9rem 1.75rem; border: none; border-radius: 999px;
+      font-weight: 600; font-size: .95rem; cursor: pointer;
+      transition: all .35s var(--ease);
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--turquesa), #00b8d4);
-      color: var(--abisal); box-shadow: 0 4px 20px rgba(0, 229, 255, 0.35);
+      background: linear-gradient(135deg, #00d4ff, #00a8cc);
+      color: #021018;
+      box-shadow: 0 6px 24px rgba(0,212,255,.35);
     }
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0, 229, 255, 0.5);
-    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,212,255,.45); }
     .btn-outline {
-      background: transparent; border: 1.5px solid var(--turquesa);
-      color: var(--turquesa);
+      background: transparent; border: 1.5px solid var(--teal); color: var(--teal);
     }
-    .btn-outline:hover { background: var(--turquesa-dim); }
-    .btn-ghost { background: transparent; color: var(--espuma); border: 1px solid transparent; }
-    .btn-ghost:hover { border-color: var(--glass-border); background: var(--turquesa-dim); }
+    .btn-outline:hover { background: rgba(0,212,255,.12); }
+    .btn-ghost { background: transparent; color: var(--foam); border: 1px solid transparent; }
+    .btn-ghost:hover { border-color: var(--border); background: rgba(0,212,255,.08); }
 
-    .section { padding: 5rem 0; position: relative; }
+    .section { padding: 6rem 0; position: relative; }
     .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.6rem); text-align: center;
-      margin-bottom: 0.5rem; letter-spacing: -0.02em;
-      background: linear-gradient(90deg, var(--espuma), var(--turquesa), var(--espuma));
-      background-size: 200% auto;
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 6s ease infinite;
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% center; }
-      50% { background-position: 100% center; }
-      100% { background-position: 0% center; }
+      font-size: clamp(1.9rem, 4.2vw, 2.7rem);
+      text-align: center; margin-bottom: .6rem;
     }
     .section-sub {
-      text-align: center; color: rgba(240, 248, 255, 0.7);
-      max-width: 560px; margin: 0 auto 3rem; font-size: 1.05rem;
+      text-align: center; color: rgba(240,247,255,.68);
+      max-width: 540px; margin: 0 auto 3.2rem; font-size: 1.05rem;
     }
-    .glass {
-      background: var(--glass); backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border); border-radius: var(--radio);
+
+    /* Glass cards with elegant corner frames */
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       position: relative;
+      transition: all .4s var(--ease);
     }
+    .card::before, .card::after {
+      content: ''; position: absolute; width: 16px; height: 16px;
+      border: 1.5px solid var(--teal); opacity: .45; pointer-events: none;
+      transition: all .35s var(--ease);
+    }
+    .card::before { top: 10px; left: 10px; border-right: none; border-bottom: none; border-radius: 3px 0 0 0; }
+    .card::after { bottom: 10px; right: 10px; border-left: none; border-top: none; border-radius: 0 0 3px 0; }
+    .card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,.4); box-shadow: var(--glow); }
+    .card:hover::before, .card:hover::after { opacity: .9; width: 22px; height: 22px; }
 
-    /* Marcos decorativos en esquinas */
-    .glass::before, .glass::after {
-      content: '';
-      position: absolute;
-      width: 18px; height: 18px;
-      border: 2px solid var(--turquesa);
-      opacity: 0.5;
-      transition: var(--trans);
-      pointer-events: none;
-    }
-    .glass::before {
-      top: 8px; left: 8px;
-      border-right: none; border-bottom: none;
-      border-radius: 4px 0 0 0;
-    }
-    .glass::after {
-      bottom: 8px; right: 8px;
-      border-left: none; border-top: none;
-      border-radius: 0 0 4px 0;
-    }
-    .glass:hover::before, .glass:hover::after {
-      opacity: 1;
-      width: 24px; height: 24px;
-    }
-
-    /* ========== BURBUJAS ========== */
-    .bubbles {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      overflow: hidden;
-    }
+    /* Bubbles */
+    .bubbles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
     .bubble {
-      position: absolute; bottom: -40px; border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(0,229,255,0.35), rgba(0,229,255,0.05));
+      position: absolute; bottom: -30px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(0,212,255,.3), rgba(0,212,255,.04));
       animation: rise linear infinite;
     }
     @keyframes rise {
-      0% { transform: translateY(0) scale(1); opacity: 0.6; }
-      100% { transform: translateY(-110vh) scale(1.4); opacity: 0; }
+      0% { transform: translateY(0) scale(1); opacity: .55; }
+      100% { transform: translateY(-110vh) scale(1.35); opacity: 0; }
     }
 
-    /* ========== HEADER ========== */
+    /* Header */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 0.9rem 0; transition: var(--trans);
-      background: transparent;
+      padding: 1rem 0; transition: all .35s ease;
     }
     header.scrolled {
-      background: rgba(4, 21, 38, 0.92); backdrop-filter: blur(12px);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      background: rgba(3,15,26,.94); backdrop-filter: blur(14px);
+      box-shadow: 0 4px 30px rgba(0,0,0,.35);
     }
-    .nav {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 1.5rem;
-    }
-    .logo {
-      display: flex; align-items: center; gap: 0.7rem;
-      font-family: 'Montserrat', sans-serif; font-weight: 800;
-      font-size: 1.15rem; letter-spacing: -0.03em;
-    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+    .logo { display: flex; align-items: center; gap: .75rem; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.15rem; }
     .logo img {
-      width: 48px; height: 48px; border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 0 2px var(--turquesa);
-      transition: var(--trans);
+      width: 46px; height: 46px; border-radius: 50%; object-fit: cover;
+      box-shadow: 0 0 0 2px var(--teal); transition: all .35s var(--ease);
     }
-    .logo:hover img {
-      box-shadow: 0 0 0 3px var(--turquesa), 0 0 20px rgba(0,229,255,0.4);
-      transform: rotate(-8deg) scale(1.05);
-    }
-    .nav-links {
-      display: flex; align-items: center; gap: 0.3rem; list-style: none;
-    }
+    .logo:hover img { transform: rotate(-6deg) scale(1.06); box-shadow: 0 0 0 3px var(--teal), 0 0 24px rgba(0,212,255,.35); }
+    .nav-links { display: flex; gap: .25rem; list-style: none; }
     .nav-links a {
-      padding: 0.5rem 0.9rem; border-radius: 8px; font-size: 0.9rem;
-      font-weight: 500; color: rgba(240,248,255,0.85); transition: var(--trans);
+      padding: .5rem .9rem; border-radius: 8px; font-size: .9rem; font-weight: 500;
+      color: rgba(240,247,255,.82); transition: all .25s ease;
     }
-    .nav-links a:hover { color: var(--turquesa); background: var(--turquesa-dim); }
-    .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+    .nav-links a:hover { color: var(--teal); background: rgba(0,212,255,.1); }
+    .nav-actions { display: flex; align-items: center; gap: .6rem; }
     .admin-btn {
-      width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--glass-border);
-      background: var(--glass); color: var(--espuma); cursor: pointer;
-      display: grid; place-items: center; transition: var(--trans);
+      width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+      background: var(--glass); color: var(--foam); cursor: pointer; display: grid; place-items: center;
+      transition: all .25s ease;
     }
-    .admin-btn:hover, .admin-btn.active { border-color: var(--turquesa); color: var(--turquesa); }
-    .menu-toggle {
-      display: none; width: 40px; height: 40px; border: none;
-      background: transparent; color: var(--espuma); cursor: pointer;
-    }
+    .admin-btn:hover, .admin-btn.active { border-color: var(--teal); color: var(--teal); }
+    .menu-toggle { display: none; background: none; border: none; color: var(--foam); cursor: pointer; }
 
-    /* ========== HERO ========== */
+    /* Hero */
     .hero {
       min-height: 100vh; display: flex; align-items: center;
-      position: relative; padding-top: 80px; overflow: hidden;
+      position: relative; padding-top: 90px; overflow: hidden;
     }
     .hero-bg {
       position: absolute; inset: 0; z-index: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,229,255,0.12), transparent),
-        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(10,42,67,0.8), transparent),
-        linear-gradient(180deg, var(--abisal) 0%, var(--oceano) 100%);
+        radial-gradient(ellipse 90% 60% at 70% 20%, rgba(0,212,255,.08), transparent),
+        radial-gradient(ellipse 70% 50% at 20% 80%, rgba(10,39,68,.6), transparent),
+        linear-gradient(165deg, #030f1a 0%, #0a2744 100%);
     }
-    .hero-content { position: relative; z-index: 2; max-width: 640px; }
+    .hero-content { position: relative; z-index: 2; max-width: 620px; }
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.35rem 0.9rem; border-radius: 999px;
-      background: var(--turquesa-dim); border: 1px solid var(--glass-border);
-      font-size: 0.8rem; font-weight: 500; color: var(--turquesa);
-      margin-bottom: 1.4rem;
-      animation: pulseGlow 3s ease-in-out infinite;
-    }
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.3); }
-      50% { box-shadow: 0 0 0 8px rgba(0,229,255,0); }
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .4rem 1rem; border-radius: 999px;
+      background: rgba(0,212,255,.1); border: 1px solid var(--border);
+      font-size: .8rem; font-weight: 500; color: var(--teal); margin-bottom: 1.5rem;
     }
     .hero h1 {
-      font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.12;
-      letter-spacing: -0.03em; margin-bottom: 1.2rem;
+      font-size: clamp(2.5rem, 5.8vw, 3.7rem); line-height: 1.1;
+      margin-bottom: 1.3rem;
     }
-    .hero h1 span { color: var(--turquesa); }
-    .hero p {
-      font-size: 1.15rem; color: rgba(240,248,255,0.8);
-      margin-bottom: 2rem; max-width: 520px;
-    }
+    .hero h1 span { color: var(--teal); }
+    .hero p { font-size: 1.15rem; color: rgba(240,247,255,.78); margin-bottom: 2.2rem; max-width: 480px; }
     .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
     .hero-visual {
-      position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
-      width: min(420px, 40vw); z-index: 1;
-      animation: floatShark 7s ease-in-out infinite;
+      position: absolute; right: 3%; top: 52%; transform: translateY(-50%);
+      width: min(440px, 42vw); z-index: 1;
+      animation: float 8s ease-in-out infinite;
     }
     .hero-visual img {
-      width: 100%; filter: drop-shadow(0 20px 40px rgba(0,229,255,0.25));
+      width: 100%; filter: drop-shadow(0 25px 50px rgba(0,212,255,.22));
     }
-    @keyframes floatShark {
-      0%, 100% { transform: translateY(-50%) translateX(0) rotate(-2deg); }
-      50% { transform: translateY(-56%) translateX(12px) rotate(2deg); }
+    @keyframes float {
+      0%,100% { transform: translateY(-50%) translateX(0); }
+      50% { transform: translateY(-57%) translateX(10px); }
     }
-    .wave-divider {
-      position: absolute; left: 0; right: 0; bottom: -1px;
-      width: 100%; line-height: 0; z-index: 5;
+    .wave {
+      position: absolute; left: 0; right: 0; bottom: -2px; width: 100%; line-height: 0; z-index: 5;
     }
-    .wave-divider svg { width: 100%; height: auto; display: block; }
+    .wave svg { width: 100%; height: auto; display: block; }
 
-    /* ========== SERVICIOS ========== */
+    /* Services */
     .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.4rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.35rem;
     }
-    .service-card {
-      padding: 1.8rem 1.5rem; transition: var(--trans); cursor: default;
-      position: relative; overflow: hidden;
-    }
-    .service-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      border-color: var(--turquesa);
-      box-shadow: 0 16px 40px rgba(0,229,255,0.18);
-    }
+    .service-card { padding: 1.9rem 1.5rem; }
     .service-icon {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: var(--turquesa-dim); display: grid; place-items: center;
-      margin-bottom: 1.1rem; font-size: 1.5rem;
-      transition: var(--trans);
+      width: 50px; height: 50px; border-radius: 14px;
+      background: rgba(0,212,255,.12); display: grid; place-items: center;
+      font-size: 1.45rem; margin-bottom: 1.1rem; transition: transform .35s var(--ease);
     }
-    .service-card:hover .service-icon {
-      transform: scale(1.15) rotate(-6deg);
-      background: rgba(0,229,255,0.25);
-    }
-    .service-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .service-card p { font-size: 0.9rem; color: rgba(240,248,255,0.65); }
+    .service-card:hover .service-icon { transform: scale(1.12) rotate(-5deg); }
+    .service-card h3 { font-size: 1.08rem; margin-bottom: .45rem; }
+    .service-card p { font-size: .9rem; color: rgba(240,247,255,.62); }
 
-    /* ========== EJEMPLOS ========== */
-    .filters {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
-      margin-bottom: 2.2rem;
-    }
+    /* Filters + Examples */
+    .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin-bottom: 2.4rem; }
     .filter-btn {
-      padding: 0.45rem 1.1rem; border-radius: 999px; border: 1px solid var(--glass-border);
-      background: transparent; color: rgba(240,248,255,0.75); font-size: 0.85rem;
-      font-weight: 500; cursor: pointer; transition: var(--trans);
+      padding: .45rem 1.15rem; border-radius: 999px; border: 1px solid var(--border);
+      background: transparent; color: rgba(240,247,255,.72); font-size: .85rem;
+      font-weight: 500; cursor: pointer; transition: all .25s ease;
     }
     .filter-btn:hover, .filter-btn.active {
-      background: var(--turquesa); color: var(--abisal); border-color: var(--turquesa);
+      background: var(--teal); color: #021018; border-color: var(--teal);
     }
     .examples-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.5rem;
     }
-    .example-card { overflow: hidden; transition: var(--trans); }
-    .example-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
-    }
+    .example-card { overflow: hidden; }
     .example-img {
-      height: 180px; background: linear-gradient(135deg, var(--oceano), #0d3a5c);
-      display: grid; place-items: center; position: relative;
-      font-size: 3rem; color: var(--turquesa);
+      height: 190px; background: linear-gradient(145deg, #0a2744, #061a2e);
+      display: grid; place-items: center; position: relative; overflow: hidden;
     }
+    .example-img img { width: 100%; height: 100%; object-fit: cover; }
     .example-img .badge {
       position: absolute; top: 12px; right: 12px;
-      background: rgba(4,21,38,0.85); color: var(--turquesa);
-      font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.6rem;
-      border-radius: 6px;
+      background: rgba(3,15,26,.88); color: var(--teal);
+      font-size: .7rem; font-weight: 600; padding: .25rem .6rem; border-radius: 6px;
     }
-    .example-body { padding: 1.2rem 1.3rem 1.4rem; }
-    .example-body h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .example-body { padding: 1.25rem 1.3rem 1.45rem; }
+    .example-body h3 { font-size: 1.05rem; margin-bottom: .35rem; }
     .example-meta {
-      display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.7rem 0 1rem;
-      font-size: 0.8rem; color: rgba(240,248,255,0.6);
+      display: flex; flex-wrap: wrap; gap: .5rem; margin: .7rem 0 1rem;
+      font-size: .78rem; color: rgba(240,247,255,.55);
     }
     .example-meta span {
-      background: var(--turquesa-dim); padding: 0.2rem 0.55rem; border-radius: 6px;
+      background: rgba(0,212,255,.1); padding: .2rem .55rem; border-radius: 6px;
     }
 
-    /* ========== COLORES ========== */
+    /* Colors */
     .colors-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 1.2rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 1.15rem;
     }
-    .color-card {
-      text-align: center; padding: 1.3rem 0.8rem; transition: var(--trans);
-    }
-    .color-card:hover {
-      transform: translateY(-6px) scale(1.03);
-      border-color: var(--turquesa);
-    }
+    .color-card { text-align: center; padding: 1.35rem .75rem; }
     .color-sphere {
-      width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 0.9rem;
-      box-shadow: inset -6px -6px 12px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.25);
-      border: 2px solid rgba(255,255,255,0.15);
-      transition: var(--trans);
+      width: 62px; height: 62px; border-radius: 50%; margin: 0 auto .9rem;
+      box-shadow: inset -5px -5px 12px rgba(0,0,0,.35), 0 4px 14px rgba(0,0,0,.25);
+      border: 2px solid rgba(255,255,255,.12); transition: transform .3s ease;
     }
-    .color-card:hover .color-sphere {
-      transform: scale(1.1);
-      box-shadow: inset -6px -6px 12px rgba(0,0,0,0.3), 0 0 20px rgba(0,229,255,0.4);
-    }
-    .color-card h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
-    .color-card .hex { font-size: 0.75rem; color: rgba(240,248,255,0.5); font-family: monospace; }
+    .color-card:hover .color-sphere { transform: scale(1.12); }
+    .color-card h4 { font-size: .88rem; margin-bottom: .15rem; }
+    .color-card .hex { font-size: .72rem; color: rgba(240,247,255,.48); font-family: monospace; }
     .color-card .finish {
-      display: inline-block; margin-top: 0.5rem; font-size: 0.7rem;
-      padding: 0.15rem 0.5rem; border-radius: 4px; background: var(--turquesa-dim);
-      color: var(--turquesa);
+      display: inline-block; margin-top: .45rem; font-size: .68rem;
+      padding: .15rem .5rem; border-radius: 4px; background: rgba(0,212,255,.12); color: var(--teal);
     }
-    .admin-controls {
-      display: none; margin-top: 0.8rem; gap: 0.3rem; justify-content: center;
-    }
+    .admin-controls { display: none; margin-top: .75rem; gap: .3rem; justify-content: center; }
     .admin-mode .admin-controls { display: flex; }
     .admin-controls button {
       width: 28px; height: 28px; border-radius: 6px; border: none;
-      background: var(--oceano); color: var(--espuma); cursor: pointer;
-      font-size: 0.75rem; transition: var(--trans);
+      background: #0a2744; color: var(--foam); cursor: pointer; font-size: .75rem;
     }
-    .admin-controls button:hover { background: var(--turquesa); color: var(--abisal); }
-    .admin-panel {
-      display: none; margin-top: 2rem; padding: 1.5rem; max-width: 480px; margin-inline: auto;
-    }
+    .admin-controls button:hover { background: var(--teal); color: #021018; }
+    .admin-panel { display: none; margin-top: 2.2rem; padding: 1.6rem; max-width: 480px; margin-inline: auto; }
     .admin-mode .admin-panel { display: block; }
-    .admin-panel h3 { margin-bottom: 1rem; font-size: 1.1rem; }
-    .form-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 0.9rem; }
+    .admin-panel h3 { margin-bottom: 1rem; font-size: 1.05rem; }
+    .form-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: .85rem; }
     .form-row input, .form-row select {
-      flex: 1; min-width: 120px; padding: 0.65rem 0.9rem;
-      border-radius: 10px; border: 1px solid var(--glass-border);
-      background: rgba(4,21,38,0.6); color: var(--espuma); font-size: 0.9rem;
+      flex: 1; min-width: 110px; padding: .65rem .9rem; border-radius: 10px;
+      border: 1px solid var(--border); background: rgba(3,15,26,.6); color: var(--foam); font-size: .9rem;
     }
-    .form-row input[type="color"] { padding: 0.2rem; height: 42px; cursor: pointer; }
+    .form-row input[type="color"] { padding: .2rem; height: 42px; cursor: pointer; }
 
-    /* ========== GALERÍA ========== */
+    /* Gallery */
     .gallery-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem;
     }
-    .gallery-card { overflow: hidden; transition: var(--trans); }
-    .gallery-card:hover { transform: translateY(-5px); }
+    .gallery-card { overflow: hidden; }
     .gallery-img {
-      height: 200px; background: var(--oceano); object-fit: cover; width: 100%;
-      display: grid; place-items: center; font-size: 2.5rem; color: var(--turquesa);
+      height: 200px; background: #0a2744; display: grid; place-items: center;
+      font-size: 2.4rem; color: var(--teal); overflow: hidden;
     }
     .gallery-img img { width: 100%; height: 100%; object-fit: cover; }
-    .gallery-body { padding: 1.2rem 1.3rem; }
-    .gallery-body h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
-    .gallery-body p { font-size: 0.9rem; color: rgba(240,248,255,0.65); }
-    .gallery-admin-form {
-      display: none; margin-top: 2rem; padding: 1.5rem; max-width: 520px; margin-inline: auto;
-    }
+    .gallery-body { padding: 1.25rem 1.3rem; }
+    .gallery-body h3 { font-size: 1.05rem; margin-bottom: .35rem; }
+    .gallery-body p { font-size: .9rem; color: rgba(240,247,255,.62); }
+    .gallery-admin-form { display: none; margin-top: 2.2rem; padding: 1.6rem; max-width: 520px; margin-inline: auto; }
     .admin-mode .gallery-admin-form { display: block; }
 
-    /* ========== ENVÍOS ========== */
+    /* Shipping */
     .shipping-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem; max-width: 800px; margin-inline: auto;
+      gap: 1.5rem; max-width: 780px; margin-inline: auto;
     }
-    .shipping-card {
-      padding: 2rem 1.8rem; text-align: center; transition: var(--trans);
-    }
-    .shipping-card:hover { border-color: var(--turquesa); transform: translateY(-5px); }
+    .shipping-card { padding: 2.2rem 1.8rem; text-align: center; }
     .shipping-icon {
       width: 64px; height: 64px; margin: 0 auto 1.2rem; border-radius: 50%;
-      background: var(--turquesa-dim); display: grid; place-items: center;
-      font-size: 1.8rem;
+      background: rgba(0,212,255,.12); display: grid; place-items: center; font-size: 1.7rem;
     }
-    .shipping-card h3 { margin-bottom: 0.5rem; }
-    .shipping-card p { color: rgba(240,248,255,0.7); font-size: 0.95rem; }
 
-    /* ========== CONTACTO ========== */
+    /* Contact */
     .contact-grid {
-      display: grid; grid-template-columns: 1fr 1.2fr; gap: 2.5rem;
-      align-items: start;
+      display: grid; grid-template-columns: 1fr 1.25fr; gap: 2.5rem; align-items: start;
     }
-    .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
-    .contact-item {
-      display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem;
-    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.15rem; }
+    .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1.15rem 1.3rem; }
     .contact-item .icon {
-      width: 44px; height: 44px; border-radius: 12px; background: var(--turquesa-dim);
+      width: 44px; height: 44px; border-radius: 12px; background: rgba(0,212,255,.12);
       display: grid; place-items: center; font-size: 1.2rem; flex-shrink: 0;
     }
     .contact-item .copy-btn {
-      margin-left: auto; padding: 0.35rem 0.7rem; font-size: 0.75rem;
-      border-radius: 6px; border: 1px solid var(--glass-border);
-      background: transparent; color: var(--turquesa); cursor: pointer;
+      margin-left: auto; padding: .35rem .7rem; font-size: .75rem;
+      border-radius: 6px; border: 1px solid var(--border); background: transparent;
+      color: var(--teal); cursor: pointer;
     }
-    .contact-item .copy-btn:hover { background: var(--turquesa-dim); }
-    .contact-form {
-      padding: 1.8rem; display: flex; flex-direction: column; gap: 1rem;
-    }
-    .contact-form label { font-size: 0.85rem; font-weight: 500; margin-bottom: 0.3rem; display: block; }
+    .contact-form { padding: 1.9rem; display: flex; flex-direction: column; gap: 1rem; }
+    .contact-form label { font-size: .85rem; font-weight: 500; margin-bottom: .3rem; display: block; }
     .contact-form input, .contact-form select, .contact-form textarea {
-      width: 100%; padding: 0.75rem 1rem; border-radius: 10px;
-      border: 1px solid var(--glass-border); background: rgba(4,21,38,0.5);
-      color: var(--espuma); font-size: 0.95rem; transition: var(--trans);
+      width: 100%; padding: .75rem 1rem; border-radius: 10px;
+      border: 1px solid var(--border); background: rgba(3,15,26,.5); color: var(--foam); font-size: .95rem;
     }
     .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
-      outline: none; border-color: var(--turquesa); box-shadow: 0 0 0 3px var(--turquesa-dim);
+      outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,212,255,.12);
     }
     .contact-form textarea { resize: vertical; min-height: 100px; }
-    .form-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.5rem; }
+    .form-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .4rem; }
 
     /* STL */
-    .stl-upload-zone {
-      border: 2px dashed var(--glass-border);
-      border-radius: 12px; padding: 1.4rem; text-align: center;
-      cursor: pointer; transition: var(--trans); background: rgba(4,21,38,0.4);
+    .stl-zone {
+      border: 2px dashed var(--border); border-radius: 12px; padding: 1.4rem;
+      text-align: center; cursor: pointer; transition: all .3s ease; background: rgba(3,15,26,.35);
       position: relative;
     }
-    .stl-upload-zone:hover, .stl-upload-zone.dragover {
-      border-color: var(--turquesa); background: var(--turquesa-dim);
-    }
-    .stl-upload-zone input[type="file"] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-    }
-    .stl-upload-zone .upload-icon { font-size: 2rem; margin-bottom: 0.5rem; }
-    .stl-upload-zone p { font-size: 0.9rem; color: rgba(240,248,255,0.7); }
-    .stl-upload-zone .hint { font-size: 0.75rem; opacity: 0.55; margin-top: 0.3rem; }
-    .stl-preview-wrap {
-      display: none; margin-top: 1rem; border-radius: 12px; overflow: hidden;
-      background: #020e18; border: 1px solid var(--glass-border);
-    }
-    .stl-preview-wrap.visible { display: block; }
-    #stlViewer { width: 100%; height: 260px; display: block; }
-    .stl-file-info {
+    .stl-zone:hover, .stl-zone.dragover { border-color: var(--teal); background: rgba(0,212,255,.08); }
+    .stl-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .stl-preview { display: none; margin-top: 1rem; border-radius: 12px; overflow: hidden; background: #020c16; border: 1px solid var(--border); }
+    .stl-preview.visible { display: block; }
+    #stlViewer { width: 100%; height: 250px; display: block; }
+    .stl-info {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.7rem 1rem; background: rgba(0,229,255,0.08); font-size: 0.85rem;
+      padding: .7rem 1rem; background: rgba(0,212,255,.07); font-size: .85rem;
     }
-    .stl-file-info .name { font-weight: 500; color: var(--turquesa); }
-    .stl-file-info .size { opacity: 0.65; }
-    .stl-file-info button {
-      background: transparent; border: none; color: #ff6b6b;
-      cursor: pointer; font-size: 0.8rem; padding: 0.2rem 0.5rem; border-radius: 4px;
-    }
-    .stl-status { font-size: 0.8rem; margin-top: 0.5rem; color: rgba(240,248,255,0.6); }
+    .stl-info .name { font-weight: 500; color: var(--teal); }
+    .stl-status { font-size: .8rem; margin-top: .5rem; color: rgba(240,247,255,.55); }
     .stl-status.error { color: #ff6b6b; }
     .stl-status.ok { color: #2dd4a8; }
 
-    /* MASCOTS */
-    .mascots-strip {
-      display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
-      margin: 3rem 0 1rem; opacity: 0.9;
+    /* Mascots */
+    .mascots {
+      display: flex; justify-content: center; margin: 3.5rem 0 1rem;
     }
-    .mascots-strip img {
-      height: 90px; transition: var(--trans);
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+    .mascots img {
+      max-height: 150px; width: auto; opacity: .92;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.3));
+      transition: transform .4s var(--ease);
     }
-    .mascots-strip img:hover {
-      transform: translateY(-8px) scale(1.08);
-    }
+    .mascots img:hover { transform: translateY(-6px); }
 
-    /* FOOTER */
-    footer {
-      background: #020e18; padding: 3.5rem 0 1.5rem; border-top: 1px solid var(--glass-border);
-    }
+    /* Footer */
+    footer { background: #020a12; padding: 4rem 0 1.6rem; border-top: 1px solid var(--border); }
     .footer-grid {
-      display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2.5rem;
-      margin-bottom: 2.5rem;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.8rem;
     }
-    .footer-brand p { color: rgba(240,248,255,0.6); font-size: 0.9rem; margin-top: 0.8rem; max-width: 280px; }
-    .footer-col h4 { font-size: 0.95rem; margin-bottom: 1rem; color: var(--turquesa); }
+    .footer-brand p { color: rgba(240,247,255,.55); font-size: .9rem; margin-top: .9rem; max-width: 280px; }
+    .footer-col h4 { font-size: .92rem; margin-bottom: 1rem; color: var(--teal); }
     .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: 0.5rem; }
-    .footer-col a { font-size: 0.9rem; color: rgba(240,248,255,0.65); transition: var(--trans); }
-    .footer-col a:hover { color: var(--turquesa); }
+    .footer-col li { margin-bottom: .5rem; }
+    .footer-col a { font-size: .9rem; color: rgba(240,247,255,.6); transition: color .25s; }
+    .footer-col a:hover { color: var(--teal); }
     .footer-bottom {
-      text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);
-      font-size: 0.85rem; color: rgba(240,248,255,0.45);
+      text-align: center; padding-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.05);
+      font-size: .85rem; color: rgba(240,247,255,.4);
     }
 
-    /* MODAL & TOAST */
+    /* Modal & Toast */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000;
+      position: fixed; inset: 0; background: rgba(0,0,0,.72); z-index: 2000;
       display: none; align-items: center; justify-content: center; padding: 1rem;
     }
     .modal-overlay.open { display: flex; }
     .modal {
-      background: var(--oceano); border: 1px solid var(--glass-border);
-      border-radius: var(--radio); padding: 2rem; max-width: 380px; width: 100%;
-      box-shadow: var(--sombra);
+      background: #0a2744; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2rem; max-width: 380px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.5);
     }
     .modal h3 { margin-bottom: 1rem; }
     .modal input {
-      width: 100%; padding: 0.75rem 1rem; border-radius: 10px;
-      border: 1px solid var(--glass-border); background: var(--abisal);
-      color: var(--espuma); margin-bottom: 1rem;
+      width: 100%; padding: .75rem 1rem; border-radius: 10px; border: 1px solid var(--border);
+      background: #030f1a; color: var(--foam); margin-bottom: 1rem;
     }
-    .modal-actions { display: flex; gap: 0.8rem; justify-content: flex-end; }
+    .modal-actions { display: flex; gap: .8rem; justify-content: flex-end; }
     .toast {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
-      background: var(--oceano); border: 1px solid var(--turquesa);
-      color: var(--espuma); padding: 0.8rem 1.4rem; border-radius: 12px;
-      font-size: 0.9rem; z-index: 3000; transition: transform 0.35s ease;
-      box-shadow: var(--sombra);
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(90px);
+      background: #0a2744; border: 1px solid var(--teal); color: var(--foam);
+      padding: .85rem 1.5rem; border-radius: 12px; font-size: .9rem; z-index: 3000;
+      transition: transform .35s var(--ease); box-shadow: 0 10px 40px rgba(0,0,0,.4);
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible {
-      opacity: 1; transform: translateY(0);
-    }
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 900px) {
       .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
-        background: rgba(4,21,38,0.97); flex-direction: column; padding: 1rem;
-        border-bottom: 1px solid var(--glass-border); }
+        background: rgba(3,15,26,.97); flex-direction: column; padding: 1rem;
+        border-bottom: 1px solid var(--border); }
       .nav-links.open { display: flex; }
       .menu-toggle { display: grid; place-items: center; }
       .hero-visual { display: none; }
       .contact-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
     }
     @media (max-width: 600px) {
-      .section { padding: 3.5rem 0; }
-      .hero { min-height: auto; padding: 120px 0 80px; }
-      .nav-actions .btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
-      #stlViewer { height: 220px; }
+      .section { padding: 4rem 0; }
+      .hero { min-height: auto; padding: 130px 0 80px; }
     }
   </style>
 </head>
@@ -548,7 +403,7 @@
   <header id="header">
     <div class="container nav">
       <a href="#" class="logo">
-        <img src="logo.png" alt="Whale Shark 3D Logo" onerror="this.style.display='none'">
+        <img src="logo.png" alt="Whale Shark 3D" onerror="this.style.display='none'">
         Whale Shark 3D
       </a>
       <ul class="nav-links" id="navLinks">
@@ -560,65 +415,57 @@
         <li><a href="#contacto">Contacto</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="admin-btn" id="adminToggle" title="Modo Administrador">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
-          </svg>
+        <button class="admin-btn" id="adminToggle" title="Administrador">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
         </button>
         <a href="#contacto" class="btn btn-primary">Cotizar ahora</a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Menú">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+        <button class="menu-toggle" id="menuToggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
       </div>
     </div>
   </header>
 
-  <section class="hero" id="inicio">
+  <section class="hero">
     <div class="hero-bg"></div>
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge">🌊 Impresión 3D en Arequipa y todo el Perú</div>
+        <div class="hero-badge">Impresión 3D profesional · Arequipa & Perú</div>
         <h1>Sumérgete en la <span>creación</span></h1>
-        <p>Si puedes imaginarlo, nosotros lo imprimimos en 3D. Precisión de las profundidades, capa por capa.</p>
+        <p>Si puedes imaginarlo, nosotros lo imprimimos. Precisión de las profundidades, capa por capa.</p>
         <div class="hero-cta">
           <a href="#contacto" class="btn btn-primary">Solicitar cotización</a>
-          <a href="#ejemplos" class="btn btn-outline">Ver ejemplos</a>
+          <a href="#ejemplos" class="btn btn-outline">Ver trabajos</a>
         </div>
       </div>
     </div>
     <div class="hero-visual">
       <img src="shark.png" alt="Tiburón ballena" onerror="this.style.display='none'">
     </div>
-    <div class="wave-divider">
-      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-        <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#0A2A43"/>
-      </svg>
+    <div class="wave">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,35 C320,70 640,0 960,35 C1120,55 1280,20 1440,35 L1440,70 L0,70 Z" fill="#0a2744"/></svg>
     </div>
   </section>
 
-  <section class="section" id="servicios" style="background: var(--oceano);">
+  <section class="section" id="servicios" style="background:#0a2744">
     <div class="container">
       <h2 class="section-title reveal">Nuestros Servicios</h2>
-      <p class="section-sub reveal">Impresión 3D a medida para particulares, empresas y estudiantes.</p>
+      <p class="section-sub reveal">Soluciones de impresión 3D para particulares, empresas y estudiantes.</p>
       <div class="services-grid">
-        <article class="service-card glass reveal"><div class="service-icon">🎨</div><h3>Decoraciones personalizadas</h3><p>Piezas únicas para el hogar, oficina o eventos.</p></article>
-        <article class="service-card glass reveal"><div class="service-icon">🦸</div><h3>Figuras y coleccionables</h3><p>Personajes y miniaturas con alto detalle.</p></article>
-        <article class="service-card glass reveal"><div class="service-icon">🔑</div><h3>Llaveros corporativos</h3><p>Lotes desde 10 unidades con logo y colores de marca.</p></article>
-        <article class="service-card glass reveal"><div class="service-icon">⚙️</div><h3>Piezas funcionales</h3><p>Componentes técnicos, engranajes y repuestos.</p></article>
-        <article class="service-card glass reveal"><div class="service-icon">🏛️</div><h3>Maquetas arquitectónicas</h3><p>Modelos a escala para presentaciones y tesis.</p></article>
-        <article class="service-card glass reveal"><div class="service-icon">🖼️</div><h3>Dioramas detallados</h3><p>Escenas completas con múltiples elementos.</p></article>
-        <article class="service-card glass reveal"><div class="service-icon">✂️</div><h3>Plantillas (stencils)</h3><p>Plantillas reutilizables para estampados.</p></article>
-        <article class="service-card glass reveal"><div class="service-icon">🎁</div><h3>Recuerditos para eventos</h3><p>Souvenirs personalizados para bodas y graduaciones.</p></article>
+        <article class="card service-card reveal"><div class="service-icon">🎨</div><h3>Decoraciones</h3><p>Piezas únicas para hogar, oficina y eventos.</p></article>
+        <article class="card service-card reveal"><div class="service-icon">🦸</div><h3>Figuras & Coleccionables</h3><p>Alto detalle en PLA, PETG o resina.</p></article>
+        <article class="card service-card reveal"><div class="service-icon">🔑</div><h3>Llaveros Corporativos</h3><p>Lotes desde 10 unidades con tu marca.</p></article>
+        <article class="card service-card reveal"><div class="service-icon">⚙️</div><h3>Piezas Funcionales</h3><p>Repuestos, engranajes y componentes técnicos.</p></article>
+        <article class="card service-card reveal"><div class="service-icon">🏛️</div><h3>Maquetas</h3><p>Arquitectura, ingeniería y proyectos académicos.</p></article>
+        <article class="card service-card reveal"><div class="service-icon">🖼️</div><h3>Dioramas</h3><p>Escenas detalladas y personalizadas.</p></article>
+        <article class="card service-card reveal"><div class="service-icon">✂️</div><h3>Plantillas</h3><p>Stencils reutilizables para estampados.</p></article>
+        <article class="card service-card reveal"><div class="service-icon">🎁</div><h3>Recuerdos</h3><p>Souvenirs para bodas, graduaciones y eventos.</p></article>
       </div>
     </div>
   </section>
 
   <section class="section" id="ejemplos">
     <div class="container">
-      <h2 class="section-title reveal">Ejemplos de Impresiones 3D</h2>
-      <p class="section-sub reveal">Algunas de las piezas que fabricamos.</p>
+      <h2 class="section-title reveal">Ejemplos de trabajos</h2>
+      <p class="section-sub reveal">Algunas de las piezas que fabricamos. En modo administrador puedes subir tus propias fotos.</p>
       <div class="filters" id="filters">
         <button class="filter-btn active" data-filter="all">Todos</button>
         <button class="filter-btn" data-filter="decoracion">Decoración</button>
@@ -628,58 +475,76 @@
         <button class="filter-btn" data-filter="maquetas">Maquetas</button>
       </div>
       <div class="examples-grid" id="examplesGrid"></div>
+
+      <div class="admin-panel card" id="exampleAdminPanel" style="display:none;margin-top:2.5rem">
+        <h3>Agregar nuevo ejemplo</h3>
+        <div class="form-row">
+          <input type="text" id="exTitle" placeholder="Título del trabajo">
+          <select id="exCat">
+            <option value="decoracion">Decoración</option>
+            <option value="figuras">Figuras</option>
+            <option value="llaveros">Llaveros</option>
+            <option value="funcional">Funcional</option>
+            <option value="maquetas">Maquetas</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <input type="text" id="exTime" placeholder="Tiempo (ej. 4-6 h)">
+          <input type="text" id="exMaterial" placeholder="Material (PLA, PETG...)">
+        </div>
+        <div class="form-row">
+          <input type="file" id="exFile" accept="image/*">
+        </div>
+        <button class="btn btn-primary" id="addExampleBtn">Agregar ejemplo</button>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="colores" style="background: var(--oceano);">
+  <section class="section" id="colores" style="background:#0a2744">
     <div class="container">
       <h2 class="section-title reveal">Catálogo de Colores</h2>
-      <p class="section-sub reveal">Elige el acabado que mejor se adapte a tu proyecto.</p>
+      <p class="section-sub reveal">Filamentos y resinas disponibles.</p>
       <div class="colors-grid" id="colorsGrid"></div>
-      <div class="admin-panel glass" id="colorAdminPanel">
-        <h3>Agregar nuevo color</h3>
+      <div class="admin-panel card" id="colorAdminPanel">
+        <h3>Agregar color</h3>
         <div class="form-row">
-          <input type="text" id="newColorName" placeholder="Nombre del color">
-          <input type="color" id="newColorHex" value="#00E5FF">
+          <input type="text" id="newColorName" placeholder="Nombre">
+          <input type="color" id="newColorHex" value="#00d4ff">
           <select id="newColorFinish">
-            <option value="Mate">Mate</option>
-            <option value="Brillante">Brillante</option>
-            <option value="Seda">Seda</option>
-            <option value="Translúcido">Translúcido</option>
+            <option>Mate</option><option>Brillante</option><option>Seda</option><option>Translúcido</option>
           </select>
         </div>
-        <button class="btn btn-primary" id="addColorBtn">Agregar color</button>
+        <button class="btn btn-primary" id="addColorBtn">Agregar</button>
       </div>
     </div>
   </section>
 
   <section class="section" id="pedidos">
     <div class="container">
-      <h2 class="section-title reveal">Pedidos Realizados</h2>
-      <p class="section-sub reveal">Trabajos entregados a clientes satisfechos.</p>
+      <h2 class="section-title reveal">Pedidos realizados</h2>
+      <p class="section-sub reveal">Trabajos entregados a clientes reales.</p>
       <div class="gallery-grid" id="galleryGrid"></div>
-      <div class="gallery-admin-form glass" id="galleryAdminForm">
-        <h3>Agregar resultado de pedido</h3>
-        <div class="form-row"><input type="text" id="galleryTitle" placeholder="Título del pedido"></div>
+      <div class="gallery-admin-form card" id="galleryAdminForm">
+        <h3>Agregar pedido entregado</h3>
+        <div class="form-row"><input type="text" id="galleryTitle" placeholder="Título"></div>
         <div class="form-row"><input type="text" id="galleryDesc" placeholder="Descripción breve"></div>
-        <div class="form-row"><input type="url" id="galleryUrl" placeholder="URL de la imagen (opcional)"></div>
         <div class="form-row"><input type="file" id="galleryFile" accept="image/*"></div>
-        <button class="btn btn-primary" id="addGalleryBtn">Agregar a la galería</button>
+        <button class="btn btn-primary" id="addGalleryBtn">Agregar</button>
       </div>
     </div>
   </section>
 
-  <section class="section" id="envios" style="background: var(--oceano);">
+  <section class="section" id="envios" style="background:#0a2744">
     <div class="container">
       <h2 class="section-title reveal">Logística y Envíos</h2>
-      <p class="section-sub reveal">Llegamos a todo el Perú con seguridad y puntualidad.</p>
+      <p class="section-sub reveal">Llegamos a todo el Perú.</p>
       <div class="shipping-grid">
-        <article class="shipping-card glass reveal">
+        <article class="card shipping-card reveal">
           <div class="shipping-icon">📦</div>
           <h3>Envíos a todo el Perú</h3>
-          <p>Trabajamos con agencia <strong>Shalom</strong>. Empaque seguro y seguimiento.</p>
+          <p>Agencia Shalom. Empaque seguro y seguimiento completo.</p>
         </article>
-        <article class="shipping-card glass reveal">
+        <article class="card shipping-card reveal">
           <div class="shipping-icon">🛵</div>
           <h3>Delivery en Arequipa</h3>
           <p>Entrega a domicilio en toda la ciudad de Arequipa (AQP).</p>
@@ -691,73 +556,66 @@
   <section class="section" id="contacto">
     <div class="container">
       <h2 class="section-title reveal">Contacto y Cotización</h2>
-      <p class="section-sub reveal">Cuéntanos tu idea y sube tu archivo STL.</p>
+      <p class="section-sub reveal">Cuéntanos tu idea. También puedes subir tu archivo STL.</p>
       <div class="contact-grid">
         <div class="contact-info">
-          <div class="contact-item glass">
+          <div class="card contact-item">
             <div class="icon">💬</div>
-            <div><strong>WhatsApp</strong><br><span style="font-size:0.9rem;opacity:0.8">+51 946 013 030</span></div>
-            <a href="https://wa.me/51946013030?text=Hola%20Whale%20Shark%203D%2C%20quiero%20cotizar%20un%20pedido." target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.85rem;">Abrir</a>
+            <div><strong>WhatsApp</strong><br><span style="opacity:.75;font-size:.9rem">+51 946 013 030</span></div>
+            <a href="https://wa.me/51946013030?text=Hola%20Whale%20Shark%203D%2C%20quiero%20cotizar." target="_blank" class="btn btn-primary" style="padding:.5rem 1rem;font-size:.85rem">Abrir</a>
           </div>
-          <div class="contact-item glass">
+          <div class="card contact-item">
             <div class="icon">✉️</div>
-            <div><strong>Correo</strong><br><span style="font-size:0.9rem;opacity:0.8">whaleshark0511@gmail.com</span></div>
+            <div><strong>Correo</strong><br><span style="opacity:.75;font-size:.9rem">whaleshark0511@gmail.com</span></div>
             <button class="copy-btn" id="copyEmail">Copiar</button>
           </div>
-          <div class="contact-item glass">
+          <div class="card contact-item">
             <div class="icon">📍</div>
-            <div><strong>Ubicación</strong><br><span style="font-size:0.9rem;opacity:0.8">Arequipa, Perú</span></div>
+            <div><strong>Ubicación</strong><br><span style="opacity:.75;font-size:.9rem">Arequipa, Perú</span></div>
           </div>
         </div>
 
-        <form class="contact-form glass" id="quoteForm">
+        <form class="card contact-form" id="quoteForm">
           <div>
-            <label for="projectType">Tipo de proyecto</label>
+            <label>Tipo de proyecto</label>
             <select id="projectType" required>
-              <option value="">Selecciona una opción</option>
-              <option value="Decoraciones">Decoraciones personalizadas</option>
-              <option value="Figuras">Figuras y coleccionables</option>
-              <option value="Llaveros">Llaveros corporativos</option>
-              <option value="Funcional">Piezas funcionales</option>
-              <option value="Maquetas">Maquetas arquitectónicas</option>
-              <option value="Dioramas">Dioramas</option>
-              <option value="Stencils">Plantillas</option>
-              <option value="Recuerditos">Recuerditos</option>
-              <option value="Otro">Otro</option>
+              <option value="">Selecciona</option>
+              <option>Decoraciones</option><option>Figuras</option><option>Llaveros</option>
+              <option>Funcional</option><option>Maquetas</option><option>Dioramas</option>
+              <option>Plantillas</option><option>Recuerdos</option><option>Otro</option>
             </select>
           </div>
           <div>
-            <label for="colorSelect">Color preferido</label>
+            <label>Color preferido</label>
             <select id="colorSelect"><option value="">Sin preferencia</option></select>
           </div>
           <div>
-            <label for="clientName">Tu nombre</label>
-            <input type="text" id="clientName" placeholder="Nombre completo" required>
+            <label>Tu nombre</label>
+            <input type="text" id="clientName" required placeholder="Nombre completo">
           </div>
           <div>
-            <label for="clientMsg">Detalles del pedido</label>
+            <label>Detalles</label>
             <textarea id="clientMsg" placeholder="Describe lo que necesitas..."></textarea>
           </div>
           <div>
             <label>Archivo STL (opcional)</label>
-            <div class="stl-upload-zone" id="stlDropZone">
+            <div class="stl-zone" id="stlZone">
               <input type="file" id="stlFile" accept=".stl">
-              <div class="upload-icon">📁</div>
-              <p>Arrastra tu archivo <strong>.STL</strong> aquí</p>
-              <div class="hint">Máx. 50 MB</div>
+              <div style="font-size:1.8rem;margin-bottom:.4rem">📁</div>
+              <p style="font-size:.9rem;opacity:.7">Arrastra tu .STL o haz clic</p>
             </div>
             <div class="stl-status" id="stlStatus"></div>
-            <div class="stl-preview-wrap" id="stlPreviewWrap">
+            <div class="stl-preview" id="stlPreview">
               <canvas id="stlViewer"></canvas>
-              <div class="stl-file-info">
-                <div><span class="name" id="stlFileName">modelo.stl</span><span class="size" id="stlFileSize"></span></div>
-                <button type="button" id="removeStlBtn">Quitar</button>
+              <div class="stl-info">
+                <span class="name" id="stlName"></span>
+                <button type="button" id="removeStl" style="background:none;border:none;color:#ff6b6b;cursor:pointer">Quitar</button>
               </div>
             </div>
           </div>
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">Enviar por WhatsApp</button>
-            <button type="button" class="btn btn-outline" id="sendEmailBtn">Enviar por correo</button>
+            <button type="button" class="btn btn-outline" id="sendEmail">Enviar por correo</button>
           </div>
         </form>
       </div>
@@ -765,8 +623,8 @@
   </section>
 
   <div class="container">
-    <div class="mascots-strip">
-      <img src="mascots.png" alt="Mascotas Whale Shark" style="max-width:100%;height:auto;max-height:160px;object-fit:contain;" onerror="this.style.display='none'">
+    <div class="mascots">
+      <img src="mascots.png" alt="Equipo Whale Shark" onerror="this.style.display='none'">
     </div>
   </div>
 
@@ -774,11 +632,11 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="logo" style="margin-bottom:0.5rem;">
-            <img src="logo.png" alt="Logo" style="width:40px;height:40px;border-radius:50%;" onerror="this.style.display='none'">
+          <div class="logo" style="margin-bottom:.6rem">
+            <img src="logo.png" alt="Logo" style="width:40px;height:40px;border-radius:50%" onerror="this.style.display='none'">
             Whale Shark 3D
           </div>
-          <p>Impresión 3D personalizada con precisión de las profundidades.</p>
+          <p>Impresión 3D de precisión. Si puedes imaginarlo, nosotros lo hacemos realidad.</p>
         </div>
         <div class="footer-col">
           <h4>Navegación</h4>
@@ -792,7 +650,7 @@
         <div class="footer-col">
           <h4>Contacto</h4>
           <ul>
-            <li><a href="https://wa.me/51946013030" target="_blank">WhatsApp: +51 946 013 030</a></li>
+            <li><a href="https://wa.me/51946013030" target="_blank">+51 946 013 030</a></li>
             <li><a href="mailto:whaleshark0511@gmail.com">whaleshark0511@gmail.com</a></li>
             <li>Arequipa, Perú</li>
           </ul>
@@ -805,335 +663,241 @@
   <div class="modal-overlay" id="adminModal">
     <div class="modal">
       <h3>Modo Administrador</h3>
-      <p style="font-size:0.9rem;opacity:0.7;margin-bottom:1rem;">Ingresa la contraseña</p>
-      <input type="password" id="adminPassword" placeholder="Contraseña" autocomplete="off">
+      <p style="font-size:.9rem;opacity:.65;margin-bottom:1rem">Ingresa la contraseña</p>
+      <input type="password" id="adminPass" placeholder="Contraseña" autocomplete="off">
       <div class="modal-actions">
         <button class="btn btn-ghost" id="cancelAdmin">Cancelar</button>
         <button class="btn btn-primary" id="confirmAdmin">Entrar</button>
       </div>
     </div>
   </div>
-
   <div class="toast" id="toast"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
-
   <script>
-    const memoryStore = {};
-    function safeGet(key) {
-      try { return localStorage.getItem(key); }
-      catch(e) { return memoryStore[key] !== undefined ? memoryStore[key] : null; }
-    }
-    function safeSet(key, value) {
-      try { localStorage.setItem(key, value); }
-      catch(e) { memoryStore[key] = value; }
-    }
+    const mem = {};
+    const get = k => { try { return localStorage.getItem(k); } catch { return mem[k] ?? null; } };
+    const set = (k,v) => { try { localStorage.setItem(k,v); } catch { mem[k]=v; } };
 
     const DEFAULT_COLORS = [
-      { id:1, name:"Azul Océano", hex:"#0A2A43", finish:"Mate" },
-      { id:2, name:"Turquesa Bio", hex:"#00E5FF", finish:"Brillante" },
-      { id:3, name:"Blanco Espuma", hex:"#F0F8FF", finish:"Mate" },
-      { id:4, name:"Negro Abisal", hex:"#041526", finish:"Mate" },
-      { id:5, name:"Rojo Coral", hex:"#E63946", finish:"Brillante" },
-      { id:6, name:"Verde Alga", hex:"#2A9D8F", finish:"Seda" },
-      { id:7, name:"Amarillo Sol", hex:"#E9C46A", finish:"Mate" },
-      { id:8, name:"Transparente", hex:"#A8DADC", finish:"Translúcido" }
+      {id:1,name:"Azul Océano",hex:"#0a2744",finish:"Mate"},
+      {id:2,name:"Turquesa",hex:"#00d4ff",finish:"Brillante"},
+      {id:3,name:"Blanco Espuma",hex:"#f0f7ff",finish:"Mate"},
+      {id:4,name:"Negro Abisal",hex:"#030f1a",finish:"Mate"},
+      {id:5,name:"Rojo Coral",hex:"#e63946",finish:"Brillante"},
+      {id:6,name:"Verde Alga",hex:"#2a9d8f",finish:"Seda"},
+      {id:7,name:"Amarillo Sol",hex:"#e9c46a",finish:"Mate"},
+      {id:8,name:"Transparente",hex:"#a8dadc",finish:"Translúcido"}
     ];
-
     const DEFAULT_EXAMPLES = [
-      { id:1, title:"Llavero logo empresa", cat:"llaveros", time:"2-4 h", material:"PLA", icon:"🔑" },
-      { id:2, title:"Figura coleccionable", cat:"figuras", time:"8-14 h", material:"Resina", icon:"🦸" },
-      { id:3, title:"Maceta geométrica", cat:"decoracion", time:"5-8 h", material:"PETG", icon:"🪴" },
-      { id:4, title:"Soporte auriculares", cat:"funcional", time:"4-6 h", material:"PETG", icon:"🎧" },
-      { id:5, title:"Maqueta de edificio", cat:"maquetas", time:"12-20 h", material:"PLA", icon:"🏛️" },
-      { id:6, title:"Diorama escena marina", cat:"figuras", time:"15-25 h", material:"Resina", icon:"🖼️" },
-      { id:7, title:"Plantilla estampado", cat:"decoracion", time:"1-2 h", material:"PLA", icon:"✂️" },
-      { id:8, title:"Recuerdo de boda", cat:"decoracion", time:"3-5 h", material:"PLA", icon:"💍" }
+      {id:1,title:"Llavero corporativo",cat:"llaveros",time:"2-4 h",material:"PLA",icon:"🔑",img:null},
+      {id:2,title:"Figura coleccionable",cat:"figuras",time:"8-14 h",material:"Resina",icon:"🦸",img:null},
+      {id:3,title:"Maceta geométrica",cat:"decoracion",time:"5-8 h",material:"PETG",icon:"🪴",img:null},
+      {id:4,title:"Soporte auriculares",cat:"funcional",time:"4-6 h",material:"PETG",icon:"🎧",img:null},
+      {id:5,title:"Maqueta arquitectónica",cat:"maquetas",time:"12-20 h",material:"PLA",icon:"🏛️",img:null},
+      {id:6,title:"Diorama marino",cat:"figuras",time:"15-25 h",material:"Resina",icon:"🖼️",img:null}
     ];
-
     const DEFAULT_GALLERY = [
-      { id:1, title:"50 llaveros corporativos", desc:"Entregados en Arequipa", icon:"🔑" },
-      { id:2, title:"Diorama detallado", desc:"Enviado a Lima por Shalom", icon:"🖼️" },
-      { id:3, title:"Maquetas para tesis", desc:"Estudiante UNSA", icon:"🏛️" },
-      { id:4, title:"Repuestos funcionales", desc:"Delivery AQP", icon:"⚙️" }
+      {id:1,title:"50 llaveros corporativos",desc:"Entregados en Arequipa",icon:"🔑",img:null},
+      {id:2,title:"Diorama detallado",desc:"Enviado a Lima por Shalom",icon:"🖼️",img:null},
+      {id:3,title:"Maquetas de tesis",desc:"Estudiante UNSA",icon:"🏛️",img:null}
     ];
 
-    let colors = (() => { try { const s = safeGet("ws3d_colors"); return s ? JSON.parse(s) : DEFAULT_COLORS; } catch { return DEFAULT_COLORS; } })();
-    let gallery = (() => { try { const s = safeGet("ws3d_gallery"); return s ? JSON.parse(s) : DEFAULT_GALLERY; } catch { return DEFAULT_GALLERY; } })();
+    let colors = (()=>{try{const s=get("ws_colors");return s?JSON.parse(s):DEFAULT_COLORS}catch{return DEFAULT_COLORS}})();
+    let examples = (()=>{try{const s=get("ws_examples");return s?JSON.parse(s):DEFAULT_EXAMPLES}catch{return DEFAULT_EXAMPLES}})();
+    let gallery = (()=>{try{const s=get("ws_gallery");return s?JSON.parse(s):DEFAULT_GALLERY}catch{return DEFAULT_GALLERY}})();
     let isAdmin = false;
-    try { isAdmin = safeGet("ws3d_admin") === "true"; } catch {}
-    let nextColorId = Math.max(...colors.map(c => c.id), 0) + 1;
-    let nextGalleryId = Math.max(...gallery.map(g => g.id), 0) + 1;
-    let currentStlFile = null;
-    let stlScene, stlCamera, stlRenderer, stlMesh;
-    let stlControls = { isDragging: false, previousMouse: {x:0,y:0}, rotation: {x:0,y:0} };
+    try{isAdmin=get("ws_admin")==="true"}catch{}
+    let nextEx=Math.max(...examples.map(e=>e.id),0)+1;
+    let nextCol=Math.max(...colors.map(c=>c.id),0)+1;
+    let nextGal=Math.max(...gallery.map(g=>g.id),0)+1;
+    let stlFile=null, stlMesh, stlScene, stlCam, stlRen;
+    let stlRot={x:0,y:0}, dragging=false, prev={x:0,y:0};
 
-    function saveColors() { safeSet("ws3d_colors", JSON.stringify(colors)); }
-    function saveGallery() { safeSet("ws3d_gallery", JSON.stringify(gallery)); }
-    function showToast(msg) {
-      const t = document.getElementById("toast");
-      t.textContent = msg; t.classList.add("show");
-      setTimeout(() => t.classList.remove("show"), 2800);
-    }
+    const toast = m => { const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2800); };
+    const save = () => { set("ws_colors",JSON.stringify(colors)); set("ws_examples",JSON.stringify(examples)); set("ws_gallery",JSON.stringify(gallery)); };
 
-    function createBubbles() {
-      const c = document.getElementById("bubbles");
-      for (let i = 0; i < 16; i++) {
-        const b = document.createElement("div");
-        b.className = "bubble";
-        const size = 8 + Math.random() * 26;
-        b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;animation-duration:${12+Math.random()*18}s;animation-delay:${Math.random()*12}s;`;
-        c.appendChild(b);
-      }
-    }
+    // Bubbles
+    (()=>{ const c=document.getElementById("bubbles"); for(let i=0;i<14;i++){ const b=document.createElement("div"); b.className="bubble"; const s=7+Math.random()*24; b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${11+Math.random()*16}s;animation-delay:${Math.random()*10}s`; c.appendChild(b); } })();
 
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    // Reveal
+    const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:.1});
+    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
-    window.addEventListener("scroll", () => {
-      document.getElementById("header").classList.toggle("scrolled", window.scrollY > 40);
-    });
-
-    document.getElementById("menuToggle").addEventListener("click", () => {
-      document.getElementById("navLinks").classList.toggle("open");
-    });
-    document.querySelectorAll(".nav-links a").forEach(a => a.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open")));
+    window.addEventListener("scroll",()=>document.getElementById("header").classList.toggle("scrolled",scrollY>50));
+    document.getElementById("menuToggle").onclick=()=>document.getElementById("navLinks").classList.toggle("open");
+    document.querySelectorAll(".nav-links a").forEach(a=>a.onclick=()=>document.getElementById("navLinks").classList.remove("open"));
 
     // Admin
-    const adminToggle = document.getElementById("adminToggle");
-    const adminModal = document.getElementById("adminModal");
-    function setAdminMode(on) {
-      isAdmin = on;
-      safeSet("ws3d_admin", on ? "true" : "false");
-      document.body.classList.toggle("admin-mode", on);
-      adminToggle.classList.toggle("active", on);
-      renderColors(); renderGallery();
-    }
-    adminToggle.addEventListener("click", () => {
-      if (isAdmin) { setAdminMode(false); showToast("Modo administrador desactivado"); }
-      else { adminModal.classList.add("open"); document.getElementById("adminPassword").value = ""; document.getElementById("adminPassword").focus(); }
-    });
-    document.getElementById("cancelAdmin").addEventListener("click", () => adminModal.classList.remove("open"));
-    document.getElementById("confirmAdmin").addEventListener("click", () => {
-      if (document.getElementById("adminPassword").value === "dinorata2012") {
-        setAdminMode(true); adminModal.classList.remove("open"); showToast("Modo administrador activado");
-      } else showToast("Contraseña incorrecta");
-    });
-    document.getElementById("adminPassword").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("confirmAdmin").click(); });
+    const setAdmin = on => {
+      isAdmin=on; set("ws_admin",on?"true":"false");
+      document.body.classList.toggle("admin-mode",on);
+      document.getElementById("adminToggle").classList.toggle("active",on);
+      document.getElementById("exampleAdminPanel").style.display=on?"block":"none";
+      renderColors(); renderExamples(); renderGallery();
+    };
+    document.getElementById("adminToggle").onclick=()=>{
+      if(isAdmin){setAdmin(false);toast("Admin desactivado")}
+      else{document.getElementById("adminModal").classList.add("open");document.getElementById("adminPass").value="";document.getElementById("adminPass").focus()}
+    };
+    document.getElementById("cancelAdmin").onclick=()=>document.getElementById("adminModal").classList.remove("open");
+    document.getElementById("confirmAdmin").onclick=()=>{
+      if(document.getElementById("adminPass").value==="dinorata2012"){setAdmin(true);document.getElementById("adminModal").classList.remove("open");toast("Admin activado")}
+      else toast("Contraseña incorrecta");
+    };
+    document.getElementById("adminPass").onkeydown=e=>{if(e.key==="Enter")document.getElementById("confirmAdmin").click()};
 
     // Colors
-    function renderColors() {
-      document.getElementById("colorsGrid").innerHTML = colors.map(c => `
-        <div class="color-card glass" data-id="${c.id}">
+    function renderColors(){
+      document.getElementById("colorsGrid").innerHTML=colors.map(c=>`
+        <div class="card color-card">
           <div class="color-sphere" style="background:${c.hex}"></div>
-          <h4>${c.name}</h4>
-          <div class="hex">${c.hex}</div>
+          <h4>${c.name}</h4><div class="hex">${c.hex}</div>
           <span class="finish">${c.finish}</span>
           <div class="admin-controls">
-            <button onclick="moveColor(${c.id},-1)">↑</button>
-            <button onclick="moveColor(${c.id},1)">↓</button>
-            <button onclick="deleteColor(${c.id})">✕</button>
+            <button onclick="moveCol(${c.id},-1)">↑</button>
+            <button onclick="moveCol(${c.id},1)">↓</button>
+            <button onclick="delCol(${c.id})">✕</button>
           </div>
         </div>`).join("");
-      updateColorSelect();
+      const sel=document.getElementById("colorSelect"); const cur=sel.value;
+      sel.innerHTML='<option value="">Sin preferencia</option>'+colors.map(c=>`<option value="${c.name}">${c.name}</option>`).join("");
+      if(cur)sel.value=cur;
     }
-    function updateColorSelect() {
-      const sel = document.getElementById("colorSelect");
-      const cur = sel.value;
-      sel.innerHTML = '<option value="">Sin preferencia</option>' + colors.map(c => `<option value="${c.name}">${c.name} (${c.finish})</option>`).join("");
-      if (cur) sel.value = cur;
-    }
-    window.moveColor = (id, dir) => {
-      const idx = colors.findIndex(c => c.id === id);
-      const n = idx + dir;
-      if (n < 0 || n >= colors.length) return;
-      [colors[idx], colors[n]] = [colors[n], colors[idx]];
-      saveColors(); renderColors();
+    window.moveCol=(id,d)=>{const i=colors.findIndex(c=>c.id===id);const n=i+d;if(n<0||n>=colors.length)return;[colors[i],colors[n]]=[colors[n],colors[i]];save();renderColors()};
+    window.delCol=id=>{if(!confirm("¿Eliminar?"))return;colors=colors.filter(c=>c.id!==id);save();renderColors();toast("Eliminado")};
+    document.getElementById("addColorBtn").onclick=()=>{
+      const name=document.getElementById("newColorName").value.trim();
+      if(!name)return toast("Nombre requerido");
+      colors.push({id:nextCol++,name,hex:document.getElementById("newColorHex").value,finish:document.getElementById("newColorFinish").value});
+      save();renderColors();document.getElementById("newColorName").value="";toast("Color agregado");
     };
-    window.deleteColor = id => {
-      if (!confirm("¿Eliminar este color?")) return;
-      colors = colors.filter(c => c.id !== id); saveColors(); renderColors(); showToast("Color eliminado");
-    };
-    document.getElementById("addColorBtn").addEventListener("click", () => {
-      const name = document.getElementById("newColorName").value.trim();
-      const hex = document.getElementById("newColorHex").value;
-      const finish = document.getElementById("newColorFinish").value;
-      if (!name) return showToast("Escribe un nombre");
-      colors.push({ id: nextColorId++, name, hex, finish });
-      saveColors(); renderColors();
-      document.getElementById("newColorName").value = "";
-      showToast("Color agregado");
-    });
 
-    // Examples
-    function renderExamples(filter = "all") {
-      const items = filter === "all" ? DEFAULT_EXAMPLES : DEFAULT_EXAMPLES.filter(e => e.cat === filter);
-      document.getElementById("examplesGrid").innerHTML = items.map(e => `
-        <article class="example-card glass">
-          <div class="example-img"><span>${e.icon}</span><span class="badge">${e.cat}</span></div>
+    // Examples (now fully editable with images)
+    function renderExamples(filter="all"){
+      const list=filter==="all"?examples:examples.filter(e=>e.cat===filter);
+      document.getElementById("examplesGrid").innerHTML=list.map(e=>`
+        <article class="card example-card">
+          <div class="example-img">
+            ${e.img?`<img src="${e.img}" alt="${e.title}">`:`<span style="font-size:2.8rem">${e.icon||'📦'}</span>`}
+            <span class="badge">${e.cat}</span>
+          </div>
           <div class="example-body">
             <h3>${e.title}</h3>
-            <div class="example-meta"><span>⏱ ${e.time}</span><span>🧵 ${e.material}</span></div>
-            <a href="#contacto" class="btn btn-outline" style="width:100%;justify-content:center;padding:0.55rem;font-size:0.85rem;" onclick="prefillQuote('${e.title}')">Cotizar algo similar</a>
+            <div class="example-meta"><span>⏱ ${e.time||'—'}</span><span>🧵 ${e.material||'—'}</span></div>
+            <a href="#contacto" class="btn btn-outline" style="width:100%;justify-content:center;padding:.55rem;font-size:.85rem" onclick="prefill('${e.title}')">Cotizar similar</a>
+            ${isAdmin?`<button class="btn btn-ghost" style="width:100%;margin-top:.5rem;font-size:.8rem;padding:.3rem" onclick="delEx(${e.id})">Eliminar</button>`:''}
           </div>
         </article>`).join("");
     }
-    document.getElementById("filters").addEventListener("click", e => {
-      if (!e.target.classList.contains("filter-btn")) return;
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    window.prefill=t=>{document.getElementById("clientMsg").value=`Me interesa algo similar a: ${t}. `};
+    window.delEx=id=>{if(!confirm("¿Eliminar ejemplo?"))return;examples=examples.filter(e=>e.id!==id);save();renderExamples();toast("Eliminado")};
+    document.getElementById("filters").onclick=e=>{
+      if(!e.target.classList.contains("filter-btn"))return;
+      document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
       e.target.classList.add("active");
       renderExamples(e.target.dataset.filter);
-    });
-    window.prefillQuote = title => {
-      document.getElementById("clientMsg").value = `Me interesa algo similar a: ${title}. `;
+    };
+    document.getElementById("addExampleBtn").onclick=()=>{
+      const title=document.getElementById("exTitle").value.trim();
+      if(!title)return toast("Título requerido");
+      const file=document.getElementById("exFile").files[0];
+      const add=img=>{
+        examples.unshift({id:nextEx++,title,cat:document.getElementById("exCat").value,time:document.getElementById("exTime").value||"—",material:document.getElementById("exMaterial").value||"—",icon:"📦",img});
+        save();renderExamples();
+        document.getElementById("exTitle").value="";document.getElementById("exTime").value="";document.getElementById("exMaterial").value="";document.getElementById("exFile").value="";
+        toast("Ejemplo agregado");
+      };
+      if(file){const r=new FileReader();r.onload=e=>add(e.target.result);r.readAsDataURL(file)}else add(null);
     };
 
     // Gallery
-    function renderGallery() {
-      document.getElementById("galleryGrid").innerHTML = gallery.map(g => `
-        <article class="gallery-card glass">
-          <div class="gallery-img">${g.img ? `<img src="${g.img}" alt="${g.title}" onerror="this.parentElement.innerHTML='${g.icon||'📦'}'">` : (g.icon||'📦')}</div>
+    function renderGallery(){
+      document.getElementById("galleryGrid").innerHTML=gallery.map(g=>`
+        <article class="card gallery-card">
+          <div class="gallery-img">${g.img?`<img src="${g.img}" alt="${g.title}">`:(g.icon||'📦')}</div>
           <div class="gallery-body">
-            <h3>${g.title}</h3>
-            <p>${g.desc}</p>
-            ${isAdmin ? `<button class="btn btn-ghost" style="margin-top:0.6rem;font-size:0.8rem;padding:0.3rem 0.7rem;" onclick="deleteGallery(${g.id})">Eliminar</button>` : ""}
+            <h3>${g.title}</h3><p>${g.desc}</p>
+            ${isAdmin?`<button class="btn btn-ghost" style="margin-top:.5rem;font-size:.8rem;padding:.3rem .7rem" onclick="delGal(${g.id})">Eliminar</button>`:''}
           </div>
         </article>`).join("");
     }
-    window.deleteGallery = id => {
-      if (!confirm("¿Eliminar?")) return;
-      gallery = gallery.filter(g => g.id !== id); saveGallery(); renderGallery(); showToast("Eliminado");
+    window.delGal=id=>{if(!confirm("¿Eliminar?"))return;gallery=gallery.filter(g=>g.id!==id);save();renderGallery();toast("Eliminado")};
+    document.getElementById("addGalleryBtn").onclick=()=>{
+      const title=document.getElementById("galleryTitle").value.trim();
+      if(!title)return toast("Título requerido");
+      const file=document.getElementById("galleryFile").files[0];
+      const add=img=>{
+        gallery.unshift({id:nextGal++,title,desc:document.getElementById("galleryDesc").value||"Pedido entregado",icon:"📦",img});
+        save();renderGallery();
+        document.getElementById("galleryTitle").value="";document.getElementById("galleryDesc").value="";document.getElementById("galleryFile").value="";
+        toast("Agregado");
+      };
+      if(file){const r=new FileReader();r.onload=e=>add(e.target.result);r.readAsDataURL(file)}else add(null);
     };
-    document.getElementById("addGalleryBtn").addEventListener("click", () => {
-      const title = document.getElementById("galleryTitle").value.trim();
-      const desc = document.getElementById("galleryDesc").value.trim();
-      const url = document.getElementById("galleryUrl").value.trim();
-      const fileInput = document.getElementById("galleryFile");
-      if (!title) return showToast("Escribe un título");
-      const add = img => {
-        gallery.unshift({ id: nextGalleryId++, title, desc: desc || "Pedido entregado", img: img || null, icon: "📦" });
-        saveGallery(); renderGallery();
-        document.getElementById("galleryTitle").value = "";
-        document.getElementById("galleryDesc").value = "";
-        document.getElementById("galleryUrl").value = "";
-        fileInput.value = "";
-        showToast("Agregado");
-      };
-      if (fileInput.files?.[0]) {
-        const r = new FileReader();
-        r.onload = e => add(e.target.result);
-        r.readAsDataURL(fileInput.files[0]);
-      } else add(url || null);
-    });
 
-    // STL Viewer (simplified)
-    function initStlViewer() {
-      const canvas = document.getElementById("stlViewer");
-      if (!canvas || typeof THREE === "undefined") return;
-      const w = canvas.clientWidth || 400, h = 260;
-      stlScene = new THREE.Scene();
-      stlScene.background = new THREE.Color(0x020e18);
-      stlCamera = new THREE.PerspectiveCamera(45, w/h, 0.1, 2000);
-      stlCamera.position.set(0, 0, 100);
-      stlRenderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-      stlRenderer.setSize(w, h);
-      stlScene.add(new THREE.AmbientLight(0xffffff, 0.55));
-      const d1 = new THREE.DirectionalLight(0x00e5ff, 0.85); d1.position.set(1,1,1); stlScene.add(d1);
-      function animate() {
-        requestAnimationFrame(animate);
-        if (stlMesh) {
-          if (!stlControls.isDragging) stlControls.rotation.y += 0.006;
-          stlMesh.rotation.x = stlControls.rotation.x;
-          stlMesh.rotation.y = stlControls.rotation.y;
-        }
-        stlRenderer.render(stlScene, stlCamera);
-      }
-      animate();
+    // STL
+    function initSTL(){
+      const canvas=document.getElementById("stlViewer"); if(!canvas||!window.THREE)return;
+      const w=canvas.clientWidth||400,h=250;
+      stlScene=new THREE.Scene(); stlScene.background=new THREE.Color(0x020c16);
+      stlCam=new THREE.PerspectiveCamera(45,w/h,0.1,2000); stlCam.position.set(0,0,100);
+      stlRen=new THREE.WebGLRenderer({canvas,antialias:true}); stlRen.setSize(w,h);
+      stlScene.add(new THREE.AmbientLight(0xffffff,0.55));
+      const d=new THREE.DirectionalLight(0x00d4ff,0.9); d.position.set(1,1,1); stlScene.add(d);
+      (function anim(){requestAnimationFrame(anim); if(stlMesh){if(!dragging)stlRot.y+=0.006; stlMesh.rotation.x=stlRot.x; stlMesh.rotation.y=stlRot.y} stlRen.render(stlScene,stlCam)})();
     }
-    function loadStlFile(file) {
-      if (!file || !file.name.toLowerCase().endsWith(".stl")) return setStlStatus("Solo archivos .STL", true);
-      currentStlFile = file;
-      document.getElementById("stlFileName").textContent = file.name;
-      document.getElementById("stlFileSize").textContent = " — " + (file.size/1024).toFixed(1) + " KB";
-      document.getElementById("stlPreviewWrap").classList.add("visible");
-      setStlStatus("Cargando...", false);
-      const reader = new FileReader();
-      reader.onload = e => {
-        try {
-          const geo = new THREE.STLLoader().parse(e.target.result);
-          geo.computeBoundingBox();
-          const c = new THREE.Vector3(); geo.boundingBox.getCenter(c);
-          geo.translate(-c.x, -c.y, -c.z);
-          const s = new THREE.Vector3(); geo.boundingBox.getSize(s);
-          const scale = 60 / Math.max(s.x, s.y, s.z);
-          geo.scale(scale, scale, scale);
-          geo.computeVertexNormals();
-          if (stlMesh) { stlScene.remove(stlMesh); stlMesh.geometry.dispose(); stlMesh.material.dispose(); }
-          stlMesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0x00e5ff, shininess: 80 }));
-          stlScene.add(stlMesh);
-          stlControls.rotation = { x: -0.3, y: 0.4 };
-          stlCamera.position.set(0, 20, 90);
-          setStlStatus("Modelo cargado. Puedes rotarlo.", false, true);
-        } catch { setStlStatus("Error al leer el STL", true); }
+    function loadSTL(file){
+      if(!file.name.toLowerCase().endsWith(".stl"))return setStatus("Solo .STL",true);
+      stlFile=file; document.getElementById("stlName").textContent=file.name;
+      document.getElementById("stlPreview").classList.add("visible"); setStatus("Cargando...");
+      const r=new FileReader();
+      r.onload=e=>{
+        try{
+          const geo=new THREE.STLLoader().parse(e.target.result);
+          geo.computeBoundingBox(); const c=new THREE.Vector3(); geo.boundingBox.getCenter(c); geo.translate(-c.x,-c.y,-c.z);
+          const s=new THREE.Vector3(); geo.boundingBox.getSize(s); const sc=55/Math.max(s.x,s.y,s.z); geo.scale(sc,sc,sc); geo.computeVertexNormals();
+          if(stlMesh){stlScene.remove(stlMesh);stlMesh.geometry.dispose();stlMesh.material.dispose()}
+          stlMesh=new THREE.Mesh(geo,new THREE.MeshPhongMaterial({color:0x00d4ff,shininess:80}));
+          stlScene.add(stlMesh); stlRot={x:-0.25,y:0.4}; stlCam.position.set(0,15,85);
+          setStatus("Listo. Puedes rotarlo.",false,true);
+        }catch{setStatus("Error al leer STL",true)}
       };
-      reader.readAsArrayBuffer(file);
+      r.readAsArrayBuffer(file);
     }
-    function clearStlPreview() {
-      currentStlFile = null;
-      document.getElementById("stlFile").value = "";
-      document.getElementById("stlPreviewWrap").classList.remove("visible");
-      setStlStatus("");
-      if (stlMesh) { stlScene.remove(stlMesh); stlMesh = null; }
-    }
-    function setStlStatus(msg, err=false, ok=false) {
-      const el = document.getElementById("stlStatus");
-      el.textContent = msg;
-      el.className = "stl-status" + (err ? " error" : ok ? " ok" : "");
-    }
-    document.getElementById("stlFile").addEventListener("change", e => e.target.files[0] && loadStlFile(e.target.files[0]));
-    document.getElementById("removeStlBtn").addEventListener("click", clearStlPreview);
-    const drop = document.getElementById("stlDropZone");
-    drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("dragover"); });
-    drop.addEventListener("dragleave", () => drop.classList.remove("dragover"));
-    drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("dragover"); e.dataTransfer.files[0] && loadStlFile(e.dataTransfer.files[0]); });
+    function setStatus(m,err,ok){const el=document.getElementById("stlStatus");el.textContent=m;el.className="stl-status"+(err?" error":ok?" ok":"")}
+    document.getElementById("stlFile").onchange=e=>e.target.files[0]&&loadSTL(e.target.files[0]);
+    document.getElementById("removeStl").onclick=()=>{stlFile=null;document.getElementById("stlFile").value="";document.getElementById("stlPreview").classList.remove("visible");setStatus("");if(stlMesh){stlScene.remove(stlMesh);stlMesh=null}};
+    const zone=document.getElementById("stlZone");
+    zone.ondragover=e=>{e.preventDefault();zone.classList.add("dragover")};
+    zone.ondragleave=()=>zone.classList.remove("dragover");
+    zone.ondrop=e=>{e.preventDefault();zone.classList.remove("dragover");e.dataTransfer.files[0]&&loadSTL(e.dataTransfer.files[0])};
 
     // Form
-    function buildMessage() {
-      const type = document.getElementById("projectType").value;
-      const color = document.getElementById("colorSelect").value;
-      const name = document.getElementById("clientName").value.trim();
-      const msg = document.getElementById("clientMsg").value.trim();
-      let t = `Hola Whale Shark 3D, soy ${name}.\n\nTipo de proyecto: ${type}\n`;
-      if (color) t += `Color preferido: ${color}\n`;
-      if (msg) t += `\nDetalles:\n${msg}\n`;
-      if (currentStlFile) t += `\n📎 Tengo un archivo STL: ${currentStlFile.name}`;
+    function msg(){
+      let t=`Hola Whale Shark 3D, soy ${document.getElementById("clientName").value.trim()}.\n\nTipo: ${document.getElementById("projectType").value}\n`;
+      const col=document.getElementById("colorSelect").value; if(col)t+=`Color: ${col}\n`;
+      const m=document.getElementById("clientMsg").value.trim(); if(m)t+=`\nDetalles:\n${m}\n`;
+      if(stlFile)t+=`\n📎 Archivo STL: ${stlFile.name}`;
       return t;
     }
-    document.getElementById("quoteForm").addEventListener("submit", e => {
+    document.getElementById("quoteForm").onsubmit=e=>{
       e.preventDefault();
-      if (!document.getElementById("projectType").value || !document.getElementById("clientName").value.trim()) return showToast("Completa los campos");
-      window.open(`https://wa.me/51946013030?text=${encodeURIComponent(buildMessage())}`, "_blank");
-    });
-    document.getElementById("sendEmailBtn").addEventListener("click", () => {
-      if (!document.getElementById("projectType").value || !document.getElementById("clientName").value.trim()) return showToast("Completa los campos");
-      window.location.href = `mailto:whaleshark0511@gmail.com?subject=${encodeURIComponent("Cotización 3D")}&body=${encodeURIComponent(buildMessage())}`;
-    });
-    document.getElementById("copyEmail").addEventListener("click", () => {
-      navigator.clipboard.writeText("whaleshark0511@gmail.com").then(() => showToast("Correo copiado")).catch(() => showToast("No se pudo copiar"));
-    });
+      if(!document.getElementById("projectType").value||!document.getElementById("clientName").value.trim())return toast("Completa los campos");
+      window.open(`https://wa.me/51946013030?text=${encodeURIComponent(msg())}`,"_blank");
+    };
+    document.getElementById("sendEmail").onclick=()=>{
+      if(!document.getElementById("projectType").value||!document.getElementById("clientName").value.trim())return toast("Completa los campos");
+      location.href=`mailto:whaleshark0511@gmail.com?subject=Cotización%203D&body=${encodeURIComponent(msg())}`;
+    };
+    document.getElementById("copyEmail").onclick=()=>navigator.clipboard.writeText("whaleshark0511@gmail.com").then(()=>toast("Copiado")).catch(()=>toast("Error"));
 
     // Init
-    document.getElementById("year").textContent = new Date().getFullYear();
-    createBubbles();
-    renderColors();
-    renderExamples();
-    renderGallery();
-    if (isAdmin) setAdminMode(true);
-    setTimeout(initStlViewer, 200);
+    document.getElementById("year").textContent=new Date().getFullYear();
+    renderColors(); renderExamples(); renderGallery();
+    if(isAdmin)setAdmin(true);
+    setTimeout(initSTL,300);
   </script>
 </body>
 </html>
