@@ -1,0 +1,24 @@
+WHALE SHARK 3D — SITIO WEB
+
+CONTENIDO
+- index.html: página web completa.
+- assets/mascota-01.png ... mascota-16.png: poses individuales de la mascota, recortadas desde la imagen original y con fondo transparente.
+- assets/ocean-texture.svg: textura submarina creada para el fondo.
+
+PUBLICAR EN GITHUB PAGES
+1. Crea o abre el repositorio de tu web.
+2. Sube index.html y la carpeta assets completa a la raíz del repositorio.
+3. En GitHub entra a Settings > Pages.
+4. En Build and deployment selecciona Deploy from a branch.
+5. Elige la rama main y la carpeta /(root), guarda y espera la publicación.
+
+FUNCIONES Y LIMITACIONES IMPORTANTES
+- El formulario prepara una solicitud y la abre en WhatsApp (+51 946 013 030).
+- Si el cliente selecciona un STL, el nombre se incluye en el mensaje, pero el archivo debe adjuntarse manualmente en WhatsApp. Un sitio estático no puede transferir archivos a tu negocio sin un backend o servicio de almacenamiento.
+- Los productos del catálogo son categorías ilustrativas, no fotografías de trabajos reales ni precios publicados.
+- No se implementó un panel de administrador con contraseña en el navegador: una contraseña guardada en JavaScript público no protege el contenido. Para editar productos, pedidos y fotos desde una cuenta privada se necesita un CMS o backend con autenticación.
+- Las fuentes de Google Fonts requieren internet. El resto del diseño y los recursos propios están dentro de la carpeta.
+- El formulario no procesa pagos ni confirma pedidos automáticamente.
+
+PERSONALIZACIÓN
+Revisa el teléfono, correo, disponibilidad de materiales, condiciones de envío y textos comerciales antes de publicar. El contenido conserva los datos de contacto que figuraban en el HTML que compartiste.
